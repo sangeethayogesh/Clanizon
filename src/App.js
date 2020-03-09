@@ -1,25 +1,32 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Route } from 'react-router-dom';
+import { StoreProvider, createStore } from 'easy-peasy';
+import models from './models';
+
+import Login from './screens/Login';
+import UserHome from './screens/user/Home';
+import AdminHome from './screens/admin/Home'
+
+const storeModel = createStore(models);
+
+function AppRouter() {
+  return (
+    <>
+      <Route exact path="/" component={UserHome}></Route>
+      <Route exact path="/admin" component={AdminHome}></Route>
+    </>
+  )
+}
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <StoreProvider store={storeModel}>
+        <AppRouter />
+      </StoreProvider>
+    </BrowserRouter>
   );
 }
 
