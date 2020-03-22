@@ -1,7 +1,7 @@
-import authModel from './auth-model';
+import authModel from './auth-model'
 
 const models = {
-    auth: authModel
+  auth: authModel
 }
 
-export default models;
+export default models

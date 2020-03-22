@@ -1,17 +1,17 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import { BrowserRouter, Route } from 'react-router-dom';
-import { StoreProvider, createStore } from 'easy-peasy';
-import models from './models';
+import React from 'react'
+import logo from './logo.svg'
+import { BrowserRouter, Route } from 'react-router-dom'
+import { StoreProvider, createStore } from 'easy-peasy'
+import models from './models'
+import './App.css'
 
-import Login from './screens/Login';
-import UserHome from './screens/user/Home';
+import Login from './screens/Login'
+import UserHome from './screens/user/Home'
 import AdminHome from './screens/admin/Home'
 
-const storeModel = createStore(models);
+const storeModel = createStore(models)
 
-function AppRouter() {
+function AppRouter () {
   return (
     <>
       <Route exact path="/" component={UserHome}></Route>
@@ -20,14 +20,14 @@ function AppRouter() {
   )
 }
 
-function App() {
+function App () {
   return (
     <BrowserRouter>
       <StoreProvider store={storeModel}>
         <AppRouter />
       </StoreProvider>
     </BrowserRouter>
-  );
+  )
 }
 
-export default App;
+export default App
