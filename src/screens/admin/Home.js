@@ -54,7 +54,6 @@ class UserHome extends Component {
         'April', 'May', 'June', 'July'],
       datasets: [
         {
-          label: 'Rainfall',
           backgroundColor: '#7e31ed',
           // borderColor: 'rgba(0,0,0,1)',
           barThickness: 20,
@@ -172,13 +171,19 @@ class UserHome extends Component {
                   <div className="box-content" style={{
                     backgroundColor: '#7571c7'
                   }}>
-                    <div className="letter-box">
-                      <span className="letter">N</span>
-                    </div>
-                    <span className="count">
-                    198
-                    </span>
-                    <span className="count-desc"> New plots added</span>
+                    <Row justify="left">
+                      <Col span="6">
+                        <div className="letter-box">
+                          <span className="letter">N</span>
+                        </div>
+                      </Col>
+                      <Col span="6">
+                        <span className="count">
+                          198
+                        </span>
+                        <span className="count-desc"> New plots added</span>
+                      </Col>
+                    </Row>
                     <div className="oval"></div>
                     <div className="small-oval"></div>
                     <button className="box-button"> + Add Plot</button>
@@ -188,13 +193,19 @@ class UserHome extends Component {
                   <div className="box-content" style={{
                     backgroundColor: '#5dca88'
                   }}>
-                    <div className="letter-box">
-                      <span className="letter">A</span>
-                    </div>
-                    <span className="count">
-                    256
-                    </span>
-                    <span className="count-desc">Available Plots</span>
+                    <Row>
+                      <Col span="6">
+                        <div className="letter-box">
+                          <span className="letter">A</span>
+                        </div>
+                      </Col>
+                      <Col span="6">
+                        <span className="count">
+                          256
+                        </span>
+                        <span className="count-desc">Available Plots</span>
+                      </Col>
+                    </Row>
                     <div className="oval"></div>
                     <div className="small-oval"></div>
                   </div>
@@ -203,13 +214,19 @@ class UserHome extends Component {
                   <div className="box-content" style={{
                     backgroundColor: '#ff707c'
                   }}>
-                    <div className="letter-box">
-                      <span className="letter">B</span>
-                    </div>
-                    <span className="count">
-                    198
-                    </span>
-                    <span className="count-desc">Booked Plots</span>
+                    <Row>
+                      <Col span="6">
+                        <div className="letter-box">
+                          <span className="letter">B</span>
+                        </div>
+                      </Col>
+                      <Col span="6">
+                        <span className="count">
+                        198
+                        </span>
+                        <span className="count-desc">Booked Plots</span>
+                      </Col>
+                    </Row>
                     <div className="oval"></div>
                     <div className="small-oval"></div>
                   </div>
