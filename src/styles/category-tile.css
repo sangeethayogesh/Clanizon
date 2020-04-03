@@ -1,0 +1,23 @@
+.category-tile{
+    width: 100%;
+    height: 52px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px 0 #00000010;
+  background-image: linear-gradient(100deg, #c185fa -18%, #6a3ec3 163%);
+}
+.category-tile .title{
+    font-family: Lato;
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
+}
+.category-tile .desc{
+    font-family: Lato;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: right;
+  color: #ffffff90;
+}
+.ant-card-body {
+    padding: 1em;
+}
