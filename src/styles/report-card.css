@@ -1,0 +1,56 @@
+@import './common.css';
+.r-card-box{
+  border-radius: 5px;
+  box-shadow: 0 2px 4px 0 #00000010;
+  background-color: #fdfdfd;
+  margin-top: 1rem;
+}
+.r-user-name{
+    font-family: Lato;
+  font-size: 14px;
+  font-weight: bold;
+  color: #150e4f;
+}
+.r-user-status{
+    font-family: Lato;
+  font-size: 12px;
+  font-weight: bold;
+  color: #adb5bf;
+  width: 13em;
+  float: right;
+  word-break: break-word;
+}
+.r-by-name{
+    font-family: Lato;
+    font-size: 12px;
+    text-align: right;
+    color: #7c7993;
+    line-height: 3em;
+    float: right;
+}
+.r-by-code{
+    font-family: Lato;
+  font-size: 12px;
+  font-weight: bold;
+  color: #150e4f;
+  line-height: 3em;
+}
+.r-source{
+    font-family: Lato;
+    font-size: 12px;
+    text-align: right;
+    color: #150e4f;
+}
+.r-date{
+    font-family: Lato;
+  font-size: 12px;
+  text-align: right;
+  float: right;
+    line-height: 2em;
+}
+.over-due{
+    color: #e60752;
+}
+.no-over-due{
+    color: #3cae4d;
+}
