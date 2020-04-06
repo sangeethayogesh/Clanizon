@@ -3,7 +3,6 @@ import { BrowserRouter, Route } from 'react-router-dom'
 import { StoreProvider, createStore } from 'easy-peasy'
 import models from './models'
 import './App.css'
-
 import UserHome from './screens/user/Home'
 import AdminHome from './screens/admin/Home'
 

@@ -46,7 +46,7 @@ function HeaderBar(props) {
 
                     </Col>
                     <Col span="auto">
-                        <UserOutlined style={{ padding: '1em' }} />
+                        <UserOutlined />
                         <Text>Admin</Text>
                         <Divider type="vertical" style={{
                             margin: "0px 10px",

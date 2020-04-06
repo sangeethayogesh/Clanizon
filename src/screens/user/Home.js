@@ -1,25 +1,13 @@
-import React from 'react';
-import { Button, Layout, Row, Col, Menu, Table, Tag, Typography, BackTop } from 'antd';
-import { CategoryTile } from '../../components/CategoryTile';
-import { ReportCard } from '../../components/ReportCard';
-import { LoadMore } from '../../components/LoadMore';
-import HeaderBar from '../../components/HeaderBar';
-import {
-  HomeOutlined,
-  ConsoleSqlOutlined,
-  FileTextOutlined,
-  UnorderedListOutlined,
-  ArrowUpOutlined,
-  ArrowDownOutlined,
-  PlusSquareFilled,
-  FunnelPlotOutlined
-} from '@ant-design/icons'
-const { Header, Footer, Sider, Content } = Layout;
-
-function Home() {
+import React from 'react'
+import { Row, Col } from 'antd'
+import { CategoryTile } from '../../components/CategoryTile'
+import { ReportCard } from '../../components/ReportCard'
+import { LoadMore } from '../../components/LoadMore'
+import HeaderBar from '../../components/HeaderBar'
+function Home () {
   return (
     <Row gutter={[24, 16]}>
-      <Col span="6" sm={6, 6} xs={24}>
+      <Col span="6" sm={ 6, 6 } xs={24}>
         <CategoryTile title="Lead" count="21" gradient={['#c185fa', '#6a3ec3']}></CategoryTile>
         <ReportCard></ReportCard>
         <ReportCard></ReportCard>
@@ -51,10 +39,7 @@ function Home() {
 
   )
 }
-
-
-
-function UserHome() {
+function UserHome () {
   return (
     <div style={{ backgroundColor: '#f0f1f4' }}>
       <HeaderBar>
@@ -63,4 +48,4 @@ function UserHome() {
     </div>
   )
 }
-export default UserHome;
+export default UserHome
