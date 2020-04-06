@@ -36,16 +36,13 @@ function Home () {
         <LoadMore onLoadMore={() => { }}></LoadMore>
       </Col>
     </Row>
-
   )
 }
 function UserHome () {
   return (
-    <div style={{ backgroundColor: '#f0f1f4' }}>
-      <HeaderBar>
-        <Home></Home>
-      </HeaderBar>
-    </div>
+    <HeaderBar>
+      <Home></Home>
+    </HeaderBar>
   )
 }
 export default UserHome
