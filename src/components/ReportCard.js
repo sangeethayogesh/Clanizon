@@ -1,13 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { Card, Row, Col, Avatar, Badge, Button } from 'antd'
+import { Card, Row, Col, Avatar, Button } from 'antd'
 import { CalendarTwoTone } from '@ant-design/icons'
 import '../styles/report-card.css'
 import Text from 'antd/lib/typography/Text'
 const ReportCard = props => {
   // const [state, setState] = useState(InitialState);
   return (<>
-    <Card gutter={6} bordered={false} className="r-card-box" onClick={props.onShowDetailReport}>
+    <Card gutter={6} bordered={false} className="r-card-box" {...props}>
       <Row gutter={6}>
         <Col>
           <Avatar style={{ color: '#e13f56', backgroundColor: '#f9f3ef', fontFamily: 'Lato' }}>IS</Avatar>
@@ -39,7 +39,8 @@ const ReportCard = props => {
 }
 
 ReportCard.propTypes = {
-  onShowDetailReport: PropTypes.func
+  onShowDetailReport: PropTypes.func,
+  onClick: PropTypes.func
 }
 
 export { ReportCard }

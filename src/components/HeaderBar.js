@@ -29,7 +29,9 @@ function HeaderBar (props) {
             }}/><MenuOutlined /><Divider type="vertical" style={{
               margin: '0px 10px',
               height: '5em'
-            }} /></Col>
+            }} />
+            </Col>
+
             <Col span="auto" >
               <div>
                 <Badge dot >

@@ -4,6 +4,7 @@
   box-shadow: 0 2px 4px 0 #00000010;
   background-color: #fdfdfd;
   margin-top: 1rem;
+  cursor: pointer;
 }
 .r-user-name{
     font-family: Lato;

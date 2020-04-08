@@ -41,7 +41,7 @@ function Home () {
 function UserHome () {
   return (
     <HeaderBar>
-      <Home></Home>
+      <h6>sdjkgsd</h6>
     </HeaderBar>
   )
 }

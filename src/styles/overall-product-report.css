@@ -3,3 +3,15 @@
     box-shadow: 0 2px 25px 2px #0000003f;
     background-color: #ffffff;
 }
+.ant-modal-content{
+    border-radius: 8px !important;
+}
+.ant-modal-header {
+    border-radius: 8px 8px 0 0;
+}
+.ant-modal-title{
+    font-family: Lato;
+    font-size: 16px;
+    font-weight: bold;
+    color: #212739;
+}
