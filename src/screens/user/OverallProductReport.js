@@ -1,27 +1,34 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Row, Col, Button, Modal, Avatar, Descriptions } from 'antd'
+import { Row, Col, Modal, Avatar, Descriptions } from 'antd'
 import { CategoryTile } from '../../components/CategoryTile'
 import { ReportCard } from '../../components/ReportCard'
 import { LoadMore } from '../../components/LoadMore'
 import HeaderBar from '../../components/HeaderBar'
-import CustomerDetailedReport from '../../components/CustomerDetailedReport'
 import '../../styles/overall-product-report.css'
 import { TimeLineView } from '../../components/TimeLineView'
 import { UserInfoView } from '../../components/UserInfoView'
+import { AddAgent } from '../../components/AddAgent'
 const OverallProductReport = props => {
   const [visibleDetailedReport, setVisibleDetailedReport] = useState(false)
+  const [visibleAddAgent, setVisibleAddAgent] = useState(true)
   function handleCancel (params) {
     setVisibleDetailedReport(false)
   }
   const showModel = () => {
     setVisibleDetailedReport(true)
   }
+  const showAddAgent = () => {
+    setVisibleAddAgent(true)
+  }
+  function handleAddAgentCancel () {
+    setVisibleAddAgent(false)
+  }
   return (
     <HeaderBar>
       <Row gutter={[24, 16]}>
         <Col span="6" sm={ 6, 6 } xs={24}>
-          <CategoryTile title="Lead" count="21" gradient={['#c185fa', '#6a3ec3']}></CategoryTile>
+          <CategoryTile title="Lead" count="21" gradient={['#c185fa', '#6a3ec3']} onClick={showAddAgent}></CategoryTile>
           <ReportCard onClick={showModel}></ReportCard>
           <ReportCard onClick={showModel}></ReportCard>
           <ReportCard onClick={showModel}></ReportCard>
@@ -70,6 +77,16 @@ const OverallProductReport = props => {
           </Col>
         </Row>
 
+      </Modal>
+      <Modal
+        visible={visibleAddAgent}
+        title="Add new agent"
+        onCancel={handleAddAgentCancel}
+        footer={null}
+        width="40%"
+        centered
+      >
+        <AddAgent/>
       </Modal>
     </HeaderBar>
   )
