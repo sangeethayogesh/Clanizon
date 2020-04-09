@@ -1,0 +1,43 @@
+.badge-label{
+    border-radius: 10px;
+    font-family: Lato;
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+    padding: 2px 8px;
+    cursor: default;
+    height: unset;
+}
+
+.badge-label-success{
+    background-color: #deffeb;
+  color: #3cae4d;
+}
+.badge-label-success:hover{
+    background-color: #deffeb;
+    color: #3cae4d;
+    border-color: #deffeb;
+}
+.badge-label-danger{
+    background-color: #fddde8;
+    color: #e60752;
+}
+.badge-label-danger:hover{
+    background-color: #fddde8;
+    color: #e60752;
+    border-color: #fddde8;
+}
+.v-center{
+        display: table-cell;
+        vertical-align: middle;
+}
+.divider-full-height{
+    margin: 0px 10px;
+    height: 5em;
+}
+.ant-form-item-label > label {
+    font-family: Lato;
+  font-size: 14px;
+  font-weight: bold;
+  color: #212739;
+}
