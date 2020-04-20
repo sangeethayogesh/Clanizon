@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Row, Col, Layout, Menu, Table, Tag, Typography } from 'antd'
+import { Row, Col, Layout, Menu, Table } from 'antd'
 
 import {
   HomeOutlined,

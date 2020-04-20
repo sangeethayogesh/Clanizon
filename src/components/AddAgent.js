@@ -73,18 +73,13 @@ const AddAgent = props => {
         </Form.Item>
 
         <Form.Item
-          colon={false}
-          label="Contact Number"
-          name="agent_contact_number"
-          rules={[
-            {
-              required: true,
-              message: 'Please input your contact number!'
-            }
-          ]}
+          label="Mobile Number"
+          name="agent_mobile"
+          rules={[{ required: true, message: 'Mobile Number is required' }]}
         >
-          <Input placeholder="Number"/>
+          <Input style={{ width: '50%' }} placeholder="Input Number" />
         </Form.Item>
+
         <Form.Item name="gender" label="Gender" rules={[{ required: true }]}>
           <Select
             placeholder="Gender"
