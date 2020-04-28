@@ -4,11 +4,11 @@ import HeaderBar from 'components/HeaderBar'
 import ChatBox from 'components/chatbox'
 
 import {
-  HomeOutlined,
-  ConsoleSqlOutlined,
-  FileTextOutlined,
-  UnorderedListOutlined,
-  MessageOutlined,
+  // HomeOutlined,
+  // ConsoleSqlOutlined,
+  // FileTextOutlined,
+  // UnorderedListOutlined,
+  // MessageOutlined,
   ArrowUpOutlined,
   ArrowDownOutlined,
   PlusSquareFilled,

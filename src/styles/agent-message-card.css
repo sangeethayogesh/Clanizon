@@ -1,0 +1,28 @@
+.agent-message-card{
+    border-radius: 17px;
+  background-color: #fefaff;
+ 
+}
+.ag-message-title{
+    font-family: Lato;
+  font-size: 25px;
+  font-weight: bold;
+  color: #ff236d;
+}
+.ag-message-text{
+    font-family: Lato;
+  font-size: 14px;
+  line-height: 1.43;
+  color: #130c4e;
+  margin-top: 0.5rem;
+}
+.ag-message-time{
+    font-family: Lato;
+    color: #a7a7a7;
+    margin-top: 0.5rem;
+}
+.ag-bg-img{
+    background: url(../asssets/mail.svg) no-repeat top left;
+  background-size: contain;
+  left: 0px;
+}

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="22px" viewBox="0 0 22 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 64 (93537) - https://sketch.com -->
+    <title>emoji</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Agent-dashboard-screen---12-04-20" transform="translate(-1133.000000, -647.000000)" fill-rule="nonzero">
+            <g id="User-Report" transform="translate(123.783252, 583.000000)">
+                <g id="Group-21" transform="translate(-3.000000, 0.000000)">
+                    <g id="Report-1" transform="translate(0.000000, 50.000000)">
+                        <g id="Group-32" transform="translate(1012.216748, 13.000000)">
+                            <g id="emoji" transform="translate(0.000000, 1.000000)">
+                                <circle id="Oval" fill="#FFD93B" cx="11" cy="11" r="11"></circle>
+                                <path d="M22,11 C22,17.0775 17.0740625,22 11,22 C7.541875,22 4.455,20.405 2.4371875,17.9059375 C4.324375,19.4321875 6.7271875,20.343125 9.343125,20.343125 C15.4171875,20.343125 20.343125,15.420625 20.343125,9.343125 C20.343125,6.7271875 19.4321875,4.324375 17.9059375,2.4371875 C20.4015625,4.455 22,7.541875 22,11 Z" id="Path" fill="#F4C534"></path>
+                                <g id="Group" transform="translate(5.843750, 7.218750)" fill="#3E4347">
+                                    <path d="M10.07875,7.5796875 C10.07875,7.910375 9.8113125,8.1778125 9.480625,8.1778125 L0.8311875,8.1778125 C0.5039375,8.1778125 0.2330625,7.910375 0.2330625,7.5796875 C0.2330625,7.249 0.5039375,6.9815625 0.8311875,6.9815625 L9.480625,6.9815625 C9.812,6.98225 10.07875,7.249 10.07875,7.5796875 Z" id="Path"></path>
+                                    <circle id="Oval" cx="1.6548125" cy="1.6795625" r="1.639"></circle>
+                                </g>
+                                <ellipse id="Oval" fill="#5A5F63" transform="translate(8.192817, 8.228757) rotate(-126.653329) translate(-8.192817, -8.228757) " cx="8.19281686" cy="8.22875711" rx="1" ry="1"></ellipse>
+                                <circle id="Oval" fill="#3E4347" cx="14.499375" cy="8.8983125" r="1.639"></circle>
+                                <ellipse id="Oval" fill="#5A5F63" transform="translate(15.193206, 8.230514) rotate(-126.656750) translate(-15.193206, -8.230514) " cx="15.1932056" cy="8.23051409" rx="1" ry="1"></ellipse>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
