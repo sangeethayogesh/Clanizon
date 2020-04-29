@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Card, Row, Col } from 'antd';
-import '../styles/overall-tile.css';
+import { Card, Row, Col } from 'antd'
+import '../styles/overall-tile.css'
 const OverallTile = props => {
   const [total, setTotal] = useState(0)
   return (
@@ -14,8 +14,8 @@ const OverallTile = props => {
     </div>
 
   )
-};
+}
 
-OverallTile.propTypes = {};
+OverallTile.propTypes = {}
 
-export { OverallTile };
+export { OverallTile }

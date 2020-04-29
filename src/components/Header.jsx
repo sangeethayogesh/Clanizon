@@ -1,6 +1,6 @@
 import React from 'react'
 // import PropTypes from 'prop-types';
-import { Row, Col, Layout} from 'antd'
+import { Row, Col, Layout } from 'antd'
 import { HomeOutlined } from '@ant-design/icons'
 const { Header } = Layout
 const HeaderBar = () => {
@@ -19,4 +19,4 @@ const HeaderBar = () => {
 
 // Header.propTypes = {};
 
-export default HeaderBar;
+export default HeaderBar
