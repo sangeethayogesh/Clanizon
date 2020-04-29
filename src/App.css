@@ -416,3 +416,20 @@
   letter-spacing: normal;
   color: #807c7c;
 }
+
+.back {
+  width: 34px;
+  height: 19px;
+  font-family: Lato;
+  font-size: 16px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  color: #150e4f;
+}
+
+.add-lead-col {
+  background-color: white;
+}

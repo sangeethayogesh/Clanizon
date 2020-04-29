@@ -140,12 +140,13 @@ function HeaderBar (props) {
 
         </Drawer>
         <Layout>
-          <Sider width={80} style={{
+          <Sider width={(props.drawer === false) ? 'none' : true} style={{
             overflow: 'auto',
             height: '100vh',
             position: 'fixed',
             left: 0,
-            top: '4rem'
+            top: '4rem',
+            display: (props.drawer === false) ? 'none' : true
           }} className="site-layout-background">
             <Menu
               mode="inline"
@@ -164,19 +165,23 @@ function HeaderBar (props) {
               </Menu.Item>
             </Menu>
           </Sider>
-          <Layout style={{ padding: '1rem 1rem 1rem' }}>
-            <Content
-              className="site-layout-background"
-              style={{
-                marginTop: 64,
-                minHeight: '100vh',
-                marginLeft: '5rem'
-              }}
-            >
-              <BackTop />
-              {props.children}
-            </Content>
-          </Layout>
+          {/* if drawer is not needed then making the body as a full width content in order to modify it */ }
+          {(props.drawer === false)
+            ? <Layout><Content className="site-layout-background"><BackTop/>{props.children}</Content></Layout>
+            : <Layout style={{ padding: '1rem 1rem 1rem' }}>
+              <Content
+                className="site-layout-background"
+                style={{
+                  marginTop: 64,
+                  minHeight: '100vh',
+                  marginLeft: '5rem'
+                }}
+              >
+                <BackTop />
+                {props.children}
+              </Content>
+            </Layout>
+          }
         </Layout>
       </Layout>
     </div>

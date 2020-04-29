@@ -8,6 +8,7 @@ import AdminHome from './screens/admin/Home'
 import OverallProductReport from './screens/admin/OverallProductReport'
 import { AddPlotArea } from './screens/admin/AddPlotArea'
 import { AgentHome } from './screens/agent/Home'
+import AddLead from 'screens/agent/AddLead'
 
 const storeModel = createStore(models)
 
@@ -20,6 +21,7 @@ function AppRouter () {
       <Route exact path="/agent" component={AgentHome}></Route>
       <Route exact path="/admin/overall-product-report" component={OverallProductReport}></Route>
       <Route exact path="/admin/add-plot-area" component={AddPlotArea}></Route>
+      <Route exact path="/agent/add-lead" component={AddLead}></Route>
     </>
   )
 }
