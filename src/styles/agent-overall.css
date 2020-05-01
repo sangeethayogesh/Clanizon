@@ -1,0 +1,42 @@
+.ant-page-header {
+    border: 1px solid rgb(235, 237, 240);
+    padding: 0px 8px;
+    box-shadow: 0 2px 8px 0 #0000000f;
+  background-color: #ffffff;
+  }
+  .ant-page-header-heading-title{
+    margin: 8px 0;
+    font-size: 15px;
+    line-height: 2;
+  }
+  .ant-page-header-heading-extra{
+    margin: 8px 8px;
+    
+    line-height: 2;
+  }
+  .book-btn{
+    color: #55c97c;
+    border: solid 1px #55c97c;
+    background-color: #ffffff;
+  }
+  .book-btn:hover{
+    color: #55c97c;
+    background-color: transparent;
+    border-color: #55c97c;
+}
+.book-btn:active{
+    color: #55c97c;
+    background-color: transparent;
+    border-color: #55c97c;
+}
+.book-btn:focus{
+    color: #55c97c;
+    background-color: transparent;
+    border-color: #55c97c;
+}
+
+.lead-card{
+  border-radius: 6px;
+  box-shadow: 0 2px 4px 0 #0000000f;
+  background-color: #ffffff;
+}

@@ -1,0 +1,11 @@
+.call-status-card{
+    border-radius: 6px;
+  box-shadow: 0 2px 4px 0 #0000000f;
+ 
+}
+.ant-collapse-item:last-child > .ant-collapse-content {
+    border-radius: 0 0 6px 6px;
+}
+.ant-form-item{
+  margin-bottom: 1rem;
+}
