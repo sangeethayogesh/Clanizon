@@ -1,0 +1,51 @@
+.call-status-card{
+    border-radius: 6px;
+  box-shadow: 0 2px 4px 0 #0000000f;
+  background-color: #f7f7f7;
+}
+.ant-collapse-item:last-child > .ant-collapse-content {
+    border-radius: 0 0 6px 6px;
+    
+}
+.ant-form-item{
+  margin-bottom: 1rem;
+}
+.ant-collapse-header{
+  font-family: Lato;
+  font-size: 16px;
+  font-weight: bold;
+  color: #1f1957;
+  
+
+}
+.panel-footer-row{
+  display: contents;
+  box-shadow: 0 -1px 0 0 #00000015;
+  background-color: #fafaff;
+  border: none;
+    padding: 10px 16px;
+    line-height: 22px;
+}
+.btn-wrapper{
+ display: flex;
+ justify-content: flex-end;
+}
+.b-primary{
+  border-radius: 4px;
+  box-shadow: 0 2px 4px 0 #5175fc74;
+  background-color: #5175fc;
+  font-family: Lato;
+  font-size: 14px;
+  text-align: center;
+  color: #ffffff;
+}
+.b-secondary{
+  margin-left: 10px;
+  border-radius: 4px;
+  border: solid 1px #bbb9b9;
+  background-color: #ffffff;
+  font-family: Lato;
+  font-size: 14px;
+  text-align: center;
+  color: #8d8d8d;
+}

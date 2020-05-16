@@ -16,25 +16,25 @@ import {
 } from '@ant-design/icons'
 import Text from 'antd/lib/typography/Text'
 import '../styles/common.css'
+import { useHistory } from 'react-router-dom'
 
 const { Option } = Mentions
 const { Header, Sider, Content } = Layout
 function HeaderBar (props) {
-  const [users, setUsers] = useState([])
+  const [users, setUsers] = useState(['Deepan', 'Aswath', 'Gunalan', 'Krishnaveni'])
   const [messageValue, setMessageValue] = useState('')
   const [messages, setMessages] = useState([])
   const userName = 'Deepan'
+  const history = useHistory()
   useEffect(() => {
-    console.log('here')
-    axios.get('https://5e9007e9fe7f2a00165ef7b1.mockapi.io/users')
-      .then(res => setUsers(res.data))
-  }, [])
+    console.log(history)
+  }, [history])
   const [visible, setVisible] = useState(false)
   const onClose = () => {
     setVisible(false)
   }
   const showDrawer = () => {
-    console.log(users)
+    // console.log(users)
     setVisible(true)
   }
   const sendMessage = () => {
@@ -49,7 +49,7 @@ function HeaderBar (props) {
       <Layout>
         <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
           <Row justify="left">
-            <Col span="20">
+            <Col span="19">
               <HomeOutlined className="logo" style={{ color: '#fff' }} />
               <span className="header-title" style={{ padding: '1em' }}>&nbsp;Booking</span>
             </Col>
@@ -70,7 +70,7 @@ function HeaderBar (props) {
                 </Badge>
               </div>
             </Col>
-            <Col span="1" style={{ textAlign: 'right' }}>
+            <Col span="2" style={{ textAlign: 'right' }}>
               <UserOutlined className="header-menu"/>&nbsp;
               <Text>Admin</Text>
             </Col>

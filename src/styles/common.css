@@ -56,3 +56,9 @@
     border-radius: 5px;
     background-color: #6871fd;
   }
+
+  .add-lead-col{
+    border-radius: 8px;
+  box-shadow: 0 2px 4px 0 #0000000f;
+  background-color: #ffffff;
+  }

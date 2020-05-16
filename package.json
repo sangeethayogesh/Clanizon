@@ -13,6 +13,7 @@
     "chart.js": "^2.9.3",
     "customize-cra": "^0.9.1",
     "easy-peasy": "^3.3.0",
+    "env-cmd": "^10.1.0",
     "leaflet": "^1.6.0",
     "react": "^16.13.0",
     "react-chartjs-2": "^2.9.0",
@@ -25,6 +26,8 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
+    "dev": "react-app-rewired start",
+    "stage": "REACT_APP_BASE_URL=clanizon.com:8080/api react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -46,6 +49,7 @@
   },
   "devDependencies": {
     "babel-plugin-import": "^1.13.0",
+    "dotenv": "^8.2.0",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.1.1",
     "eslint-plugin-import": "^2.20.1",
@@ -55,6 +59,7 @@
     "eslint-plugin-standard": "^4.0.1",
     "less": "^3.11.1",
     "less-loader": "^5.0.0",
+    "miragejs": "^0.1.38",
     "react-app-rewired": "^2.1.5"
   }
 }

@@ -6,7 +6,7 @@ const { Header } = Layout
 const HeaderBar = () => {
   // const [state, setState] = useState(InitialState);
   return (
-    <Header>
+    <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
       <Row justify="left">
         <Col span="4">
           <HomeOutlined className="logo" style={{ color: '#fff' }} />
