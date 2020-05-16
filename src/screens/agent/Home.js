@@ -17,9 +17,9 @@ const AgentHome = props => {
   useEffect(() => {
     // Update the document title using the browser API
     console.log('::Agent Home Called::')
-    console.log(process.env)
+
     getAdminMessages(() => {
-      console.log('Msg Received')
+      console.log('admin Msg Received')
     })
   }, [])
   return (
@@ -49,7 +49,7 @@ const AgentHome = props => {
           fontSize: '14px',
           fontWeight: 'bold',
           color: '#150e4f'
-        }}>Lead's List</h5>
+        }}>Today Lead List</h5>
         <LeadTable></LeadTable>
       </Row>
 

@@ -3,8 +3,10 @@ import PropTypes from 'prop-types'
 import { Card, Row, Col, Button } from 'antd'
 import '../styles/overall-tile.css'
 import Text from 'antd/lib/typography/Text'
+import { useHistory } from 'react-router-dom'
 
 const OverViewCard = props => {
+  var history = useHistory()
   return (
     <Card className="overall-tile" style={{ backgroundColor: props.color }}>
       <Row>
@@ -25,7 +27,7 @@ const OverViewCard = props => {
           {
             props.showbutton && (
               <div className="o-center">
-                <Button className="o-add-btn" >+ Add Lead</Button>
+                <Button className="o-add-btn" onClick={() => { history.push('agent/add-lead') }}>+ Add Lead</Button>
               </div>
             )
           }

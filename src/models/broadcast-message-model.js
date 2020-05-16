@@ -1,4 +1,4 @@
-import { StoreProvider, action, computed, thunk } from 'easy-peasy'
+import { action, computed, thunk } from 'easy-peasy'
 import constants from '../constants'
 import rest from '../services/http'
 

@@ -428,6 +428,7 @@
   line-height: normal;
   letter-spacing: normal;
   color: #150e4f;
+  cursor: pointer;
 }
 
 .add-lead-col {

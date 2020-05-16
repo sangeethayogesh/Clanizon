@@ -8,6 +8,7 @@ import {
 } from '@ant-design/icons'
 
 import '../../styles/common.css'
+import { useHistory } from 'react-router-dom'
 
 const { TabPane } = Tabs
 
@@ -18,6 +19,7 @@ const { Option } = Select
 const { Content, Header } = Layout
 
 const AddLead = props => {
+  const history = useHistory()
   const onFinish = values => {
     console.log('Success:', values)
   }
@@ -42,7 +44,7 @@ const AddLead = props => {
           <Header>
             <Row>
               <Col span="3">
-                <span className="back">
+                <span className="back" onClick={() => { history.goBack() }}>
                   <ArrowLeftOutlined /> &nbsp;Back
                 </span>
               </Col>
@@ -60,12 +62,12 @@ const AddLead = props => {
           </Header>
           <Divider style={{ width: '100%', margin: 0 }} />
           <div style={{
-            padding: '3rem'
+            padding: '2rem'
           }}>
             <Row>
               <Col className="add-lead-col" span="18">
                 <div style={{ padding: '1.5rem' }}>
-                  <img src="https://www.myvaastu.in/images/content/vastu-diagonal.jpg" />
+                  <img src="https://www.myvaastu.in/images/content/vastu-diagonal.jpg" width="100%"/>
                 </div>
               </Col>
               <Col span="1"></Col>
@@ -87,7 +89,6 @@ const AddLead = props => {
                     label="Lead Name"
                     name="lead_name"
                     rules={[
-
                       {
                         required: true,
                         message: 'Please enter the name of the lead'
@@ -188,7 +189,47 @@ const AddLead = props => {
                     >
                       <Row>
                         <Col span="18" style={{
-                          padding: '2rem'
+                          padding: '0.2rem'
+                        }}>
+                          <Form.Item
+                            colon={false}
+                            label="Notes"
+                            name="notes"
+                          >
+                            <Input.TextArea rows={3} placeholder="Add your notes here..."/>
+                          </Form.Item>
+
+                        </Col>
+                        <Col span="6" style={{
+                          padding: '0.2rem'
+                        }}>
+                          <Form.Item
+                            colon={false}
+                            label="Positive Lead Score"
+                            name="postivive_lead"
+
+                          >
+                            <Input placeholder="Ex: 90%"/>
+                          </Form.Item>
+
+                        </Col>
+                      </Row>
+                    </Form>
+                  </TabPane>
+                  <TabPane tab="Plot CA304" key="2">
+                    <Form
+                      layout= "vertical"
+                      name="basic"
+                      initialValues={{
+                        remember: true
+                      }}
+                      onFinish={onFinish}
+                      onFinishFailed={onFinishFailed}
+                      autoComplete="false"
+                    >
+                      <Row>
+                        <Col span="18" style={{
+                          padding: '1rem'
                         }}>
                           <Form.Item
                             colon={false}
@@ -200,7 +241,7 @@ const AddLead = props => {
 
                         </Col>
                         <Col span="6" style={{
-                          padding: '2rem'
+                          padding: '1rem'
                         }}>
                           <Form.Item
                             colon={false}
@@ -222,24 +263,69 @@ const AddLead = props => {
                       </Row>
                     </Form>
                   </TabPane>
-                  <TabPane tab="Plot CA304" key="2">
-      Content of Tab Pane 2
-                  </TabPane>
                   <TabPane tab="Plot CA305" key="3">
-      Content of Tab Pane 3
+                    <Form
+                      layout= "vertical"
+                      name="basic"
+                      initialValues={{
+                        remember: true
+                      }}
+                      onFinish={onFinish}
+                      onFinishFailed={onFinishFailed}
+                      autoComplete="false"
+                    >
+                      <Row>
+                        <Col span="18" style={{
+                          padding: '1rem'
+                        }}>
+                          <Form.Item
+                            colon={false}
+                            label="Notes"
+                            name="notes"
+                          >
+                            <Input.TextArea rows={4} placeholder="Add your notes here..."/>
+                          </Form.Item>
+
+                        </Col>
+                        <Col span="6" style={{
+                          padding: '1rem'
+                        }}>
+                          <Form.Item
+                            colon={false}
+                            label="Positive Lead Score"
+                            name="postivive_lead"
+
+                          >
+                            <Input placeholder="Ex: 90%"/>
+                          </Form.Item>
+                          <Form.Item
+                            colon={false}
+                            label="Negative Lead Score"
+                            name="negative_lead"
+
+                          >
+                            <Input placeholder="Ex: 90%"/>
+                          </Form.Item>
+                        </Col>
+                      </Row>
+                    </Form>
                   </TabPane>
                 </Tabs>
               </Col>
               <Col span="1"></Col>
+
               <Col span="5" className="add-lead-col" style={{ padding: '25px' }}>
-                <h3>Plot Status</h3>
-                <Divider style={{ width: '100%', margin: 0 }} />
-                <br />
-                <Radio.Group defaultValue="open" style={{ width: '100%' }}>
-                  <Radio.Button style={radioStyle} value="open">Open</Radio.Button>
-                  <Radio.Button style={radioStyle} value="book">Book</Radio.Button>
-                  <Radio.Button style={radioStyle} value="block">Block</Radio.Button>
-                </Radio.Group>
+                <Row>
+                  <h3>Plot Status</h3>
+                  <Divider style={{ width: '100%', margin: 0 }} />
+                  <br />
+                  <Radio.Group defaultValue="open" style={{ width: '100%' }}>
+                    <Radio.Button style={radioStyle} value="open">Open</Radio.Button>
+                    <Radio.Button style={radioStyle} value="book">Book</Radio.Button>
+                    <Radio.Button style={radioStyle} value="block">Block</Radio.Button>
+                  </Radio.Group>
+                </Row>
+
               </Col>
             </Row>
           </div>

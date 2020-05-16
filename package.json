@@ -59,7 +59,7 @@
     "eslint-plugin-standard": "^4.0.1",
     "less": "^3.11.1",
     "less-loader": "^5.0.0",
-    "miragejs": "^0.1.37",
+    "miragejs": "^0.1.38",
     "react-app-rewired": "^2.1.5"
   }
 }

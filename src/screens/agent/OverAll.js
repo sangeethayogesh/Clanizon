@@ -6,15 +6,14 @@ import { Row, Col, Descriptions, Card, Layout } from 'antd'
 import { LeadPersonalCard } from '../../components/LeadPersonalCard'
 import '../../styles/agent-overall.css'
 import { OverallCallStatus } from '../../components/OverallCallStatus'
-
 const OverAll = props => {
   return (
-    <HeaderBar>
+    <HeaderBar drawer={false}>
       <SubNavBar></SubNavBar>
-      <Layout.Content id='lead-section' style={{ paddingTop: '1rem' }}>
+      <Layout.Content id='lead-section' style={{ padding: '1rem' }}>
         <Row gutter={[16, 16]}>
           <Col span={16}>
-            <LeadPersonalCard></LeadPersonalCard>
+            <OverallCallStatus></OverallCallStatus>
           </Col>
           <Col span={8}>
             <Card className="lead-card">
@@ -30,11 +29,15 @@ const OverAll = props => {
                 <Descriptions.Item label="Intrested  plots">Plot CA301, Plot CA304, Plot CA308,Plot CA308</Descriptions.Item>
               </Descriptions>
             </Card>
+            <div style={{ paddingTop: '1rem' }}>
+              <LeadPersonalCard></LeadPersonalCard>
+            </div>
+
           </Col>
         </Row>
       </Layout.Content>
       <Layout.Content>
-        <OverallCallStatus></OverallCallStatus>
+
       </Layout.Content>
     </HeaderBar>
   )
