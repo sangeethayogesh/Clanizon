@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
+import {
+  Link
+  , useHistory
+} from 'react-router-dom'
 import { Layout, Row, Col, Menu, BackTop, Badge, Drawer, Button, Input, Mentions, Divider } from 'antd'
 import axios from 'axios'
 import TimeAgo from 'react-timeago'
-
 import {
   HomeOutlined,
   ConsoleSqlOutlined,
@@ -16,7 +19,6 @@ import {
 } from '@ant-design/icons'
 import Text from 'antd/lib/typography/Text'
 import '../styles/common.css'
-import { useHistory } from 'react-router-dom'
 
 const { Option } = Mentions
 const { Header, Sider, Content } = Layout
@@ -155,10 +157,10 @@ function HeaderBar (props) {
               style={{ height: '100%', borderRight: 0 }}
             >
               <Menu.Item key="1" className="sidemenu">
-                <ConsoleSqlOutlined className="menuitem" />
+                <Link to="/admin"><ConsoleSqlOutlined className="menuitem" /></Link>
               </Menu.Item>
               <Menu.Item key="2" className="sidemenu">
-                <FileTextOutlined className="menuitem" />
+                <Link to= "/admin/overall-product-report"><FileTextOutlined className="menuitem" /></Link>
               </Menu.Item>
               <Menu.Item key="3" className="sidemenu">
                 <UnorderedListOutlined className="menuitem" />

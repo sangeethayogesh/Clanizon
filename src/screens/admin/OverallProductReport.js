@@ -78,7 +78,7 @@ const OverallProductReport = props => {
         </Row>
 
       </Modal>
-      <Modal
+      {/* <Modal
         visible={visibleAddAgent}
         title="Add new agent"
         onCancel={handleAddAgentCancel}
@@ -87,7 +87,7 @@ const OverallProductReport = props => {
         centered
       >
         <AddAgent/>
-      </Modal>
+      </Modal> */}
     </HeaderBar>
   )
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Row, Col, Layout, Menu, Table, Tag, Typography } from 'antd'
+import { Row, Col, Layout, Modal, Table, Tag, Typography } from 'antd'
 import HeaderBar from 'components/HeaderBar'
 import ChatBox from 'components/chatbox'
 
@@ -14,15 +14,23 @@ import {
   PlusSquareFilled,
   FunnelPlotOutlined
 } from '@ant-design/icons'
-
+import {
+  AddPlot
+} from 'components/AddPlot'
+import {
+  AddAgent
+} from 'components/AddAgent'
 import { Bar } from 'react-chartjs-2'
 
 // import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 // const { SubMenu } = Menu;
 const { Header, Content, Footer, Sider } = Layout
+
 class UserHome extends Component {
   constructor () {
     super()
+    this.addNewPlot = this.addNewPlot.bind(this)
+    this.addNewAgent = this.addNewAgent.bind(this)
     this.state = {
       tableData: [
         {
@@ -47,8 +55,18 @@ class UserHome extends Component {
           role: 'Sales Manager',
           thumbnail: ''
         }
-      ]
+      ],
+      addNewPlot: false,
+      visibleAddAgent: false
     }
+  }
+
+  addNewPlot () {
+    this.setState({ addNewPlot: !this.state.addNewPlot })
+  }
+
+  addNewAgent () {
+    this.setState({ visibleAddAgent: !this.state.visibleAddAgent })
   }
 
   render () {
@@ -103,7 +121,7 @@ class UserHome extends Component {
     {
       title: <PlusSquareFilled className="table-icon" style={{
         fontSize: '20px'
-      }}/>,
+      }} onClick={this.addNewAgent} />,
       dataIndex: 'city',
       key: 'city'
     },
@@ -115,6 +133,9 @@ class UserHome extends Component {
       key: 'role'
     }
     ]
+    // const addNewPlot = () => {
+    //   setNewPlot(!newPlot)
+    // }
     return (
       <Layout>
         <HeaderBar>
@@ -166,6 +187,26 @@ class UserHome extends Component {
                     </div>
                   </div>
                 </div>
+                <Modal
+                  visible={this.state.addNewPlot}
+                  title="Add new plot"
+                  onCancel={this.addNewPlot}
+                  footer={null}
+                  width="40%"
+                  centered
+                >
+                  <AddPlot/>
+                </Modal>
+                <Modal
+                  visible={this.state.visibleAddAgent}
+                  title="Add new agent"
+                  onCancel={this.addNewAgent}
+                  footer={null}
+                  width="40%"
+                  centered
+                >
+                  <AddAgent/>
+                </Modal>
                 <Row justify="left">
                   <Col span="8">
                     <div className="box-content" style={{
@@ -186,7 +227,7 @@ class UserHome extends Component {
                       </Row>
                       <div className="oval"></div>
                       <div className="small-oval"></div>
-                      <button className="box-button"> + Add Plot</button>
+                      <button className="box-button" onClick={this.addNewPlot}> + Add Plot</button>
                     </div>
                   </Col>
                   <Col span="8">
