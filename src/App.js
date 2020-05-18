@@ -97,10 +97,10 @@ const storeModel = createStore(models)
 function AppRouter () {
   return (
     <>
+      <Route exact path="/agent" component={AgentHome}></Route>
 
       <Route exact path="/" component={UserHome}></Route>
       <Route exact path="/admin" component={AdminHome}></Route>
-      <Route exact path="/agent" component={AgentHome}></Route>
       <Route exact path="/agent/overall" component={OverAll}></Route>
       <Route exact path="/admin/overall-product-report" component={OverallProductReport}></Route>
       <Route exact path="/admin/add-plot-area" component={AddPlotArea}></Route>

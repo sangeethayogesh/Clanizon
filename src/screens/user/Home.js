@@ -4,6 +4,7 @@ import { CategoryTile } from '../../components/CategoryTile'
 import { ReportCard } from '../../components/ReportCard'
 import { LoadMore } from '../../components/LoadMore'
 import HeaderBar from '../../components/HeaderBar'
+import { Link } from 'react-router-dom'
 function Home () {
   return (
     <Row gutter={[24, 16]}>
@@ -41,7 +42,8 @@ function Home () {
 function UserHome () {
   return (
     <HeaderBar>
-      <h6>sdjkgsd</h6>
+      <h2>Home</h2>
+      <Link to="/agent">Agent</Link> || <Link to="/admin">Admin</Link>
     </HeaderBar>
   )
 }

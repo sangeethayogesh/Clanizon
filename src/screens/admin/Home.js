@@ -159,7 +159,7 @@ class UserHome extends Component {
 
               </Menu>
             </Sider> */}
-            <Layout style={{ padding: '0 24px 24px' }}>
+            <Layout>
               {/* <Breadcrumb style={{ margin: '16px 0' }}>
               <Breadcrumb.Item>Home</Breadcrumb.Item>
               <Breadcrumb.Item>List</Breadcrumb.Item>
@@ -168,19 +168,18 @@ class UserHome extends Component {
               <Content
                 className="site-layout-background"
                 style={{
-                  padding: 24,
                   margin: 0,
                   minHeight: '1080px'
                 }}
               >
                 <div className="rectangle">
                   <div style={{
-                    padding: '50px'
+                    padding: '2rem'
                   }}>
                     <div className="body-header">
                         Welcome back Admin
                     </div>
-                    <div className="body-content">
+                    <div className="body-content" style={{ fontSize: '14px' }}>
                     You’ve earned 80%  in this week !
                     Keep it up and improve your goals Lorem Ipsum is simply
                     dummy text of the printing and typesetting industry.
