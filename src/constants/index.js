@@ -42,7 +42,14 @@ const constants = {
       auditStatusId: 4,
       auditStatus: 'SiteVisited'
     }
-  ]
+  ],
+  getLeadStatusById: (id) => {
+    if (id == 1) return 'Created'
+    else if (id == 2) return 'Prospecting'
+    else if (id == 3) return 'Closure'
+    else if (id == 4) return 'Converted'
+    else if (id == 5) return 'Completed'
+  }
 }
 
 export default constants

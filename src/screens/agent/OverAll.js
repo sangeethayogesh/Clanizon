@@ -7,9 +7,12 @@ import { LeadPersonalCard } from '../../components/LeadPersonalCard'
 import '../../styles/agent-overall.css'
 import { OverallCallStatus } from '../../components/OverallCallStatus'
 import { useHistory } from 'react-router-dom'
+import constants from '../../constants'
 const OverAll = (props) => {
   const history = useHistory()
+  console.log(history)
   const lead = history.location.leadDetail
+
   useEffect(() => {
     if (lead === undefined) history.goBack()
   }, [])
@@ -35,7 +38,7 @@ const OverAll = (props) => {
                     column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}
                   >
                     <Descriptions.Item label="Lead Status">
-                      {lead.leadStatus.leadStatus || ''}
+                      {constants.getLeadStatusById(lead.leadStatus)}
                     </Descriptions.Item>
                     <Descriptions.Item label="Best time to call">
                       {lead.leadCustomer.preferredCallStart +

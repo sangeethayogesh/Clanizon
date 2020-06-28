@@ -13,6 +13,7 @@ import {
   Collapse,
   message
 } from 'antd'
+import { Dayjs } from 'dayjs'
 import { ArrowLeftOutlined, CompressOutlined } from '@ant-design/icons'
 import '../../styles/common.css'
 import { useHistory } from 'react-router-dom'
@@ -32,6 +33,9 @@ const tailLayout = {
   }
 }
 const AddLead = (props) => {
+  var today = new Date()
+  var tomorrow = new Date()
+  tomorrow.setDate(today.getDate() + 1)
   const history = useHistory()
   const [form] = Form.useForm()
   const [isLoading, setIsLoading] = useState(false)
@@ -50,14 +54,12 @@ const AddLead = (props) => {
       : null
 
     const request = {
-      leadAgent: {
-        userMobile: constants.currentAgent.mobile || '8122723731'
-      },
+      leadAgentMobile: constants.currentAgent.mobile || '8122723731',
       leadSource: data.leadSource,
       leadCustomer: data.lead,
-      leadStatus: {
-        leadStatusId: 1
-      }
+      leadStatus: 1,
+      leadCreateDate: new Date(),
+      nextScheduleDatetime: tomorrow
     }
     console.log('Success:', request)
     setIsLoading(true)
@@ -71,6 +73,7 @@ const AddLead = (props) => {
       })
       .catch((err) => {
         message.error('Failed!')
+        setIsLoading(false)
         console.error(err)
       })
   }
