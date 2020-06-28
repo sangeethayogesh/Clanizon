@@ -6,6 +6,7 @@ import { message } from 'antd'
 const leads = {
   today_leads: [],
   allLeads: [],
+  leadsByAgent: [],
   statusCount: {
     created: 0,
     prospecting: 0,
@@ -68,8 +69,22 @@ const leads = {
       closer: closer[0] ? closer[0].count : 0,
       completed: completed[0] ? completed[0].count : 0
     }
+  }),
+  getLeadsByAgent: thunk(async (actions, callback) => {
+    rest
+      .get(constants.URL.GET_LEAD_BY_AGENT)
+      .then((res) => {
+        actions.setLeadsByAgent(res.data)
+        callback()
+      })
+      .catch((err) => {
+        console.error(err)
+        message.error('Failed loading leads!')
+      })
+  }),
+  setLeadsByAgent: action((state, payload) => {
+    state.leadsByAgent = payload
   })
-
   // count: computed(state => state.productIds.length),
 }
 
