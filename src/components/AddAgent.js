@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Form, Input, Button, Select, message } from 'antd'
 import '../styles/common.css'
 import '../styles/add-agent.css'
 import constants from '../constants'
-import http from '../services/http.js'
-import { useStoreState, useStoreActions } from 'easy-peasy'
+import { useStoreActions } from 'easy-peasy'
 import rest from 'services/http'
 const { Option } = Select
 const layout = {
@@ -35,10 +34,7 @@ const AddAgent = (props) => {
     data.agent.userMobileAlt = data.agent.userMobileAlt
       ? data.agent.userMobileAlt
       : '0123456789'
-    data.agent.userRoles = {
-      roleId: 2,
-      roleType: 'AGENT'
-    }
+    data.agent.userRole = 2
     form.resetFields()
     setIsLoading(true)
     rest

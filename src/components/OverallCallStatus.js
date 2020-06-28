@@ -1,7 +1,6 @@
 /* eslint-disable no-useless-computed-key */
 /* eslint-disable space-before-function-paren */
 import React, { useState } from 'react'
-import PropTypes from 'prop-types'
 import {
   Collapse,
   Row,
@@ -10,18 +9,13 @@ import {
   Input,
   Form,
   Select,
-  TimePicker,
-  InputNumber,
   DatePicker,
   Divider,
-  Tooltip,
   Drawer,
   Radio,
   message
 } from 'antd'
-import { SearchOutlined, PlusOutlined } from '@ant-design/icons'
 import '../styles/overall-call-status.css'
-import { useForm } from 'antd/lib/form/util'
 import { AddNote } from './drawer/AddNote'
 import constants from '../constants'
 import rest from 'services/http'
@@ -205,15 +199,6 @@ const OverallCallStatus = (props) => {
   }
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo)
-  }
-  function onChangeSec(value) {
-    form.setFieldsValue({ call: { duration: value } })
-  }
-  function onCallTypeChange(value) {
-    // form.setFieldsValue({ callType: value })
-  }
-  function formatter(value) {
-    return `${value}%`
   }
   // const layout = {
   //   labelCol: {

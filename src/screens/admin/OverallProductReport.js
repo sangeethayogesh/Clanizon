@@ -1,5 +1,6 @@
+/* eslint-disable space-before-function-paren */
+/* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
 import { Row, Col, Modal, Avatar, Descriptions, message } from 'antd'
 import { CategoryTile } from '../../components/CategoryTile'
 import { ReportCard } from '../../components/ReportCard'

@@ -9,11 +9,9 @@ import {
   Badge,
   Drawer,
   Button,
-  Input,
   Mentions,
   Divider
 } from 'antd'
-import axios from 'axios'
 import TimeAgo from 'react-timeago'
 import {
   HomeOutlined,

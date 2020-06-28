@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import React, { useState, useEffect } from 'react'
-import { Row, Col, Layout, Modal, Table, Tag, Typography } from 'antd'
+import { Row, Col, Layout, Modal, Table } from 'antd'
 import HeaderBar from 'components/HeaderBar'
 import ChatBox from 'components/chatbox'
 
@@ -10,8 +10,6 @@ import {
   // FileTextOutlined,
   // UnorderedListOutlined,
   // MessageOutlined,
-  ArrowUpOutlined,
-  ArrowDownOutlined,
   PlusSquareFilled,
   FunnelPlotOutlined
 } from '@ant-design/icons'
@@ -22,38 +20,14 @@ import { useStoreActions, useStoreState } from 'easy-peasy'
 
 // import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 // const { SubMenu } = Menu;
-const { Header, Content, Footer, Sider } = Layout
+const { Content } = Layout
 
 const UserHome = () => {
   const getAllAgents = useStoreActions((actions) => actions.agents.getAllAgents)
   const agentList = useStoreState((state) => state.agents.list)
-  console.log()
   const [visibleAddAgent, setVisibleAddAgent] = useState(false)
   const [visibleAddNewPlot, setVisibleAddNewPlot] = useState(false)
-  const tableData = [
-    {
-      name: 'Deepan',
-      designation: 'Manager',
-      email: 'deepanmania@gmail.com',
-      mobile: 9999999999,
-      percent: 18,
-      status: 'increase',
-      city: 'Madurai',
-      role: 'Admin',
-      thumbnail: ''
-    },
-    {
-      name: 'Deepan',
-      designation: 'Manager',
-      email: 'deepanmania@gmail.com',
-      mobile: 9999999999,
-      percent: 24,
-      status: 'decrease',
-      city: 'Madurai',
-      role: 'Sales Manager',
-      thumbnail: ''
-    }
-  ]
+
   useEffect(() => {
     getAllAgents(() => {
       console.log('DATA RECEIVED::')

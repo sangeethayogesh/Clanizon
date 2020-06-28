@@ -1,11 +1,7 @@
-import React, { useEffect } from 'react'
-import PropTypes from 'prop-types'
-import { Carousel, Row, Col } from 'antd'
-
-import { useStoreActions, useStoreState } from 'easy-peasy'
+import React from 'react'
+import { Row } from 'antd'
 
 import '../../styles/common.css'
-import constants from '../../constants'
 import HeaderBar from 'components/HeaderBar'
 import { DetailedLeadList } from 'components/DetailedLeadList'
 
