@@ -1,10 +1,7 @@
 /* eslint-disable react/display-name */
 import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
-import { Table, Tag } from 'antd'
-import { SmileTwoTone } from '@ant-design/icons'
+import { Table } from 'antd'
 import { useStoreState, useStoreActions } from 'easy-peasy'
-import { useHistory } from 'react-router-dom'
 const columns = [
   {
     title: 'Name',

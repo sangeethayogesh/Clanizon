@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import PropTypes from 'prop-types'
 import { Layout, Table } from 'antd'
 import { SmileTwoTone } from '@ant-design/icons'
 // import { Smile } from '../asssets/smile'
