@@ -179,7 +179,7 @@ const OverallCallStatus = (props) => {
   function handleCollapse() {}
   function onCallStatusSave(values) {
     var data = { ...values }
-    data.leadStatus.leadStatusId = data.leadStatus.leadStatusId.value
+    data.leadStatus = data.leadStatus.value
     data.leadAuditCreatedUser = {
       userMobile: constants.currentAgent.mobile || '8122723731'
     }
@@ -187,6 +187,7 @@ const OverallCallStatus = (props) => {
       ? data.leadAuditScheduleDatetime.$d
       : undefined
     data.leadAuditLeadId = props.leadId
+    data.leadAuditCreatedDatetime = new Date()
     setIsLoading(true)
     rest
       .post(constants.URL.ADD_NEW_AUDIT, data)
@@ -249,10 +250,7 @@ const OverallCallStatus = (props) => {
           {...tailLayout}
           form={form}
           defaultValue={{
-            leadStatus: {
-              leadStatusId: props.status.leadStatusId,
-              leadStatus: props.status.leadStatus
-            }
+            leadStatus: props.status
           }}
           onFinish={onCallStatusSave}
           onFinishFailed={onFinishFailed}
@@ -290,7 +288,7 @@ const OverallCallStatus = (props) => {
                   <Form.Item
                     colon={false}
                     label="Lead Status"
-                    name={['leadStatus', 'leadStatusId']}
+                    name="leadStatus"
                     rules={[
                       {
                         required: true,
@@ -300,7 +298,7 @@ const OverallCallStatus = (props) => {
                   >
                     <Select
                       labelInValue
-                      defaultValue={{ key: props.status.leadStatusId + '' }}
+                      defaultValue={{ key: props.status + '' }}
                       placeholder="Select Lead Status"
                     >
                       <Option value="1">Created</Option>
@@ -351,8 +349,8 @@ const OverallCallStatus = (props) => {
                   </Form.Item>
                 </Col>
                 <Col span="8">
-                  <Form.Item label="Comments" name="callResult">
-                    <Input.TextArea placeholder="Comments"></Input.TextArea>
+                  <Form.Item label="Description" name="leadAuditDescription">
+                    <Input.TextArea placeholder="Description"></Input.TextArea>
                   </Form.Item>
                 </Col>
                 <Col span="8">

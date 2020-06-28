@@ -8,7 +8,6 @@ import HeaderBar from '../../components/HeaderBar'
 import '../../styles/overall-product-report.css'
 import { TimeLineView } from '../../components/TimeLineView'
 import { UserInfoView } from '../../components/UserInfoView'
-import { AddAgent } from '../../components/AddAgent'
 import rest from 'services/http'
 const OverallProductReport = (props) => {
   const [visibleDetailedReport, setVisibleDetailedReport] = useState(false)
@@ -25,9 +24,6 @@ const OverallProductReport = (props) => {
   }
   const showAddAgent = () => {
     setVisibleAddAgent(true)
-  }
-  function handleAddAgentCancel() {
-    setVisibleAddAgent(false)
   }
   function processData(data) {
     const created = data.filter((leads) => leads.leadStatus == 1)
