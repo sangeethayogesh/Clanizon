@@ -43,7 +43,9 @@ const ReportCard = (props) => {
           </Row>
           <Row gutter={[6, 6]}>
             <Col span="12">
-              <Text className="r-by-code">{lead.leadCustomer.userCity}</Text>
+              <Text className="r-by-code">
+                {lead.leadCustomer.userCity || '-'}
+              </Text>
             </Col>
             <Col span="9">
               <Text className="r-by-name">{lead.leadAgentMobile}</Text>
@@ -57,7 +59,7 @@ const ReportCard = (props) => {
           </Row>
           <Row gutter={[6, 6]}>
             <Col span="12">
-              <Text className="r-source">{lead.leadSource}</Text>
+              <Text className="r-source">{lead.leadSource || '-'}</Text>
             </Col>
             <Col span="3">
               <CalendarTwoTone

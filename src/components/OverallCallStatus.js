@@ -329,6 +329,12 @@ const OverallCallStatus = (props) => {
                   <Form.Item
                     label="Schedule Date"
                     name="leadAuditScheduleDatetime"
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please enter Schedule Date'
+                      }
+                    ]}
                   >
                     <DatePicker format="YYYY-MM-DD"></DatePicker>
                   </Form.Item>
