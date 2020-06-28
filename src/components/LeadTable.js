@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 import React, { useEffect, useState } from 'react'
 import { Layout, Table } from 'antd'
 import { SmileTwoTone } from '@ant-design/icons'
@@ -9,6 +10,7 @@ import '../styles/lead-table.css'
 import '../styles/common.css'
 import { useHistory } from 'react-router-dom'
 import { useStoreActions, useStoreState } from 'easy-peasy'
+import constants from '../constants'
 
 const LeadTable = (props) => {
   const [loading, setLoading] = useState(false)
@@ -29,10 +31,6 @@ const LeadTable = (props) => {
             <span className="table-inner-name">
               {user.leadCustomer.userFname + ' ' + user.leadCustomer.userSname}
             </span>
-            <br />
-            <span className="table-designation">
-              {user.leadCustomer.userOccupation}
-            </span>
           </span>
         </div>
       )
@@ -49,22 +47,28 @@ const LeadTable = (props) => {
       render: (user) => user.leadCustomer.userMobile
     },
     {
-      title: 'Company',
+      title: 'Status',
       width: 150,
-      render: (user) => user.leadCustomer.userCompany
+      render: (user) => (
+        <p style={{ color: '#4c46a7', fontWeight: 'bold' }}>
+          {constants.getLeadStatusById(user.leadStatus)}
+        </p>
+      )
     },
     {
       title: 'Next Schedule',
       width: 150,
       // eslint-disable-next-line react/display-name
       render: (user) => (
-        <a>{new Date(user.nextScheduleDatetime).toISOString().split('T')[0]}</a>
+        <span>
+          {new Date(user.nextScheduleDatetime).toISOString().split('T')[0]}
+        </span>
       )
     },
     {
       title: 'Source',
-      dataIndex: 'leadSource',
-      width: 150
+      width: 150,
+      render: (user) => (user.leadSource ? user.leadSource : '-')
     },
     {
       title: 'Score Summary',
@@ -127,7 +131,7 @@ const LeadTable = (props) => {
         loading={loading}
         dataSource={todayLeads}
         pagination={{ pageSize: 10 }}
-        scroll={{ y: 300 }}
+        scroll={{ y: 500 }}
       />
     </Layout.Content>
   )

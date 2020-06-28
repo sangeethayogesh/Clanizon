@@ -58,7 +58,7 @@ const OverallProductReport = (props) => {
       <Row gutter={[24, 16]}>
         <Col span="6" sm={(6, 6)} xs={24}>
           <CategoryTile
-            title="Lead"
+            title="Created"
             count={(list && list.created && list.created.length) || 0}
             gradient={['#c185fa', '#6a3ec3']}
             onClick={showAddAgent}
@@ -109,7 +109,7 @@ const OverallProductReport = (props) => {
                 <ReportCard
                   lead={lead}
                   key={idx}
-                  onClick={showModel}
+                  onClick={() => showModel(lead)}
                 ></ReportCard>
               )
             })}
@@ -128,7 +128,7 @@ const OverallProductReport = (props) => {
                 <ReportCard
                   lead={lead}
                   key={idx}
-                  onClick={showModel}
+                  onClick={() => showModel(lead)}
                 ></ReportCard>
               )
             })}

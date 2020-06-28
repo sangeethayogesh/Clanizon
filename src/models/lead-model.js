@@ -61,14 +61,15 @@ const leads = {
     const prospecting = payload.filter(
       (leads) => leads.category == 'Prospecting'
     )
-    const closer = payload.filter((leads) => leads.category == 'Closer')
+    const closure = payload.filter((leads) => leads.category == 'Closure')
     const completed = payload.filter((leads) => leads.category == 'Completed')
     state.statusCount = {
       created: created[0] ? created[0].count : 0,
       prospecting: prospecting[0] ? prospecting[0].count : 0,
-      closer: closer[0] ? closer[0].count : 0,
+      closure: closure[0] ? closure[0].count : 0,
       completed: completed[0] ? completed[0].count : 0
     }
+    console.log(state.statusCount)
   }),
   getLeadsByAgent: thunk(async (actions, callback) => {
     rest

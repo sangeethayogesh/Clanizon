@@ -21,6 +21,7 @@ import {
   MenuOutlined,
   NotificationOutlined,
   UserOutlined,
+  DatabaseOutlined,
   MessageOutlined,
   SendOutlined
 } from '@ant-design/icons'
@@ -71,7 +72,7 @@ function HeaderBar(props) {
             <Col span="19">
               <HomeOutlined className="logo" style={{ color: '#fff' }} />
               <span className="header-title" style={{ padding: '1em' }}>
-                &nbsp;Booking
+                &nbsp;CRM
               </span>
             </Col>
             <Col span="1" style={{ textAlign: 'center' }}>
@@ -79,11 +80,11 @@ function HeaderBar(props) {
                 <MenuOutlined className="header-menu" />
               </div>
             </Col>
-            <Col span="1" style={{ textAlign: 'center' }}>
+            {/* <Col span="1" style={{ textAlign: 'center' }}>
               <div className="divider-right">
                 <MessageOutlined className="header-menu" onClick={showDrawer} />
               </div>
-            </Col>
+            </Col> */}
             <Col span="1" style={{ textAlign: 'center' }}>
               <div className="divider-right">
                 <Badge dot>
@@ -209,7 +210,7 @@ function HeaderBar(props) {
             >
               <Menu.Item key="1" className="sidemenu">
                 <Link to={currentuser == 'admin' ? '/admin' : '/agent'}>
-                  <ConsoleSqlOutlined className="menuitem" />
+                  <HomeOutlined className="menuitem" />
                 </Link>
               </Menu.Item>
               <Menu.Item key="2" className="sidemenu">
@@ -220,11 +221,8 @@ function HeaderBar(props) {
                       : '/agent/leads'
                   }
                 >
-                  <FileTextOutlined className="menuitem" />
+                  <DatabaseOutlined className="menuitem" />
                 </Link>
-              </Menu.Item>
-              <Menu.Item key="3" className="sidemenu">
-                <UnorderedListOutlined className="menuitem" />
               </Menu.Item>
             </Menu>
           </Sider>

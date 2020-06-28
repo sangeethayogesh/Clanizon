@@ -288,7 +288,7 @@ const UserHome = () => {
             </Content>
           </Layout>
         </Layout>
-        <ChatBox />
+        {/* <ChatBox /> */}
       </HeaderBar>
     </Layout>
   )
