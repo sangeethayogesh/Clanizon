@@ -20,7 +20,7 @@ const ReportCard = (props) => {
                   fontFamily: 'Lato'
                 }}
               >
-                IS
+                {lead.leadCustomer.userFname.slice(0, 2)}
               </Avatar>
             </Col>
             <Col>
@@ -37,8 +37,7 @@ const ReportCard = (props) => {
             </Col>
             <Col justify="space-between">
               <Button type="link" className="badge-label badge-label-success">
-                {' '}
-                {lead.leadOutcome && lead.leadOutcome[0].outCome}
+                {lead.leadOutcome ? lead.leadOutcome : 'no status'}
               </Button>
             </Col>
           </Row>

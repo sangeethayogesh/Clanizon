@@ -20,6 +20,7 @@ const OverallProductReport = (props) => {
   }
   const showModel = (data) => {
     setDetailed(data)
+    console.log(data)
     setVisibleDetailedReport(true)
   }
   const showAddAgent = () => {
@@ -29,28 +30,21 @@ const OverallProductReport = (props) => {
     setVisibleAddAgent(false)
   }
   function processData(data) {
-    const created = data.filter(
-      (leads) => leads.leadStatus.leadStatus == 'Created'
-    )
-    const prospecting = data.filter(
-      (leads) => leads.leadStatus.leadStatus == 'Prospecting'
-    )
-    const closer = data.filter(
-      (leads) => leads.leadStatus.leadStatus == 'Closer'
-    )
-    const converted = data.filter(
-      (leads) => leads.leadStatus.leadStatus == 'Converted'
-    )
+    const created = data.filter((leads) => leads.leadStatus == 1)
+    const prospecting = data.filter((leads) => leads.leadStatus == 2)
+    const closer = data.filter((leads) => leads.leadStatus == 3)
+    const converted = data.filter((leads) => leads.leadStatus == 4)
     setList({
       created: created,
       prospecting: prospecting,
       closer: closer,
       converted: converted
     })
+    console.log(list)
   }
   const getAllLeads = () => {
     rest
-      .get('http://realkeyip.in:8083/api/leads/leadbyagent?mobile=8122723731')
+      .get('http://realkeyip.in:8083/api/leads/getAllLeads')
       .then((response) => {
         processData(response.data)
       })
@@ -163,7 +157,9 @@ const OverallProductReport = (props) => {
                     fontFamily: 'Lato'
                   }}
                 >
-                  IS
+                  {detailed
+                    ? detailed.leadCustomer.userFname.slice(0, 2)
+                    : 'Is'}
                 </Avatar>
               </Descriptions.Item>
             </Descriptions>
