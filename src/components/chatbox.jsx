@@ -18,90 +18,99 @@ const ChatBox = () => {
   }
   return (
     <div>
-      {show ? <div className="floating-box">
-        <div className="chatbox-header-text">
-          <h4>Contact Agents</h4>
-          <p>Want Send message to</p>
+      {show && (
+        <div className="floating-box">
+          <div className="chatbox-header-text">
+            <h4>Contact Agents</h4>
+            <p>Want Send message to</p>
+          </div>
+          <Tabs defaultActiveKey="1" className="chatbox-header">
+            <TabPane tab="All" key="1">
+              <Form
+                labelCol={{ span: 10 }}
+                wrapperCol={{ span: 24 }}
+                layout="vertical"
+              >
+                <Form.Item
+                  label="Message"
+                  name="message"
+                  rules={[{ required: true }]}
+                  className="chatbox-inputs"
+                >
+                  <TextArea
+                    style={{
+                      padding: '10px 20px'
+                    }}
+                  />
+                </Form.Item>
+                <Row>
+                  <Col span="1"></Col>
+                  <Col span="4">
+                    <Form.Item>
+                      <Button className="chatbox-attachment">
+                        <PaperClipOutlined />
+                      </Button>
+                    </Form.Item>
+                  </Col>
+                  <Col span="5" />
+                  <Col span="14">
+                    <Form.Item {...tailLayout}>
+                      <Button type="primary" htmlType="submit">
+                        Send
+                      </Button>
+                    </Form.Item>
+                  </Col>
+                </Row>
+              </Form>
+            </TabPane>
+            <TabPane tab="Individual" key="2">
+              <Form
+                labelCol={{ span: 10 }}
+                wrapperCol={{ span: 24 }}
+                layout="vertical"
+              >
+                <Form.Item label="Select Agent" className="chatbox-inputs">
+                  <Select placeholder="Agent Name">
+                    <Select.Option value="demo">Demo</Select.Option>
+                  </Select>
+                </Form.Item>
+                <Form.Item
+                  label="Message"
+                  name="message"
+                  rules={[{ required: true }]}
+                  className="chatbox-inputs"
+                >
+                  <TextArea
+                    style={{
+                      padding: '10px 20px'
+                    }}
+                  />
+                </Form.Item>
+                <Row>
+                  <Col span="1"></Col>
+                  <Col span="4">
+                    <Form.Item>
+                      <Button className="chatbox-attachment">
+                        <PaperClipOutlined />
+                      </Button>
+                    </Form.Item>
+                  </Col>
+                  <Col span="5" />
+                  <Col span="14">
+                    <Form.Item {...tailLayout}>
+                      <Button type="primary" htmlType="submit">
+                        Send
+                      </Button>
+                    </Form.Item>
+                  </Col>
+                </Row>
+              </Form>
+            </TabPane>
+          </Tabs>
+          {/* </div> */}
         </div>
-        <Tabs defaultActiveKey="1" className="chatbox-header">
-          <TabPane tab="All" key="1">
-            <Form
-              labelCol={{ span: 10 }}
-              wrapperCol={{ span: 24 }}
-              layout="vertical"
-            ><Form.Item
-                label="Message"
-                name="message"
-                rules={[{ required: true }]}
-                className="chatbox-inputs"
-              >
-                <TextArea style={{
-                  padding: '10px 20px'
-                }}/>
-              </Form.Item>
-              <Row><Col span="1"></Col>
-                <Col span="4">
-                  <Form.Item>
-                    <Button className="chatbox-attachment">
-                      <PaperClipOutlined />
-                    </Button>
-                  </Form.Item>
-                </Col>
-                <Col span="5"/>
-                <Col span="14">
-                  <Form.Item {...tailLayout}>
-                    <Button type="primary" htmlType="submit">
-          Send
-                    </Button>
-                  </Form.Item>
-                </Col>
-              </Row>
-            </Form>
-          </TabPane>
-          <TabPane tab="Individual" key="2">
-            <Form
-              labelCol={{ span: 10 }}
-              wrapperCol={{ span: 24 }}
-              layout="vertical"
-            >
-              <Form.Item label="Select Agent" className="chatbox-inputs">
-                <Select placeholder="Agent Name">
-                  <Select.Option value="demo">Demo</Select.Option>
-                </Select>
-              </Form.Item>
-              <Form.Item
-                label="Message"
-                name="message"
-                rules={[{ required: true }]}
-                className="chatbox-inputs"
-              >
-                <TextArea style={{
-                  padding: '10px 20px'
-                }}/>
-              </Form.Item>
-              <Row><Col span="1"></Col>
-                <Col span="4">
-                  <Form.Item>
-                    <Button className="chatbox-attachment">
-                      <PaperClipOutlined />
-                    </Button>
-                  </Form.Item>
-                </Col>
-                <Col span="5"/>
-                <Col span="14">
-                  <Form.Item {...tailLayout}>
-                    <Button type="primary" htmlType="submit">
-          Send
-                    </Button>
-                  </Form.Item>
-                </Col>
-              </Row>
-            </Form>
-          </TabPane>
-        </Tabs>
-        {/* </div> */}
-      </div> : ''}
-      <FloatingButton show={show} onClick={buttonClick}/>
+      )}
+      <FloatingButton show={show} onClick={buttonClick} />
     </div>
   )
 }

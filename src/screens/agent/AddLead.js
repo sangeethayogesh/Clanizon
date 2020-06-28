@@ -1,50 +1,103 @@
-import React from 'react'
+import React, { useState } from 'react'
 import HeaderBar from 'components/HeaderBar'
-import { Row, Col, Layout, Divider, Input, Button, Form, Select, TimePicker, Tabs, Radio } from 'antd'
-
 import {
-  ArrowLeftOutlined,
-  CompressOutlined
-} from '@ant-design/icons'
-
+  Row,
+  Col,
+  Layout,
+  Divider,
+  Input,
+  Button,
+  Form,
+  Select,
+  TimePicker,
+  Collapse,
+  message
+} from 'antd'
+import { ArrowLeftOutlined, CompressOutlined } from '@ant-design/icons'
 import '../../styles/common.css'
 import { useHistory } from 'react-router-dom'
-
-const { TabPane } = Tabs
-
+import constants from '../../constants'
+import rest from 'services/http'
+import { useStoreActions } from 'easy-peasy'
+const { Panel } = Collapse
 const { RangePicker } = TimePicker
 const { Search } = Input
-const { Option } = Select
-
 const { Content, Header } = Layout
-
-const AddLead = props => {
+const tailLayout = {
+  labelCol: {
+    span: 24
+  },
+  wrapperCol: {
+    span: 24
+  }
+}
+const AddLead = (props) => {
   const history = useHistory()
-  const onFinish = values => {
-    console.log('Success:', values)
+  const [form] = Form.useForm()
+  const [isLoading, setIsLoading] = useState(false)
+  const addLead = useStoreActions((actions) => actions.leads.addLead)
+
+  const onFinish = (values) => {
+    const data = values
+    data.lead.userOccupation = 'default'
+    data.lead.userPassword = data.lead.userMobile
+    data.lead.userMobileAlt = data.lead.userMobile
+    data.lead.preferredCallStart = values.best_call_time
+      ? values.best_call_time[0].$d.toTimeString().split(' ')[0]
+      : null
+    data.lead.preferredCallEnd = values.best_call_time
+      ? values.best_call_time[1].$d.toTimeString().split(' ')[0]
+      : null
+
+    const request = {
+      leadAgent: {
+        userMobile: constants.currentAgent.mobile || '8122723731'
+      },
+      leadSource: data.leadSource,
+      leadCustomer: data.lead,
+      leadStatus: {
+        leadStatusId: 1
+      }
+    }
+    console.log('Success:', request)
+    setIsLoading(true)
+    rest
+      .post(constants.URL.ADD_NEW_LEAD, request)
+      .then((res) => {
+        addLead(res.data)
+        message.success('Lead Added!')
+        setIsLoading(false)
+        form.resetFields()
+      })
+      .catch((err) => {
+        message.error('Failed!')
+        console.error(err)
+      })
+  }
+  function callback(key) {
+    console.log(key)
   }
 
-  const onFinishFailed = errorInfo => {
+  const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo)
-  }
-  const radioStyle = {
-    display: 'block',
-    width: '100%',
-    textAlign: 'center',
-    height: '40px'
+    message.warning('Please fill mandatory fields')
   }
   return (
     <div>
       <HeaderBar drawer={false}>
-
         <Content style={{ backgroundColor: '#f0f1f4' }}>
           {/* To match the height one dummy header is used */}
-          <Header/>
+          <Header />
           <Divider style={{ width: '100%', margin: 0 }} />
           <Header>
             <Row>
               <Col span="3">
-                <span className="back" onClick={() => { history.goBack() }}>
+                <span
+                  className="back"
+                  onClick={() => {
+                    history.goBack()
+                  }}
+                >
                   <ArrowLeftOutlined /> &nbsp;Back
                 </span>
               </Col>
@@ -52,286 +105,220 @@ const AddLead = props => {
               <Col span="7">
                 <Search
                   placeholder="Enter Locality"
-                  onSearch={value => console.log(value)}
+                  onSearch={(value) => console.log(value)}
                   style={{ width: '100%' }}
                 />
               </Col>
-              <Col span="6"/>
-              <Col span="2"><Button><CompressOutlined /></Button></Col>
+              <Col span="6" />
+              <Col span="2">
+                <Button>
+                  <CompressOutlined />
+                </Button>
+              </Col>
             </Row>
           </Header>
           <Divider style={{ width: '100%', margin: 0 }} />
-          <div style={{
-            padding: '2rem'
-          }}>
-            <Row>
-              <Col className="add-lead-col" span="18">
-                <div style={{ padding: '1.5rem' }}>
-                  <img src="https://www.myvaastu.in/images/content/vastu-diagonal.jpg" width="100%"/>
-                </div>
-              </Col>
-              <Col span="1"></Col>
-              <Col className="add-lead-col" span="5" style={{ padding: '12px' }}>
-                <h3>Lead Details</h3>
-                <Divider style={{ width: '100%', margin: 0 }} />
+          <div
+            style={{
+              padding: '1rem'
+            }}
+          >
+            <h5
+              style={{
+                fontFamily: 'Lato',
+                fontSize: '16px',
+                fontWeight: 'bold',
+                color: '#150e4f'
+              }}
+            >
+              Create New Lead
+            </h5>
+            <Row gutter={[16, 16]}>
+              <Col span={24}>
                 <Form
-                  layout= "vertical"
+                  {...tailLayout}
+                  layout="vertical"
                   name="basic"
-                  initialValues={{
-                    remember: true
-                  }}
+                  form={form}
+                  initialValues={{}}
                   onFinish={onFinish}
                   onFinishFailed={onFinishFailed}
                   autoComplete="false"
                 >
-                  <Form.Item
-                    colon={false}
-                    label="Lead Name"
-                    name="lead_name"
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Please enter the name of the lead'
-                      }
-                    ]}
+                  <Collapse
+                    defaultActiveKey={['1', '2', '3']}
+                    onChange={callback}
                   >
-                    <Input placeholder="Name"/>
-                  </Form.Item>
-                  <Form.Item
-                    colon={false}
-                    label="Contact Number"
-                    name="contact_number"
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Please enter the contact number'
-                      }
-                    ]}
-                  >
-                    <Input placeholder="Mobile"/>
-                  </Form.Item>
-                  <Form.Item
-                    colon={false}
-                    label="Alternative Contact Number"
-                    name="al_contact_number"
+                    <Panel header="Contact Information" key="1">
+                      <Row gutter={[8, 0]}>
+                        <Col span="8">
+                          <Form.Item
+                            colon={false}
+                            label="Lead First Name"
+                            name={['lead', 'userFname']}
+                            rules={[
+                              {
+                                required: true,
+                                message: 'Please enter the first name'
+                              }
+                            ]}
+                          >
+                            <Input placeholder="First Name" />
+                          </Form.Item>
+                        </Col>
+                        <Col span="8">
+                          <Form.Item
+                            colon={false}
+                            label="Lead Last Name"
+                            name={['lead', 'userSname']}
+                            rules={[
+                              {
+                                required: true,
+                                message: 'Please enter the last name'
+                              }
+                            ]}
+                          >
+                            <Input placeholder="Last Name" />
+                          </Form.Item>
+                        </Col>
 
+                        <Col span="8">
+                          <Form.Item
+                            colon={false}
+                            label="Email Id"
+                            name={['lead', 'userEmailid']}
+                            rules={[
+                              {
+                                required: true,
+                                message: 'Please enter the email id'
+                              },
+                              {
+                                type: 'email',
+                                message: 'Please enter valid email id'
+                              }
+                            ]}
+                          >
+                            <Input placeholder="Email Id" />
+                          </Form.Item>
+                        </Col>
+                        <Col span="8">
+                          <Form.Item
+                            colon={false}
+                            label="Contact Number"
+                            name={['lead', 'userMobile']}
+                            rules={[
+                              {
+                                required: true,
+                                message: 'Please enter the contact number'
+                              }
+                            ]}
+                          >
+                            <Input placeholder="Mobile" />
+                          </Form.Item>
+                        </Col>
+
+                        <Col span="8">
+                          <Form.Item
+                            colon={false}
+                            label="Alternate Contact Number"
+                            name={['lead', 'userMobileAlt']}
+                          >
+                            <Input placeholder="Alternative Mobile" />
+                          </Form.Item>
+                        </Col>
+                      </Row>
+                    </Panel>
+                    <Panel header="Residential Information" key="2">
+                      <Row gutter={[8, 0]}>
+                        <Col span="16">
+                          <Form.Item
+                            label="Address"
+                            colon={false}
+                            name={['lead', 'userAddress']}
+                          >
+                            <Input.TextArea placeholder="Address" />
+                          </Form.Item>
+                        </Col>
+                        <Col span="8">
+                          <Form.Item
+                            label="City"
+                            colon={false}
+                            name={['lead', 'userCity']}
+                          >
+                            <Input placeholder="City Name" />
+                          </Form.Item>
+                        </Col>
+                      </Row>
+                      <Row gutter={[8, 0]}>
+                        <Col span="8">
+                          <Form.Item
+                            label="State"
+                            colon={false}
+                            name={['lead', 'userState']}
+                          >
+                            <Input placeholder="State" />
+                          </Form.Item>
+                        </Col>
+                        <Col span="8">
+                          <Form.Item
+                            label="Country"
+                            colon={false}
+                            name={['lead', 'userCountry']}
+                          >
+                            <Input placeholder="Country" />
+                          </Form.Item>
+                        </Col>
+                      </Row>
+                    </Panel>
+                    <Panel header="Business Information" key="3">
+                      <Row gutter={[8, 0]}>
+                        <Col span="8">
+                          <Form.Item
+                            colon={false}
+                            label="Best Time to call"
+                            name="best_call_time"
+                          >
+                            <RangePicker
+                              format="HH:mm a"
+                              minuteStep={30}
+                              use12Hours={true}
+                            />
+                          </Form.Item>
+                        </Col>
+                        <Col span="8">
+                          <Form.Item
+                            label="Lead Source"
+                            colon={false}
+                            name="leadSource"
+                          >
+                            <Input placeholder="Lead Source" />
+                          </Form.Item>
+                        </Col>
+                      </Row>
+                    </Panel>
+                  </Collapse>
+                  <Row
+                    gutter={[24, 24]}
+                    style={{ paddingTop: '1rem', paddingBottom: '1rem' }}
                   >
-                    <Input placeholder="Alternative Mobile"/>
-                  </Form.Item>
-                  <Form.Item label="Residential Address">
-                    <Form.Item
-                      colon={false}
-                      name={['address', 'door_no']}
-                    >
-                      <Input placeholder="DoorNo / Plot No"/>
-                    </Form.Item>
-                    <Form.Item
-                      colon={false}
-                      name={['address', 'street_name']}
-                    >
-                      <Input placeholder="Street Name"/>
-                    </Form.Item>
-                    <Form.Item
-                      colon={false}
-                      name={['address', 'city']}
-                    >
-                      <Input placeholder="City"/>
-                    </Form.Item>
-                    <Input.Group compact>
-                      <Form.Item
-                        name={['address', 'state']}
-                        noStyle
-                        rules={[{ required: true, message: 'State is required' }]}
+                    <Col span="24">
+                      <Button
+                        block
+                        type="primary"
+                        htmlType="submit"
+                        loading={isLoading}
                       >
-                        <Select placeholder="Select State">
-                          <Option value="Zhejiang">Zhejiang</Option>
-                          <Option value="Jiangsu">Jiangsu</Option>
-                        </Select>
-                      </Form.Item>
-                      <Form.Item
-                        name={['address', 'country']}
-                        noStyle
-                        rules={[{ required: true, message: 'Country is required' }]}
-                      >
-                        <Select placeholder="Select Country">
-                          <Option value="Zhejiang">India</Option>
-                          <Option value="Jiangsu">Swiss</Option>
-                        </Select>
-                      </Form.Item>
-                    </Input.Group>
-                  </Form.Item>
-                  <Form.Item
-                    colon={false}
-                    label="Best Time to call"
-                    name="call_time"
-                  >
-                    <RangePicker />
-                  </Form.Item>
+                        Save
+                      </Button>
+                    </Col>
+                  </Row>
                 </Form>
               </Col>
             </Row>
             <br />
-            <Row>
-              <Col span="18" className="add-lead-col" style={{ padding: '12px' }}>
-                <h3>Feeds about interested plots</h3>
-                <Divider style={{ width: '100%', margin: 0 }} />
-                <Tabs defaultActiveKey="1" >
-                  <TabPane tab="Plot CA301" key="1">
-                    <Form
-                      layout= "vertical"
-                      name="basic"
-                      initialValues={{
-                        remember: true
-                      }}
-                      onFinish={onFinish}
-                      onFinishFailed={onFinishFailed}
-                      autoComplete="false"
-                    >
-                      <Row>
-                        <Col span="18" style={{
-                          padding: '0.2rem'
-                        }}>
-                          <Form.Item
-                            colon={false}
-                            label="Notes"
-                            name="notes"
-                          >
-                            <Input.TextArea rows={3} placeholder="Add your notes here..."/>
-                          </Form.Item>
-
-                        </Col>
-                        <Col span="6" style={{
-                          padding: '0.2rem'
-                        }}>
-                          <Form.Item
-                            colon={false}
-                            label="Positive Lead Score"
-                            name="postivive_lead"
-
-                          >
-                            <Input placeholder="Ex: 90%"/>
-                          </Form.Item>
-
-                        </Col>
-                      </Row>
-                    </Form>
-                  </TabPane>
-                  <TabPane tab="Plot CA304" key="2">
-                    <Form
-                      layout= "vertical"
-                      name="basic"
-                      initialValues={{
-                        remember: true
-                      }}
-                      onFinish={onFinish}
-                      onFinishFailed={onFinishFailed}
-                      autoComplete="false"
-                    >
-                      <Row>
-                        <Col span="18" style={{
-                          padding: '1rem'
-                        }}>
-                          <Form.Item
-                            colon={false}
-                            label="Notes"
-                            name="notes"
-                          >
-                            <Input.TextArea rows={4} placeholder="Add your notes here..."/>
-                          </Form.Item>
-
-                        </Col>
-                        <Col span="6" style={{
-                          padding: '1rem'
-                        }}>
-                          <Form.Item
-                            colon={false}
-                            label="Positive Lead Score"
-                            name="postivive_lead"
-
-                          >
-                            <Input placeholder="Ex: 90%"/>
-                          </Form.Item>
-                          <Form.Item
-                            colon={false}
-                            label="Negative Lead Score"
-                            name="negative_lead"
-
-                          >
-                            <Input placeholder="Ex: 90%"/>
-                          </Form.Item>
-                        </Col>
-                      </Row>
-                    </Form>
-                  </TabPane>
-                  <TabPane tab="Plot CA305" key="3">
-                    <Form
-                      layout= "vertical"
-                      name="basic"
-                      initialValues={{
-                        remember: true
-                      }}
-                      onFinish={onFinish}
-                      onFinishFailed={onFinishFailed}
-                      autoComplete="false"
-                    >
-                      <Row>
-                        <Col span="18" style={{
-                          padding: '1rem'
-                        }}>
-                          <Form.Item
-                            colon={false}
-                            label="Notes"
-                            name="notes"
-                          >
-                            <Input.TextArea rows={4} placeholder="Add your notes here..."/>
-                          </Form.Item>
-
-                        </Col>
-                        <Col span="6" style={{
-                          padding: '1rem'
-                        }}>
-                          <Form.Item
-                            colon={false}
-                            label="Positive Lead Score"
-                            name="postivive_lead"
-
-                          >
-                            <Input placeholder="Ex: 90%"/>
-                          </Form.Item>
-                          <Form.Item
-                            colon={false}
-                            label="Negative Lead Score"
-                            name="negative_lead"
-
-                          >
-                            <Input placeholder="Ex: 90%"/>
-                          </Form.Item>
-                        </Col>
-                      </Row>
-                    </Form>
-                  </TabPane>
-                </Tabs>
-              </Col>
-              <Col span="1"></Col>
-
-              <Col span="5" className="add-lead-col" style={{ padding: '25px' }}>
-                <Row>
-                  <h3>Plot Status</h3>
-                  <Divider style={{ width: '100%', margin: 0 }} />
-                  <br />
-                  <Radio.Group defaultValue="open" style={{ width: '100%' }}>
-                    <Radio.Button style={radioStyle} value="open">Open</Radio.Button>
-                    <Radio.Button style={radioStyle} value="book">Book</Radio.Button>
-                    <Radio.Button style={radioStyle} value="block">Block</Radio.Button>
-                  </Radio.Group>
-                </Row>
-
-              </Col>
-            </Row>
           </div>
         </Content>
       </HeaderBar>
-
     </div>
   )
 }

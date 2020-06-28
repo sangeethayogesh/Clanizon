@@ -8,87 +8,85 @@ import { SmileTwoTone } from '@ant-design/icons'
 
 import '../styles/lead-table.css'
 import '../styles/common.css'
-import rest from 'services/http'
-import constants from '../constants'
 import { useHistory } from 'react-router-dom'
+import { useStoreActions, useStoreState } from 'easy-peasy'
 
-const LeadTable = props => {
+const LeadTable = (props) => {
   const [loading, setLoading] = useState(false)
-  const [todayData, setTodayData] = useState([])
   const history = useHistory()
+  const getTodayLeads = useStoreActions(
+    (actions) => actions.leads.getTodayLeads
+  )
 
+  const todayLeads = useStoreState((store) => store.leads.today_leads)
   const columns = [
     {
       title: 'Name',
-      dataIndex: 'name',
       width: 200,
       // eslint-disable-next-line react/display-name
-      render: (name) => (
+      render: (user) => (
         <div>
-          <img className="table-thumbnail" alt="" src='https://randomuser.me/api/portraits/women/42.jpg'/>
           <span className="table-name">
-            <span className="table-inner-name">{name}</span><br />
-            <span className="table-designation">Manager</span>
+            <span className="table-inner-name">
+              {user.leadCustomer.userFname + ' ' + user.leadCustomer.userSname}
+            </span>
+            <br />
+            <span className="table-designation">
+              {user.leadCustomer.userOccupation}
+            </span>
           </span>
         </div>
       )
     },
     {
       title: 'Email',
-      dataIndex: 'email',
       width: 200,
       // eslint-disable-next-line react/display-name
-      render: text => <a>{text}</a>
+      render: (user) => user.leadCustomer.userEmailid
     },
     {
       title: 'Contact Number',
-      dataIndex: 'contact_number',
-      width: 150
+      width: 150,
+      render: (user) => user.leadCustomer.userMobile
+    },
+    {
+      title: 'Company',
+      width: 150,
+      render: (user) => user.leadCustomer.userCompany
     },
     {
       title: 'Next Schedule',
-      dataIndex: 'next_schedule',
-      width: 150
-    },
-    {
-      title: 'Location',
-      dataIndex: 'location',
-      width: 150
-    },
-    {
-      title: 'Intrested Plots',
-      dataIndex: 'intrested_plots',
       width: 150,
       // eslint-disable-next-line react/display-name
-      render: (tags) => (
-        <span>
-          {
-            tags.join()
-          }
-        </span>
+      render: (user) => (
+        <a>{new Date(user.nextScheduleDatetime).toISOString().split('T')[0]}</a>
       )
     },
     {
+      title: 'Source',
+      dataIndex: 'leadSource',
+      width: 150
+    },
+    {
       title: 'Score Summary',
-      dataIndex: 'score_summary',
       // eslint-disable-next-line react/display-name
-      render: (scores) => (
+      render: (user) => (
         <div className="icons-list">
-          {
-            scores.map((score, i) => {
-              let color
-              if (score === 'happy') {
-                color = '#52c41a'
-              } else if (score === 'sad') {
-                color = '#eb2f96'
-              } else {
-                color = '#1890ff'
-              }
-              return (
-                <span key={i} style={{ paddingRight: '1rem' }}><SmileTwoTone twoToneColor={color}/></span>
-              )
-            })
-          }
+          {user.leadOutcome.slice(0, 3).map((score, i) => {
+            let color
+            if (score.outCome == 'Positive') {
+              color = '#5ccb88'
+            } else if (score.outCome == 'Negaitve') {
+              color = '#eb2f96'
+            } else {
+              color = '#faad14'
+            }
+            return (
+              <span key={i} style={{ paddingRight: '1rem' }}>
+                <SmileTwoTone twoToneColor={color} />
+              </span>
+            )
+          })}
         </div>
       )
     },
@@ -98,29 +96,37 @@ const LeadTable = props => {
       // eslint-disable-next-line react/display-name
       render: (agent) => (
         <span>
-          <a onClick={() => { history.push('agent/overall?agentId=' + agent.id) }}>Add Call</a>
+          <a
+            onClick={() => {
+              history.push({ pathname: 'agent/overall', leadDetail: agent })
+            }}
+          >
+            Add Call
+          </a>
         </span>
       )
     }
   ]
-  const tableColumns = columns.map(item => ({ ...item, ellipsis: true, className: 't-head' }))
+  const tableColumns = columns.map((item) => ({
+    ...item,
+    ellipsis: true,
+    className: 't-head'
+  }))
+
   useEffect(() => {
     setLoading(true)
-    rest.get(constants.URL.GET_TODAY_LEADS).then((res) => {
-      setTodayData(res.data)
-      setLoading(false)
-    }).catch((err) => {
-      console.error(err)
+    getTodayLeads(() => {
       setLoading(false)
     })
   }, [])
+
   return (
     <Layout.Content>
       <Table
         columns={tableColumns}
         size="middle"
         loading={loading}
-        dataSource={todayData}
+        dataSource={todayLeads}
         pagination={{ pageSize: 10 }}
         scroll={{ y: 300 }}
       />

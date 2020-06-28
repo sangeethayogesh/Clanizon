@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
-import { Form, Input, Button, Select } from 'antd'
+import { Form, Input, Button, Select, message } from 'antd'
 import '../styles/common.css'
 import '../styles/add-agent.css'
+import constants from '../constants'
+import http from '../services/http.js'
+import { useStoreState, useStoreActions } from 'easy-peasy'
+import rest from 'services/http'
 const { Option } = Select
 const layout = {
   labelCol: {
@@ -19,32 +23,91 @@ const tailLayout = {
   }
 }
 
-const AddAgent = props => {
-  const onFinish = values => {
+const AddAgent = (props) => {
+  const [form] = Form.useForm()
+  const [isLoading, setIsLoading] = useState(false)
+  const addNewAgent = useStoreActions((actions) => actions.agents.addNewAgent)
+
+  const onFinish = (values) => {
     console.log('Success:', values)
+    const data = values
+    data.agent.userPassword = data.agent.userMobile
+    data.agent.userMobileAlt = data.agent.userMobileAlt
+      ? data.agent.userMobileAlt
+      : '0123456789'
+    data.agent.userRoles = {
+      roleId: 2,
+      roleType: 'AGENT'
+    }
+    form.resetFields()
+    setIsLoading(true)
+    rest
+      .post(constants.URL.ADD_NEW_AGENT, data.agent)
+      .then((res) => {
+        addNewAgent(res.data)
+        message.success('Agent Added')
+        setIsLoading(false)
+        props.doClose()
+      })
+      .catch((err) => {
+        message.error('Failed!')
+        console.error(err)
+      })
   }
 
-  const onFinishFailed = errorInfo => {
+  const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo)
   }
+
+  const reset = () => {
+    form.resetFields()
+    props.doClose()
+  }
+
   return (
-    <div >
+    <div>
       <Form
         {...layout}
         name="basic"
         initialValues={{
           remember: true
         }}
+        form={form}
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
-        autoComplete="false"
+        autoComplete="new-email"
       >
         <Form.Item
           colon={false}
-          label="Agent Email"
-          name="agent_email"
+          label="First name"
+          name={['agent', 'userFname']}
           rules={[
-
+            {
+              required: true,
+              message: 'Please enter First name!'
+            }
+          ]}
+        >
+          <Input placeholder="Name" />
+        </Form.Item>
+        <Form.Item
+          colon={false}
+          label="Second name"
+          name={['agent', 'userSname']}
+          rules={[
+            {
+              required: true,
+              message: 'Please enter second name!'
+            }
+          ]}
+        >
+          <Input placeholder="Second Name" />
+        </Form.Item>
+        <Form.Item
+          colon={false}
+          label="Agent Email"
+          name={['agent', 'userEmailid']}
+          rules={[
             {
               required: true,
               message: 'Please enter agnet E-mail!'
@@ -53,46 +116,57 @@ const AddAgent = props => {
               type: 'email',
               message: 'The input is not valid E-mail!'
             }
-
           ]}
         >
-          <Input placeholder="E-mail"/>
-        </Form.Item>
-        <Form.Item
-          colon={false}
-          label="Agent name"
-          name="agent_name"
-          rules={[
-            {
-              required: true,
-              message: 'Please enter agnet name!'
-            }
-          ]}
-        >
-          <Input placeholder="Name"/>
+          <Input placeholder="E-mail" />
         </Form.Item>
 
         <Form.Item
           label="Mobile Number"
-          name="agent_mobile"
-          rules={[{ required: true, message: 'Mobile Number is required' }]}
+          name={['agent', 'userMobile']}
+          colon={false}
+          rules={[
+            { required: true, message: 'Mobile Number is required' },
+            { pattern: /^\d{10}$/, message: 'Enter a valid mobile number' }
+          ]}
         >
-          <Input style={{ width: '50%' }} placeholder="Input Number" />
+          <Input style={{ width: '50%' }} placeholder="Mobile Number" />
+        </Form.Item>
+        <Form.Item
+          label="Alt Mobile Number"
+          name={['agent', 'userMobileAlt']}
+          colon={false}
+        >
+          <Input
+            style={{ width: '50%' }}
+            placeholder="Alternate Mobile Number"
+          />
         </Form.Item>
 
-        <Form.Item name="gender" label="Gender" rules={[{ required: true }]}>
-          <Select
-            placeholder="Gender"
-          >
-            <Option value="male">male</Option>
-            <Option value="female">female</Option>
-            <Option value="other">other</Option>
-          </Select>
+        <Form.Item
+          colon={false}
+          name={['agent', 'userAddress']}
+          label="Address"
+        >
+          <Input.TextArea placeholder="Address"></Input.TextArea>
+        </Form.Item>
+        <Form.Item
+          colon={false}
+          label="Occupation"
+          name={['agent', 'userOccupation']}
+          rules={[
+            {
+              required: true,
+              message: 'Please input your occupation!'
+            }
+          ]}
+        >
+          <Input placeholder="Occupation" />
         </Form.Item>
         <Form.Item
           colon={false}
           label="City"
-          name="agent_city"
+          name={['agent', 'userCity']}
           rules={[
             {
               required: true,
@@ -100,12 +174,11 @@ const AddAgent = props => {
             }
           ]}
         >
-          <Input placeholder="City"/>
+          <Input placeholder="City" />
         </Form.Item>
         <Form.Item
-          name="select"
-          label="Select"
-          hasFeedback
+          name={['agent', 'userCountry']}
+          label="country"
           rules={[
             {
               required: true,
@@ -114,20 +187,25 @@ const AddAgent = props => {
           ]}
         >
           <Select placeholder="Country">
-            <Option value="india">India</Option>
-            <Option value="usa">U.S.A</Option>
+            <Option value="India">India</Option>
           </Select>
         </Form.Item>
 
         <Form.Item {...tailLayout}>
-          <Button type="primary" htmlType="submit">
-        Save
+          <Button type="primary" htmlType="submit" loading={isLoading}>
+            Save
           </Button>
-          <Button htmlType="button" style={{ margin: '0 8px' }} >
-              Cancel
+          <Button
+            disabled={isLoading}
+            htmlType="button"
+            onClick={() => {
+              reset()
+            }}
+            style={{ margin: '0 8px' }}
+          >
+            Cancel
           </Button>
         </Form.Item>
-
       </Form>
     </div>
   )
