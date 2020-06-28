@@ -183,7 +183,9 @@ const OverallCallStatus = (props) => {
     data.leadAuditCreatedUser = {
       userMobile: constants.currentAgent.mobile || '8122723731'
     }
-    data.leadAuditScheduleDatetime = data.leadAuditScheduleDatetime.$d
+    data.leadAuditScheduleDatetime = data.leadAuditScheduleDatetime
+      ? data.leadAuditScheduleDatetime.$d
+      : undefined
     data.leadAuditLeadId = props.leadId
     setIsLoading(true)
     rest

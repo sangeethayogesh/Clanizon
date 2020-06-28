@@ -13,7 +13,6 @@ const OverAll = (props) => {
   useEffect(() => {
     if (lead === undefined) history.goBack()
   }, [])
-  console.log('OverAllLEad', lead)
   return (
     <HeaderBar drawer={false}>
       <SubNavBar></SubNavBar>

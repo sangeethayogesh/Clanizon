@@ -10,7 +10,8 @@ import { AddPlotArea } from './screens/admin/AddPlotArea'
 import { AgentHome } from './screens/agent/Home'
 import { OverAll } from './screens/agent/OverAll'
 import AddLead from 'screens/agent/AddLead'
-import { Server, Model } from 'miragejs'
+import { LeadList } from 'screens/agent/LeadList'
+// import { Server, Model } from 'miragejs'
 
 const leaddata = []
 for (let i = 0; i < 35; i++) {
@@ -105,6 +106,8 @@ function AppRouter() {
       <Route exact path="/" component={UserHome}></Route>
       <Route exact path="/admin" component={AdminHome}></Route>
       <Route exact path="/agent/overall" component={OverAll}></Route>
+
+      <Route exact path="/agent/leads" component={LeadList}></Route>
       <Route
         exact
         path="/admin/overall-product-report"
