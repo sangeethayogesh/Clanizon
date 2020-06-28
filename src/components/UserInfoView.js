@@ -32,14 +32,14 @@ const UserInfoView = (props) => {
             {lead.leadCustomer.userMobileAlt}
           </Descriptions.Item>
           <Descriptions.Item label="Lead contact">
-            {lead.leadAgentMobile}{' '}
+            {lead.leadAgentMobile}
           </Descriptions.Item>
           <Descriptions.Item label="Address">
-            {lead.leadCustomer.leadAddress}{' '}
+            {lead.leadCustomer.userAddress}
           </Descriptions.Item>
           <Descriptions.Item label="Intrested  area">~</Descriptions.Item>
           <Descriptions.Item label="Next schedule date">
-            {lead.nextScheduleDatetime}
+            {new Date(lead.nextScheduleDatetime).toISOString().split('T')[0]}
           </Descriptions.Item>
           <Descriptions.Item label="Best time to call">
             {lead.leadCustomer.preferredCallStart +
