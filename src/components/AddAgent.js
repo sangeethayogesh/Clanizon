@@ -35,7 +35,6 @@ const AddAgent = (props) => {
       ? data.agent.userMobileAlt
       : '0123456789'
     data.agent.userRole = 2
-    form.resetFields()
     setIsLoading(true)
     rest
       .post(constants.URL.ADD_NEW_AGENT, data.agent)
@@ -43,11 +42,13 @@ const AddAgent = (props) => {
         addNewAgent(res.data)
         message.success('Agent Added')
         setIsLoading(false)
+        form.resetFields()
         props.doClose()
       })
       .catch((err) => {
         message.error('Failed!')
         console.error(err)
+        setIsLoading(false)
       })
   }
 
@@ -143,6 +144,7 @@ const AddAgent = (props) => {
           colon={false}
           name={['agent', 'userAddress']}
           label="Address"
+          rules={[{ required: true, message: 'Address is required' }]}
         >
           <Input.TextArea placeholder="Address"></Input.TextArea>
         </Form.Item>

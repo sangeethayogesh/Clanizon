@@ -41,7 +41,7 @@ const AddLead = (props) => {
 
   const onFinish = (values) => {
     const data = values
-    data.lead.userOccupation = 'default'
+    data.lead.userOccupation = '-'
     data.lead.userPassword = data.lead.userMobile
     data.lead.userMobileAlt = data.lead.userMobile
     data.lead.preferredCallStart = values.best_call_time
@@ -53,7 +53,7 @@ const AddLead = (props) => {
 
     const request = {
       leadAgentMobile: constants.currentAgent.mobile || '8122723731',
-      leadSource: data.leadSource,
+      leadSource: data.leadSource ? data.leadSource : '-',
       leadCustomer: data.lead,
       leadStatus: 1,
       leadCreateDate: new Date(),
@@ -211,6 +211,10 @@ const AddLead = (props) => {
                               {
                                 required: true,
                                 message: 'Please enter the contact number'
+                              },
+                              {
+                                pattern: /^\d{10}$/,
+                                message: 'Enter a valid contact number'
                               }
                             ]}
                           >
@@ -236,6 +240,12 @@ const AddLead = (props) => {
                             label="Address"
                             colon={false}
                             name={['lead', 'userAddress']}
+                            rules={[
+                              {
+                                required: true,
+                                message: 'Please enter the Address'
+                              }
+                            ]}
                           >
                             <Input.TextArea placeholder="Address" />
                           </Form.Item>

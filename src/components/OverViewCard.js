@@ -23,8 +23,8 @@ const OverViewCard = (props) => {
             <Text className="o-title">{props.title}</Text>
           </Row>
         </Col>
-        <Col span="8">
-          {props.showbutton && (
+        {props.showbutton && (
+          <Col span="8">
             <div className="o-center">
               <Button
                 className="o-add-btn"
@@ -35,8 +35,8 @@ const OverViewCard = (props) => {
                 + Add Lead
               </Button>
             </div>
-          )}
-        </Col>
+          </Col>
+        )}
       </Row>
     </Card>
   )

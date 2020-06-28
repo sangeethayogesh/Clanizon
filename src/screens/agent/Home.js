@@ -27,9 +27,9 @@ const AgentHome = (props) => {
   useEffect(() => {
     // Update the document title using the browser API
     console.log('::Agent Home Called::')
-    getAdminMessages(() => {
-      console.log('admin Msg Received')
-    })
+    // getAdminMessages(() => {
+    //   console.log('admin Msg Received')
+    // })
     getLeadStatusCount()
   }, [])
   return (
@@ -39,34 +39,40 @@ const AgentHome = (props) => {
           <AgentMessageCard key={i} data={msg} />
         ))}
       </Carousel>
-      <br></br>
       <Row gutter={[12, 12]}>
         <Col>
           <OverViewCard
             color="#7571c7"
-            title="New Leads Added"
+            title="New Leads "
             count={leadStatusCount.created}
             showbutton={true}
           ></OverViewCard>
         </Col>
         <Col>
           <OverViewCard
-            color="#5dca88"
-            title="Prospecting Leads"
+            color="#4cc311"
+            title="Prospecting"
             count={leadStatusCount.prospecting}
             showbutton={false}
           ></OverViewCard>
         </Col>
         <Col>
           <OverViewCard
-            color="#ff707c"
+            color="#1890ff"
             title="Completed Leads"
             count={leadStatusCount.completed}
             showbutton={false}
           ></OverViewCard>
         </Col>
+        <Col>
+          <OverViewCard
+            color="#ff707c"
+            title="Closure Leads"
+            count={leadStatusCount.closure}
+            showbutton={false}
+          ></OverViewCard>
+        </Col>
       </Row>
-      <br></br>
       <Row>
         <h5
           style={{

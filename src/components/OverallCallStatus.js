@@ -439,6 +439,7 @@ const OverallCallStatus = (props) => {
                       htmlType="reset"
                       className="b-secondary"
                       disabled={isLoading}
+                      onClick={() => history.goBack()}
                     >
                       Cancel
                     </Button>

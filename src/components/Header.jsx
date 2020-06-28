@@ -10,7 +10,7 @@ const HeaderBar = () => {
       <Row justify="left">
         <Col span="4">
           <HomeOutlined className="logo" style={{ color: '#fff' }} />
-          <span className="header-title">&nbsp;Booking</span>
+          <span className="header-title">&nbsp;CRM</span>
         </Col>
       </Row>
     </Header>

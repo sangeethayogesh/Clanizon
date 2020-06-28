@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { Table } from 'antd'
 import { useStoreState, useStoreActions } from 'easy-peasy'
+import constants from '../constants'
 const columns = [
   {
     title: 'Name',
@@ -29,9 +30,13 @@ const columns = [
     render: (user) => user.leadCustomer.userMobile
   },
   {
-    title: 'Company',
+    title: 'Status',
     width: 150,
-    render: (user) => user.leadCustomer.userCompany
+    render: (user) => (
+      <p style={{ color: '#4c46a7', fontWeight: 'bold' }}>
+        {constants.getLeadStatusById(user.leadStatus)}
+      </p>
+    )
   },
   //   {
   //     title: 'Status',
@@ -78,9 +83,10 @@ const columns = [
   //     )
   //   }
 ]
-const tableColumns = columns.map((item) => ({
+const tableColumns = columns.map((item, idx) => ({
   ...item,
   ellipsis: true,
+  key: idx,
   className: 't-head'
 }))
 
@@ -107,7 +113,7 @@ const DetailedLeadList = (props) => {
         loading={loading}
         dataSource={leadsByAgent}
         pagination={{ pageSize: 10 }}
-        scroll={{ y: 300 }}
+        scroll={{ y: '100vh' }}
       ></Table>
     </div>
   )

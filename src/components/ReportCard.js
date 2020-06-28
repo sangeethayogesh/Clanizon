@@ -26,7 +26,7 @@ const ReportCard = (props) => {
             <Col>
               <Row>
                 <span className="r-user-name">
-                  {lead.leadCustomer.userFname}
+                  {lead.leadCustomer.userFname || ''}
                 </span>
               </Row>
               <Row>
