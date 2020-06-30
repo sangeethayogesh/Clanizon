@@ -6,13 +6,11 @@ const constants = {
   URL: {
     GET_ADMIN_MESSAGES: NAME_SPACE + 'admin_messages',
     GET_TODAY_LEADS:
-      'http://realkeyip.in:8083/api/leads/leadbyagentanddate?mobile=8122723731&date=' +
-      today,
+      'http://realkeyip.in:8083/api/leads/leadbyagentanddate?date=' + today,
     GET_ALL_AGENTS: 'http://realkeyip.in:8083//api/user/userbyrole?roleId=2',
     ADD_NEW_AGENT: 'http://realkeyip.in:8083//api/user/createuser',
     ADD_NEW_LEAD: 'http://realkeyip.in:8083/api/leads/createlead',
-    GET_LEAD_STATUS_COUNT:
-      'http://realkeyip.in:8083/api/leads/leadbystatus?mobile=8122723731',
+    GET_LEAD_STATUS_COUNT: 'http://realkeyip.in:8083/api/leads/leadbystatus',
     ADD_NEW_AUDIT: 'http://realkeyip.in:8083/api/leads/leadaudit',
     GET_LEAD_BY_AGENT:
       'http://realkeyip.in:8083/api/leads/leadbyagent?mobile=8122723731',

@@ -10,11 +10,13 @@ import { AgentMessageCard } from '../../components/AgentMessageCard'
 import { OverViewCard } from '../../components/OverViewCard'
 
 import '../../styles/common.css'
+import constants from '../../constants'
 
 const AgentHome = (props) => {
-  const getAdminMessages = useStoreActions(
-    (actions) => actions.broadCastMeassages.getMessages
-  )
+  const currentUser = useStoreState((state) => state.auth.user)
+  // const getAdminMessages = useStoreActions(
+  //   (actions) => actions.broadCastMeassages.getMessages
+  // )
   const adminMessages = useStoreState(
     (state) => state.broadCastMeassages.messages
   )
@@ -30,7 +32,9 @@ const AgentHome = (props) => {
     // getAdminMessages(() => {
     //   console.log('admin Msg Received')
     // })
-    getLeadStatusCount()
+    getLeadStatusCount(
+      constants.URL.GET_LEAD_STATUS_COUNT + '?mobile=' + currentUser.userMobile
+    )
   }, [])
   return (
     <HeaderBar>
@@ -84,7 +88,7 @@ const AgentHome = (props) => {
         >
           Today Lead List
         </h5>
-        <LeadTable></LeadTable>
+        <LeadTable currentUser={currentUser}></LeadTable>
       </Row>
     </HeaderBar>
   )

@@ -17,7 +17,7 @@ import '../../styles/common.css'
 import { useHistory } from 'react-router-dom'
 import constants from '../../constants'
 import rest from 'services/http'
-import { useStoreActions } from 'easy-peasy'
+import { useStoreActions, useStoreState } from 'easy-peasy'
 const { Panel } = Collapse
 const { RangePicker } = TimePicker
 const { Search } = Input
@@ -38,6 +38,7 @@ const AddLead = (props) => {
   const [form] = Form.useForm()
   const [isLoading, setIsLoading] = useState(false)
   const addLead = useStoreActions((actions) => actions.leads.addLead)
+  const currentUser = useStoreState((state) => state.auth.user)
 
   const onFinish = (values) => {
     const data = values
@@ -52,7 +53,7 @@ const AddLead = (props) => {
       : null
 
     const request = {
-      leadAgentMobile: constants.currentAgent.mobile || '8122723731',
+      leadAgentMobile: currentUser.userMobile,
       leadSource: data.leadSource ? data.leadSource : '-',
       leadCustomer: data.lead,
       leadStatus: 1,

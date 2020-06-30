@@ -116,12 +116,16 @@ const LeadTable = (props) => {
     className: 't-head',
     key: index
   }))
-
+  const data = {
+    url:
+      constants.URL.GET_TODAY_LEADS + '&mobile=' + props.currentUser.userMobile,
+    callback: () => {
+      setLoading(false)
+    }
+  }
   useEffect(() => {
     setLoading(true)
-    getTodayLeads(() => {
-      setLoading(false)
-    })
+    getTodayLeads(data)
   }, [])
 
   return (

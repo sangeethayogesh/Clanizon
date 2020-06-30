@@ -1,8 +1,7 @@
-import { action, computed, thunk } from 'easy-peasy'
+import { action, computed, thunk, useStoreState } from 'easy-peasy'
 import constants from '../constants'
 import rest from '../services/http'
 import { message } from 'antd'
-
 const leads = {
   today_leads: [],
   allLeads: [],
@@ -20,17 +19,17 @@ const leads = {
   unsetTodayLeads: action((state, payload) => {
     state.today_leads = []
   }),
-  getTodayLeads: thunk(async (actions, callback) => {
+  getTodayLeads: thunk(async (actions, data) => {
     actions.setTodayLeads([])
     rest
-      .get(constants.URL.GET_TODAY_LEADS)
+      .get(data.url)
       .then((res) => {
         // const data = res.data.map((item) => ({
         //   ...item,
         //   next_schedule: '10:30AM'
         // }))
         actions.setTodayLeads(res.data)
-        callback()
+        data.callback()
       })
       .catch((err) => {
         console.error(err)
@@ -45,9 +44,9 @@ const leads = {
   addLead: action((state, payload) => {
     state.allLeads.push(payload)
   }),
-  getLeadStatusCount: thunk(async (actions) => {
+  getLeadStatusCount: thunk(async (actions, url) => {
     rest
-      .get(constants.URL.GET_LEAD_STATUS_COUNT)
+      .get(url)
       .then((res) => {
         actions.setLeadStatusCount(res.data)
       })
@@ -71,12 +70,12 @@ const leads = {
     }
     console.log(state.statusCount)
   }),
-  getLeadsByAgent: thunk(async (actions, callback) => {
+  getLeadsByAgent: thunk(async (actions, data) => {
     rest
-      .get(constants.URL.GET_LEAD_BY_AGENT)
+      .get(data.url)
       .then((res) => {
         actions.setLeadsByAgent(res.data)
-        callback()
+        data.callback()
       })
       .catch((err) => {
         console.error(err)

@@ -96,14 +96,18 @@ const DetailedLeadList = (props) => {
     (actions) => actions.leads.getLeadsByAgent
   )
   const leadsByAgent = useStoreState((state) => state.leads.leadsByAgent)
-
+  const currentUser = useStoreState((state) => state.auth.user)
+  const data = {
+    url: constants.URL.GET_LEAD_BY_AGENT + '?mobile=' + currentUser.userMobile,
+    callback: () => {
+      setLoading(false)
+    }
+  }
   useEffect(() => {
     // Update the document title using the browser API
     console.log('::LIST LEADS Called::')
     setLoading(true)
-    getLeadsByAgent(() => {
-      setLoading(false)
-    })
+    getLeadsByAgent(data)
   }, [])
   return (
     <div>
