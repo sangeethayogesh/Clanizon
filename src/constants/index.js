@@ -11,7 +11,8 @@ const constants = {
     GET_ALL_AGENTS: 'http://realkeyip.in:8083//api/user/userbyrole?roleId=2',
     ADD_NEW_AGENT: 'http://realkeyip.in:8083//api/user/createuser',
     ADD_NEW_LEAD: 'http://realkeyip.in:8083/api/leads/createlead',
-    GET_LEAD_STATUS_COUNT: 'http://realkeyip.in:8083/api/leads/leadbystatus',
+    GET_LEAD_STATUS_COUNT:
+      'http://realkeyip.in:8083/api/leads/leadbystatus?mobile=8122723731',
     ADD_NEW_AUDIT: 'http://realkeyip.in:8083/api/leads/leadaudit'
   },
   DATA: {

@@ -1,33 +1,18 @@
-import React from 'react'
-import { BrowserRouter, Route } from 'react-router-dom'
-import { StoreProvider, createStore } from 'easy-peasy'
+/* eslint-disable no-unused-expressions */
+import React, { useEffect, useState, Component } from 'react'
+import { BrowserRouter, Route, Redirect, useHistory } from 'react-router-dom'
+import { StoreProvider, createStore, useStoreState } from 'easy-peasy'
 import models from './models'
 import './App.css'
-import UserHome from './screens/user/Home'
+// import UserHome from './screens/user/Home'
 import AdminHome from './screens/admin/Home'
 import OverallProductReport from './screens/admin/OverallProductReport'
 import { AddPlotArea } from './screens/admin/AddPlotArea'
 import { AgentHome } from './screens/agent/Home'
 import { OverAll } from './screens/agent/OverAll'
 import AddLead from 'screens/agent/AddLead'
-import { Server, Model } from 'miragejs'
-
-const leaddata = []
-for (let i = 0; i < 35; i++) {
-  leaddata.push({
-    key: i,
-    name: `Paul walker ${i}`,
-    email: `Paulwalker${i}@gmail.com`,
-    contact_number: '1234567890',
-    next_schedule: '10:30AM',
-    location: 'madurai',
-    intrested_plots:
-      i % i === 0
-        ? ['P124', 'P435', 'G343']
-        : ['P124', 'P435', 'G343', 'P124', 'P435', 'P124', 'P435'],
-    score_summary: ['happy', 'sad', 'okay']
-  })
-}
+// import { Server, Model } from 'miragejs'
+import LoginForm from 'screens/auth/Login'
 
 // eslint-disable-next-line no-new
 // new Server({
@@ -97,26 +82,74 @@ for (let i = 0; i < 35; i++) {
 
 const storeModel = createStore(models)
 
-function AppRouter() {
+const VerifyUser = (props) => {
+  const history = useHistory()
+  const [isSecure, setIsSecure] = useState(false)
+  useEffect(() => {
+    check()
+  }, [])
+  const check = () => {
+    if (props.isLoggedIn && props.currentUser.userRole === props.roleType) {
+      // setIsSecure(true)
+      return <Component {...props}></Component>
+    } else {
+      return (
+        <Redirect
+          to={{ pathname: '/login', state: { from: props.location } }}
+        />
+      )
+    }
+  }
+  return <></>
+}
+const AppRouter = () => {
   return (
     <>
+      <Route exact path="/" component={LoginForm}></Route>
+      <Route exact path="/login" component={LoginForm}></Route>
+      {/* <AuthenticatedRoute
+        path="/agent"
+        component={AgentHome}
+        roleType="2"
+      ></AuthenticatedRoute> */}
       <Route exact path="/agent" component={AgentHome}></Route>
-
-      <Route exact path="/" component={UserHome}></Route>
-      <Route exact path="/admin" component={AdminHome}></Route>
+      <Route exact path="/agent/add-lead" component={AddLead}></Route>
       <Route exact path="/agent/overall" component={OverAll}></Route>
+
+      <Route exact path="/admin" component={AdminHome}></Route>
       <Route
         exact
         path="/admin/overall-product-report"
         component={OverallProductReport}
       ></Route>
       <Route exact path="/admin/add-plot-area" component={AddPlotArea}></Route>
-      <Route exact path="/agent/add-lead" component={AddLead}></Route>
     </>
   )
 }
+const AuthenticatedRoute = ({ component: Component, ...rest }) => {
+  const isLoggedIn = useStoreState((state) => state.auth.isLoggedIn)
+  const currentUser = useStoreState((state) => state.auth.user)
 
-function App() {
+  return (
+    <Route
+      {...rest}
+      render={(props) =>
+        isLoggedIn ? (
+          currentUser.userRole === rest.roleType ? (
+            <Component {...props}></Component>
+          ) : (
+            <Redirect
+              to={{ pathname: '/login', state: { from: props.location } }}
+            />
+          )
+        ) : (
+          <Redirect to="/login" />
+        )
+      }
+    />
+  )
+}
+const App = () => {
   return (
     <BrowserRouter>
       <StoreProvider store={storeModel}>

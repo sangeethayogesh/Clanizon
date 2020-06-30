@@ -2,7 +2,7 @@ import { action, computed, persist } from 'easy-peasy'
 
 const authModel = persist({
   user: null,
-  isLoggedIn: computed(state => state.user != null),
+  isLoggedIn: computed((state) => state.user != null),
   setUser: action((state, payload) => {
     state.user = payload
   }),
