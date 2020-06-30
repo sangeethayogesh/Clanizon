@@ -15,18 +15,16 @@ import {
 import TimeAgo from 'react-timeago'
 import {
   HomeOutlined,
-  ConsoleSqlOutlined,
-  FileTextOutlined,
-  UnorderedListOutlined,
   MenuOutlined,
   NotificationOutlined,
   UserOutlined,
   DatabaseOutlined,
-  MessageOutlined,
+  PoweroffOutlined,
   SendOutlined
 } from '@ant-design/icons'
 import Text from 'antd/lib/typography/Text'
 import '../styles/common.css'
+import { useStoreState, useStoreActions } from 'easy-peasy'
 
 const { Option } = Mentions
 const { Header, Sider, Content } = Layout
@@ -40,22 +38,16 @@ function HeaderBar(props) {
   const [messageValue, setMessageValue] = useState('')
   const [messages, setMessages] = useState([])
   const userName = 'Deepan'
-  const history = useHistory()
-  const [currentuser, setCurrentUser] = useState('agent')
-  useEffect(() => {
-    console.log(history)
-    let cuser = history.location.pathname.startsWith('/admin')
-      ? 'admin'
-      : 'agent'
-    setCurrentUser(cuser)
-  }, [])
+  const currentUser = useStoreState((state) => state.auth.user)
+  const setUser = useStoreActions((actions) => actions.auth.setUser)
   const [visible, setVisible] = useState(false)
+  const history = useHistory()
   const onClose = () => {
     setVisible(false)
   }
-  const showDrawer = () => {
-    // console.log(users)
-    setVisible(true)
+  const logOut = () => {
+    setUser(null)
+    history.replace('/login')
   }
   const sendMessage = () => {
     setMessageValue('')
@@ -67,7 +59,14 @@ function HeaderBar(props) {
   return users.length ? (
     <div style={{ backgroundColor: '#f0f1f4' }}>
       <Layout>
-        <Header style={{ position: 'fixed', zIndex: 1, width: '100%' }}>
+        <Header
+          style={{
+            position: 'fixed',
+            zIndex: 1,
+            width: '100%',
+            paddingRight: 0
+          }}
+        >
           <Row justify="left">
             <Col span="19">
               <HomeOutlined className="logo" style={{ color: '#fff' }} />
@@ -92,10 +91,19 @@ function HeaderBar(props) {
                 </Badge>
               </div>
             </Col>
-            <Col span="2" style={{ textAlign: 'right' }}>
-              <UserOutlined className="header-menu" />
-              &nbsp;
-              <Text>{currentuser}</Text>
+            <Col span="2" style={{ textAlign: 'center' }}>
+              <div className="divider-right">
+                <UserOutlined className="header-menu" />
+                &nbsp;
+                <Text>{currentUser.userFname}</Text>
+              </div>
+            </Col>
+            <Col span="1" style={{ textAlign: 'center' }}>
+              <Button
+                type="link"
+                icon={<PoweroffOutlined className="header-menu" />}
+                onClick={logOut}
+              ></Button>
             </Col>
           </Row>
         </Header>
@@ -209,14 +217,14 @@ function HeaderBar(props) {
               style={{ height: '100%', borderRight: 0 }}
             >
               <Menu.Item key="1" className="sidemenu">
-                <Link to={currentuser == 'admin' ? '/admin' : '/agent'}>
+                <Link to={currentUser.userRole == '1' ? '/admin' : '/agent'}>
                   <HomeOutlined className="menuitem" />
                 </Link>
               </Menu.Item>
               <Menu.Item key="2" className="sidemenu">
                 <Link
                   to={
-                    currentuser == 'admin'
+                    currentUser.userRole == '1'
                       ? '/admin/overall-product-report'
                       : '/agent/leads'
                   }

@@ -110,10 +110,11 @@ const LeadTable = (props) => {
       )
     }
   ]
-  const tableColumns = columns.map((item) => ({
+  const tableColumns = columns.map((item, index) => ({
     ...item,
     ellipsis: true,
-    className: 't-head'
+    className: 't-head',
+    key: index
   }))
 
   useEffect(() => {

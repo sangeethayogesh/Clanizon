@@ -112,8 +112,7 @@ const DetailedLeadList = (props) => {
         size="middle"
         loading={loading}
         dataSource={leadsByAgent}
-        pagination={{ pageSize: 10 }}
-        scroll={{ y: '100vh' }}
+        pagination={{ pageSize: 8 }}
       ></Table>
     </div>
   )

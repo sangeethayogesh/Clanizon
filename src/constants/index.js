@@ -15,7 +15,8 @@ const constants = {
       'http://realkeyip.in:8083/api/leads/leadbystatus?mobile=8122723731',
     ADD_NEW_AUDIT: 'http://realkeyip.in:8083/api/leads/leadaudit',
     GET_LEAD_BY_AGENT:
-      'http://realkeyip.in:8083/api/leads/leadbyagent?mobile=8122723731'
+      'http://realkeyip.in:8083/api/leads/leadbyagent?mobile=8122723731',
+    LOGIN: 'http://realkeyip.in:8083/api/user/login'
   },
   DATA: {
     admin_messages: [

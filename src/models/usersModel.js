@@ -3,7 +3,7 @@ import rest from 'services/http'
 import constants from '../constants'
 
 const usersModel = {
-  users: null,
+  user: null,
 
   setUser: action((state, payload) => {
     state.user = payload

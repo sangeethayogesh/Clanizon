@@ -227,6 +227,12 @@ const AddLead = (props) => {
                             colon={false}
                             label="Alternate Contact Number"
                             name={['lead', 'userMobileAlt']}
+                            rules={[
+                              {
+                                pattern: /^\d{10}$/,
+                                message: 'Enter a valid contact number'
+                              }
+                            ]}
                           >
                             <Input placeholder="Alternative Mobile" />
                           </Form.Item>
