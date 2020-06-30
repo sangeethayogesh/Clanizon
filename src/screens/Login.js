@@ -20,7 +20,9 @@ const LoginForm = () => {
         setIsLoading(false)
         if (response.data) {
           setCurrentUser(response.data)
-          if (response.data.userRole == '2') {
+          if (!response.data.userRole) {
+            message.warn('User role not found')
+          } else if (response.data.userRole == '2') {
             history.replace('/agent')
             // return <Redirect to="/agent" />
           } else if (response.data.userRole == '1') {

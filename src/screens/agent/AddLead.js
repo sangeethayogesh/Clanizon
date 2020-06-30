@@ -105,17 +105,17 @@ const AddLead = (props) => {
               </Col>
               <Col span="6"></Col>
               <Col span="7">
-                <Search
+                {/* <Search
                   placeholder="Enter Locality"
                   onSearch={(value) => console.log(value)}
                   style={{ width: '100%' }}
-                />
+                /> */}
               </Col>
               <Col span="6" />
               <Col span="2">
-                <Button>
+                {/* <Button>
                   <CompressOutlined />
-                </Button>
+                </Button> */}
               </Col>
             </Row>
           </Header>
