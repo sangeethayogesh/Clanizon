@@ -9,13 +9,9 @@ const columns = [
     width: 200,
     // eslint-disable-next-line react/display-name
     render: (user) => (
-      <div>
-        <span className="table-name">
-          <span className="table-inner-name">
-            {user.leadCustomer.userFname + ' ' + user.leadCustomer.userSname}
-          </span>
-        </span>
-      </div>
+      <span style={{ color: '#000000a6', fontWeight: 'bold' }}>
+        {user.leadCustomer.userFname + ' ' + user.leadCustomer.userSname}
+      </span>
     )
   },
   {
@@ -33,9 +29,9 @@ const columns = [
     title: 'Status',
     width: 150,
     render: (user) => (
-      <p style={{ color: '#4c46a7', fontWeight: 'bold' }}>
+      <span style={{ color: '#4c46a7', fontWeight: 'bold' }}>
         {constants.getLeadStatusById(user.leadStatus)}
-      </p>
+      </span>
     )
   },
   //   {
