@@ -85,7 +85,7 @@ const AddAgent = (props) => {
             }
           ]}
         >
-          <Input placeholder="Name" />
+          <Input placeholder="First Name" />
         </Form.Item>
         <Form.Item
           colon={false}
@@ -104,16 +104,6 @@ const AddAgent = (props) => {
           colon={false}
           label="Agent Email"
           name={['agent', 'userEmailid']}
-          rules={[
-            {
-              required: true,
-              message: 'Please enter agnet E-mail!'
-            },
-            {
-              type: 'email',
-              message: 'The input is not valid E-mail!'
-            }
-          ]}
         >
           <Input placeholder="E-mail" />
         </Form.Item>
@@ -144,7 +134,6 @@ const AddAgent = (props) => {
           colon={false}
           name={['agent', 'userAddress']}
           label="Address"
-          rules={[{ required: true, message: 'Address is required' }]}
         >
           <Input.TextArea placeholder="Address"></Input.TextArea>
         </Form.Item>
@@ -152,38 +141,13 @@ const AddAgent = (props) => {
           colon={false}
           label="Occupation"
           name={['agent', 'userOccupation']}
-          rules={[
-            {
-              required: true,
-              message: 'Please input your occupation!'
-            }
-          ]}
         >
           <Input placeholder="Occupation" />
         </Form.Item>
-        <Form.Item
-          colon={false}
-          label="City"
-          name={['agent', 'userCity']}
-          rules={[
-            {
-              required: true,
-              message: 'Please input your city!'
-            }
-          ]}
-        >
+        <Form.Item colon={false} label="City" name={['agent', 'userCity']}>
           <Input placeholder="City" />
         </Form.Item>
-        <Form.Item
-          name={['agent', 'userCountry']}
-          label="country"
-          rules={[
-            {
-              required: true,
-              message: 'Please select your country!'
-            }
-          ]}
-        >
+        <Form.Item name={['agent', 'userCountry']} label="Country">
           <Select placeholder="Country">
             <Option value="India">India</Option>
           </Select>

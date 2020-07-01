@@ -218,7 +218,7 @@ const OverallCallStatus = (props) => {
   }
   return (
     <Row gutter={[16, 16]}>
-      <AttachIntrestedForm
+      {/* <AttachIntrestedForm
         show={visibleIntrestedForm}
         onClose={onCloseIntrestedForm}
       />
@@ -226,7 +226,7 @@ const OverallCallStatus = (props) => {
         visible={visibleNoteForm}
         onClose={onCloseNote}
         onSave={() => onSaveNote}
-      />
+      /> */}
       <Col span={24}>
         <Form
           layout="vertical"
@@ -235,7 +235,8 @@ const OverallCallStatus = (props) => {
           {...tailLayout}
           form={form}
           defaultValue={{
-            leadStatus: props.status
+            leadStatus: props.status,
+            leadInterest: props.interest
           }}
           onFinish={onCallStatusSave}
           onFinishFailed={onFinishFailed}
@@ -283,7 +284,7 @@ const OverallCallStatus = (props) => {
                   >
                     <Select
                       labelInValue
-                      defaultValue={{ key: props.status + '' }}
+                      defaultValue={{ key: props.status }}
                       placeholder="Select Lead Status"
                     >
                       <Option value="1">Created</Option>
@@ -340,8 +341,8 @@ const OverallCallStatus = (props) => {
                   </Form.Item>
                 </Col>
                 <Col span="8">
-                  <Form.Item label="Description" name="leadAuditDescription">
-                    <Input.TextArea placeholder="Description"></Input.TextArea>
+                  <Form.Item label="Interested In" name="leadInterest">
+                    <Input.TextArea placeholder="Interested in"></Input.TextArea>
                   </Form.Item>
                 </Col>
                 <Col span="8">

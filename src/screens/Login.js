@@ -39,18 +39,13 @@ const LoginForm = () => {
   }
 
   return (
-    <Layout
-      style={{
-        height: '100vh',
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}
-    >
+    <Layout style={{ minHeight: '100vh' }}>
       <Card
         headStyle={{ textAlign: 'center' }}
         title="Login"
         bordered={false}
         style={{ width: 400 }}
+        className="login-card"
       >
         <Form
           name="normal_login"

@@ -27,10 +27,12 @@ const UserHome = () => {
   const agentList = useStoreState((state) => state.agents.list)
   const [visibleAddAgent, setVisibleAddAgent] = useState(false)
   const [visibleAddNewPlot, setVisibleAddNewPlot] = useState(false)
-
+  const [loading, setLoading] = useState(false)
   useEffect(() => {
+    setLoading(true)
     getAllAgents(() => {
       console.log('DATA RECEIVED::')
+      setLoading(false)
     })
   }, [])
   const toggleAddNewPlot = () => {
@@ -263,7 +265,11 @@ const UserHome = () => {
               <Row>
                 <Col span="12">
                   <div className="admin-page-column-left">
-                    <Table dataSource={agentList} columns={columns} />
+                    <Table
+                      loading={loading}
+                      dataSource={agentList}
+                      columns={columns}
+                    />
                   </div>
                 </Col>
                 <Col span="12">

@@ -57,6 +57,7 @@ const AddLead = (props) => {
       leadSource: data.leadSource ? data.leadSource : '-',
       leadCustomer: data.lead,
       leadStatus: 1,
+      leadInterest: data.leadInterest,
       leadCreateDate: new Date(),
       nextScheduleDatetime: tomorrow
     }
@@ -173,12 +174,6 @@ const AddLead = (props) => {
                             colon={false}
                             label="Lead Last Name"
                             name={['lead', 'userSname']}
-                            rules={[
-                              {
-                                required: true,
-                                message: 'Please enter the last name'
-                              }
-                            ]}
                           >
                             <Input placeholder="Last Name" />
                           </Form.Item>
@@ -190,10 +185,6 @@ const AddLead = (props) => {
                             label="Email Id"
                             name={['lead', 'userEmailid']}
                             rules={[
-                              {
-                                required: true,
-                                message: 'Please enter the email id'
-                              },
                               {
                                 type: 'email',
                                 message: 'Please enter valid email id'
@@ -247,12 +238,6 @@ const AddLead = (props) => {
                             label="Address"
                             colon={false}
                             name={['lead', 'userAddress']}
-                            rules={[
-                              {
-                                required: true,
-                                message: 'Please enter the Address'
-                              }
-                            ]}
                           >
                             <Input.TextArea placeholder="Address" />
                           </Form.Item>
@@ -310,6 +295,15 @@ const AddLead = (props) => {
                             name="leadSource"
                           >
                             <Input placeholder="Lead Source" />
+                          </Form.Item>
+                        </Col>
+                        <Col span="8">
+                          <Form.Item
+                            label="Interested in"
+                            colon={false}
+                            name="leadInterest"
+                          >
+                            <Input placeholder="Flat 1, Flat 2..," />
                           </Form.Item>
                         </Col>
                       </Row>
