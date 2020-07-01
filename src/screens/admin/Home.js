@@ -75,19 +75,19 @@ const UserHome = () => {
     },
     {
       key: 'secondname',
-      render: (agent) => agent.userSname
-    },
-    {
-      key: 'email',
-      render: (agent) => (
-        <span className="table-email">{agent.userEmailid}</span>
-      )
+      render: (agent) => (agent.userSname ? agent.userSname : '')
     },
     {
       key: 'mobile',
       render: (agent) => agent.userMobile
     },
 
+    {
+      key: 'email',
+      render: (agent) => (
+        <span className="table-email">{agent.userEmailid}</span>
+      )
+    },
     {
       title: (
         <PlusSquareFilled

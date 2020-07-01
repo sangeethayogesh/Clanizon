@@ -10,21 +10,24 @@ const columns = [
     // eslint-disable-next-line react/display-name
     render: (user) => (
       <span style={{ color: '#000000a6', fontWeight: 'bold' }}>
-        {user.leadCustomer.userFname + ' ' + user.leadCustomer.userSname}
+        {user.leadCustomer.userFname}{' '}
+        {user.leadCustomer.userSname ? user.leadCustomer.userSname : ''}
       </span>
     )
-  },
-  {
-    title: 'Email',
-    width: 200,
-    // eslint-disable-next-line react/display-name
-    render: (user) => user.leadCustomer.userEmailid
   },
   {
     title: 'Contact Number',
     width: 150,
     render: (user) => user.leadCustomer.userMobile
   },
+  {
+    title: 'Email',
+    width: 200,
+    // eslint-disable-next-line react/display-name
+    render: (user) =>
+      user.leadCustomer.userEmailid ? user.leadCustomer.userEmailid : '-'
+  },
+
   {
     title: 'Status',
     width: 150,
@@ -61,12 +64,14 @@ const columns = [
   {
     title: 'Address',
     width: 150,
-    render: (user) => user.leadCustomer.userAddress
+    render: (user) =>
+      user.leadCustomer.userAddress ? user.leadCustomer.userAddress : '-'
   },
   {
     title: 'City',
     width: 150,
-    render: (user) => user.leadCustomer.userCity
+    render: (user) =>
+      user.leadCustomer.userCity ? user.leadCustomer.userCity : '-'
   }
   //   {
   //     title: 'Action',

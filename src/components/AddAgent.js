@@ -91,12 +91,6 @@ const AddAgent = (props) => {
           colon={false}
           label="Second name"
           name={['agent', 'userSname']}
-          rules={[
-            {
-              required: true,
-              message: 'Please enter second name!'
-            }
-          ]}
         >
           <Input placeholder="Second Name" />
         </Form.Item>

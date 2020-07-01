@@ -28,7 +28,7 @@ const OverAll = (props) => {
                 <OverallCallStatus
                   leadId={lead.leadId}
                   status={lead.leadStatus}
-                  intrest={lead.leadInterest}
+                  interest={lead.leadInterest}
                   currentUser={currentUser}
                 ></OverallCallStatus>
               </Col>

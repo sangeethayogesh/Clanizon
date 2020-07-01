@@ -153,6 +153,7 @@ const AttachIntrestedForm = (props) => {
 }
 
 const OverallCallStatus = (props) => {
+  console.log(props)
   const [visibleIntrestedForm, setVisibleIntrestedForm] = useState(false)
   const [visibleNoteForm, setVisibleNoteForm] = useState(false)
   const [form] = Form.useForm()
@@ -284,7 +285,7 @@ const OverallCallStatus = (props) => {
                   >
                     <Select
                       labelInValue
-                      defaultValue={{ key: props.status }}
+                      defaultValue={{ key: props.status + '' }}
                       placeholder="Select Lead Status"
                     >
                       <Option value="1">Created</Option>
@@ -342,7 +343,10 @@ const OverallCallStatus = (props) => {
                 </Col>
                 <Col span="8">
                   <Form.Item label="Interested In" name="leadInterest">
-                    <Input.TextArea placeholder="Interested in"></Input.TextArea>
+                    <Input
+                      placeholder="Interested in"
+                      defaultValue={props.interest}
+                    ></Input>
                   </Form.Item>
                 </Col>
                 <Col span="8">
