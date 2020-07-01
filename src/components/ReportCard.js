@@ -68,7 +68,7 @@ const ReportCard = (props) => {
               />
             </Col>
             <Col span="9">
-              <Text className="r-date no-over-due">-24 days overdue</Text>
+              <Text className="r-date no-over-due">0 days overdue</Text>
             </Col>
           </Row>
         </Card>
