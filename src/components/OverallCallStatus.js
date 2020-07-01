@@ -175,7 +175,7 @@ const OverallCallStatus = (props) => {
     var data = { ...values }
     data.leadStatus = data.leadStatus.value
     data.leadAuditCreatedUser = {
-      userMobile: constants.currentAgent.mobile || '8122723731'
+      userMobile: props.currentUser.userMobile
     }
     data.leadAuditScheduleDatetime = data.leadAuditScheduleDatetime
       ? data.leadAuditScheduleDatetime.$d

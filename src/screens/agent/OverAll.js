@@ -8,11 +8,12 @@ import '../../styles/agent-overall.css'
 import { OverallCallStatus } from '../../components/OverallCallStatus'
 import { useHistory } from 'react-router-dom'
 import constants from '../../constants'
+import { useStoreState } from 'easy-peasy'
 const OverAll = (props) => {
   const history = useHistory()
   console.log(history)
   const lead = history.location.leadDetail
-
+  const currentUser = useStoreState((state) => state.auth.user)
   useEffect(() => {
     if (lead === undefined) history.goBack()
   }, [])
@@ -27,6 +28,7 @@ const OverAll = (props) => {
                 <OverallCallStatus
                   leadId={lead.leadId}
                   status={lead.leadStatus}
+                  currentUser={currentUser}
                 ></OverallCallStatus>
               </Col>
               <Col span={8}>

@@ -26,13 +26,9 @@ const LeadTable = (props) => {
       width: 200,
       // eslint-disable-next-line react/display-name
       render: (user) => (
-        <div>
-          <span className="table-name">
-            <span className="table-inner-name">
-              {user.leadCustomer.userFname + ' ' + user.leadCustomer.userSname}
-            </span>
-          </span>
-        </div>
+        <span style={{ color: '#000000a6', fontWeight: 'bold' }}>
+          {user.leadCustomer.userFname + ' ' + user.leadCustomer.userSname}
+        </span>
       )
     },
     {
@@ -50,9 +46,9 @@ const LeadTable = (props) => {
       title: 'Status',
       width: 150,
       render: (user) => (
-        <p style={{ color: '#4c46a7', fontWeight: 'bold' }}>
+        <span style={{ color: '#4c46a7', fontWeight: 'bold' }}>
           {constants.getLeadStatusById(user.leadStatus)}
-        </p>
+        </span>
       )
     },
     {
@@ -104,7 +100,7 @@ const LeadTable = (props) => {
               history.push({ pathname: 'agent/overall', leadDetail: agent })
             }}
           >
-            Add Call
+            Add Audit
           </a>
         </span>
       )
@@ -113,8 +109,7 @@ const LeadTable = (props) => {
   const tableColumns = columns.map((item, index) => ({
     ...item,
     ellipsis: true,
-    className: 't-head',
-    key: index
+    className: 't-head'
   }))
   const data = {
     url:
