@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Redirect } from 'react-router-dom'
 import { StoreProvider, createStore } from 'easy-peasy'
 import models from './models'
 import './App.css'
@@ -11,6 +11,7 @@ import { OverAll } from './screens/agent/OverAll'
 import AddLead from 'screens/agent/AddLead'
 import { LeadList } from 'screens/agent/LeadList'
 import LoginForm from 'screens/Login'
+import PrivateRoute from 'screens/auth/PrivateRoute'
 // import { Server, Model } from 'miragejs'
 
 // const leaddata = []
@@ -103,19 +104,50 @@ function AppRouter() {
     <>
       <Route exact path="/" component={LoginForm}></Route>
       <Route exact path="/login" component={LoginForm}></Route>
-
-      <Route exact path="/agent" component={AgentHome}></Route>
-      <Route exact path="/agent/overall" component={OverAll}></Route>
-      <Route exact path="/agent/leads" component={LeadList}></Route>
-
-      <Route exact path="/admin" component={AdminHome}></Route>
-      <Route
+      <PrivateRoute
+        component={AgentHome}
+        path="/agent"
         exact
-        path="/admin/overall-product-report"
+        userRole="2"
+      ></PrivateRoute>
+      <PrivateRoute
+        component={LeadList}
+        path="/agent/leads"
+        exact
+        userRole="2"
+      ></PrivateRoute>
+      <PrivateRoute
+        component={OverAll}
+        path="/agent/overall"
+        exact
+        userRole="2"
+      ></PrivateRoute>
+
+      <PrivateRoute
+        component={AdminHome}
+        path="/admin"
+        exact
+        userRole="1"
+      ></PrivateRoute>
+      <PrivateRoute
+        component={AddLead}
+        path="/admin/add-lead"
+        exact
+        userRole="1"
+      ></PrivateRoute>
+      <PrivateRoute
         component={OverallProductReport}
-      ></Route>
-      <Route exact path="/admin/add-plot-area" component={AddPlotArea}></Route>
-      <Route exact path="/agent/add-lead" component={AddLead}></Route>
+        path="/admin/overall-product-report"
+        exact
+        userRole="1"
+      ></PrivateRoute>
+      <PrivateRoute
+        component={AddPlotArea}
+        path="/admin/add-plot-area"
+        exact
+        userRole="1"
+      ></PrivateRoute>
+      <Route path="*" render={() => <Redirect to="/login"></Redirect>}></Route>
     </>
   )
 }

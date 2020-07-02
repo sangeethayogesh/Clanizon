@@ -28,7 +28,6 @@ const AgentHome = (props) => {
 
   useEffect(() => {
     // Update the document title using the browser API
-    console.log('::Agent Home Called::')
     // getAdminMessages(() => {
     //   console.log('admin Msg Received')
     // })

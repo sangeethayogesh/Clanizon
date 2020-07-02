@@ -11,170 +11,156 @@ import {
   Select,
   DatePicker,
   Divider,
-  Drawer,
   Radio,
   message
 } from 'antd'
 import '../styles/overall-call-status.css'
-import { AddNote } from './drawer/AddNote'
 import constants from '../constants'
 import rest from 'services/http'
 import { useHistory } from 'react-router-dom'
 const { Option } = Select
 const { Panel } = Collapse
 
-const AttachIntrestedForm = (props) => {
-  return (
-    <Drawer
-      title="Add Intrest"
-      width={720}
-      onClose={props.onClose}
-      visible={props.show}
-      bodyStyle={{ paddingBottom: 80 }}
-      footer={
-        <div
-          style={{
-            textAlign: 'right'
-          }}
-        >
-          <Button onClick={props.onClose} style={{ marginRight: 8 }}>
-            Cancel
-          </Button>
-          <Button onClick={() => props.onClose} type="primary">
-            Submit
-          </Button>
-        </div>
-      }
-    >
-      <Form layout="vertical" hideRequiredMark>
-        <Row gutter={16}>
-          <Col span={12}>
-            <Form.Item
-              name="name"
-              label="Name"
-              rules={[{ required: true, message: 'Please enter user name' }]}
-            >
-              <Input placeholder="Please enter user name" />
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item
-              name="url"
-              label="Url"
-              rules={[{ required: true, message: 'Please enter url' }]}
-            >
-              <Input
-                style={{ width: '100%' }}
-                addonBefore="http://"
-                addonAfter=".com"
-                placeholder="Please enter url"
-              />
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row gutter={16}>
-          <Col span={12}>
-            <Form.Item
-              name="owner"
-              label="Owner"
-              rules={[{ required: true, message: 'Please select an owner' }]}
-            >
-              <Select placeholder="Please select an owner">
-                <Option value="xiao">Xiaoxiao Fu</Option>
-                <Option value="mao">Maomao Zhou</Option>
-              </Select>
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item
-              name="type"
-              label="Type"
-              rules={[{ required: true, message: 'Please choose the type' }]}
-            >
-              <Select placeholder="Please choose the type">
-                <Option value="private">Private</Option>
-                <Option value="public">Public</Option>
-              </Select>
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row gutter={16}>
-          <Col span={12}>
-            <Form.Item
-              name="approver"
-              label="Approver"
-              rules={[
-                { required: true, message: 'Please choose the approver' }
-              ]}
-            >
-              <Select placeholder="Please choose the approver">
-                <Option value="jack">Jack Ma</Option>
-                <Option value="tom">Tom Liu</Option>
-              </Select>
-            </Form.Item>
-          </Col>
-          <Col span={12}>
-            <Form.Item
-              name="dateTime"
-              label="DateTime"
-              rules={[
-                { required: true, message: 'Please choose the dateTime' }
-              ]}
-            >
-              <DatePicker.RangePicker
-                style={{ width: '100%' }}
-                getPopupContainer={(trigger) => trigger.parentNode}
-              />
-            </Form.Item>
-          </Col>
-        </Row>
-        <Row gutter={16}>
-          <Col span={24}>
-            <Form.Item
-              name="description"
-              label="Description"
-              rules={[
-                {
-                  required: true,
-                  message: 'please enter url description'
-                }
-              ]}
-            >
-              <Input.TextArea
-                rows={4}
-                placeholder="please enter url description"
-              />
-            </Form.Item>
-          </Col>
-        </Row>
-      </Form>
-    </Drawer>
-  )
-}
+// const AttachIntrestedForm = (props) => {
+//   return (
+//     <Drawer
+//       title="Add Intrest"
+//       width={720}
+//       onClose={props.onClose}
+//       visible={props.show}
+//       bodyStyle={{ paddingBottom: 80 }}
+//       footer={
+//         <div
+//           style={{
+//             textAlign: 'right'
+//           }}
+//         >
+//           <Button onClick={props.onClose} style={{ marginRight: 8 }}>
+//             Cancel
+//           </Button>
+//           <Button onClick={() => props.onClose} type="primary">
+//             Submit
+//           </Button>
+//         </div>
+//       }
+//     >
+//       <Form layout="vertical" hideRequiredMark>
+//         <Row gutter={16}>
+//           <Col span={12}>
+//             <Form.Item
+//               name="name"
+//               label="Name"
+//               rules={[{ required: true, message: 'Please enter user name' }]}
+//             >
+//               <Input placeholder="Please enter user name" />
+//             </Form.Item>
+//           </Col>
+//           <Col span={12}>
+//             <Form.Item
+//               name="url"
+//               label="Url"
+//               rules={[{ required: true, message: 'Please enter url' }]}
+//             >
+//               <Input
+//                 style={{ width: '100%' }}
+//                 addonBefore="http://"
+//                 addonAfter=".com"
+//                 placeholder="Please enter url"
+//               />
+//             </Form.Item>
+//           </Col>
+//         </Row>
+//         <Row gutter={16}>
+//           <Col span={12}>
+//             <Form.Item
+//               name="owner"
+//               label="Owner"
+//               rules={[{ required: true, message: 'Please select an owner' }]}
+//             >
+//               <Select placeholder="Please select an owner">
+//                 <Option value="xiao">Xiaoxiao Fu</Option>
+//                 <Option value="mao">Maomao Zhou</Option>
+//               </Select>
+//             </Form.Item>
+//           </Col>
+//           <Col span={12}>
+//             <Form.Item
+//               name="type"
+//               label="Type"
+//               rules={[{ required: true, message: 'Please choose the type' }]}
+//             >
+//               <Select placeholder="Please choose the type">
+//                 <Option value="private">Private</Option>
+//                 <Option value="public">Public</Option>
+//               </Select>
+//             </Form.Item>
+//           </Col>
+//         </Row>
+//         <Row gutter={16}>
+//           <Col span={12}>
+//             <Form.Item
+//               name="approver"
+//               label="Approver"
+//               rules={[
+//                 { required: true, message: 'Please choose the approver' }
+//               ]}
+//             >
+//               <Select placeholder="Please choose the approver">
+//                 <Option value="jack">Jack Ma</Option>
+//                 <Option value="tom">Tom Liu</Option>
+//               </Select>
+//             </Form.Item>
+//           </Col>
+//           <Col span={12}>
+//             <Form.Item
+//               name="dateTime"
+//               label="DateTime"
+//               rules={[
+//                 { required: true, message: 'Please choose the dateTime' }
+//               ]}
+//             >
+//               <DatePicker.RangePicker
+//                 style={{ width: '100%' }}
+//                 getPopupContainer={(trigger) => trigger.parentNode}
+//               />
+//             </Form.Item>
+//           </Col>
+//         </Row>
+//         <Row gutter={16}>
+//           <Col span={24}>
+//             <Form.Item
+//               name="description"
+//               label="Description"
+//               rules={[
+//                 {
+//                   required: true,
+//                   message: 'please enter url description'
+//                 }
+//               ]}
+//             >
+//               <Input.TextArea
+//                 rows={4}
+//                 placeholder="please enter url description"
+//               />
+//             </Form.Item>
+//           </Col>
+//         </Row>
+//       </Form>
+//     </Drawer>
+//   )
+// }
 
 const OverallCallStatus = (props) => {
-  console.log(props)
-  const [visibleIntrestedForm, setVisibleIntrestedForm] = useState(false)
-  const [visibleNoteForm, setVisibleNoteForm] = useState(false)
+  // console.log(props)
+  // const [visibleIntrestedForm, setVisibleIntrestedForm] = useState(false)
+  // const [visibleNoteForm, setVisibleNoteForm] = useState(false)
   const [form] = Form.useForm()
   const history = useHistory()
   const [isLoading, setIsLoading] = useState(false)
-  const onCloseIntrestedForm = () => {
-    setVisibleIntrestedForm(false)
-  }
-
-  const onCloseNote = () => {
-    setVisibleNoteForm(false)
-  }
-  const onSaveNote = (d) => {
-    setVisibleNoteForm(false)
-    console.log('Note Saved::', d)
-  }
 
   function handleCollapse() {}
   function onCallStatusSave(values) {
     var data = { ...values }
-    data.leadStatus = data.leadStatus.value
     data.leadAuditCreatedUser = {
       userMobile: props.currentUser.userMobile
     }
@@ -191,7 +177,7 @@ const OverallCallStatus = (props) => {
         message.success('Audit added!')
         setIsLoading(false)
         form.resetFields()
-        history.goBack()
+        history.replace('/agent')
       })
       .catch(() => {
         message.error('Audit Failed!')
@@ -217,6 +203,7 @@ const OverallCallStatus = (props) => {
       span: 24
     }
   }
+
   return (
     <Row gutter={[16, 16]}>
       {/* <AttachIntrestedForm
@@ -235,8 +222,8 @@ const OverallCallStatus = (props) => {
           // labelCol={{ span: 12 }}
           {...tailLayout}
           form={form}
-          defaultValue={{
-            leadStatus: props.status,
+          initialValues={{
+            leadStatus: props.status + '',
             leadInterest: props.interest
           }}
           onFinish={onCallStatusSave}
@@ -276,23 +263,24 @@ const OverallCallStatus = (props) => {
                     colon={false}
                     label="Lead Status"
                     name="leadStatus"
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Please select lead status'
-                      }
-                    ]}
+                    defaultActiveKey={[props.status]}
                   >
-                    <Select
-                      labelInValue
-                      defaultValue={{ key: props.status + '' }}
-                      placeholder="Select Lead Status"
-                    >
-                      <Option value="1">Created</Option>
-                      <Option value="2">Prospecting</Option>
-                      <Option value="3">Closure</Option>
-                      <Option value="4">Converted</Option>
-                      <Option value="5">Completed</Option>
+                    <Select placeholder="Select Lead Status">
+                      <Option key={1} value="1">
+                        Created
+                      </Option>
+                      <Option key={2} value="2">
+                        Prospecting
+                      </Option>
+                      <Option key={3} value="3">
+                        Closure
+                      </Option>
+                      <Option key={4} value="4">
+                        Converted
+                      </Option>
+                      <Option key={5} value="5">
+                        Completed
+                      </Option>
                     </Select>
                   </Form.Item>
                 </Col>
@@ -368,70 +356,6 @@ const OverallCallStatus = (props) => {
                   </Form.Item>
                 </Col>
               </Row>
-              {/* <Row>
-                <Col span="22">
-                  <Divider orientation="left">Add Intrested Item -></Divider>
-                </Col>
-                <Col span="2">
-                  <Tooltip title="add instresed item">
-                    <Button
-                      style={{
-                        marginInlineEnd: 5,
-                        marginTop: '0.5rem',
-                        marginLeft: '0.5rem'
-                      }}
-                      type="primary"
-                      shape="circle"
-                      icon={<PlusOutlined />}
-                      onClick={() => setVisibleIntrestedForm(true)}
-                    />
-                  </Tooltip>
-                </Col>
-              </Row>
-              <Row>
-                <Col span="22">
-                  <Divider orientation="left">Add Note -></Divider>
-                </Col>
-                <Col span="2">
-                  <Tooltip title="Add note">
-                    <Button
-                      style={{
-                        marginInlineEnd: 5,
-                        marginTop: '0.5rem',
-                        marginLeft: '0.5rem'
-                      }}
-                      type="primary"
-                      shape="circle"
-                      icon={<PlusOutlined />}
-                      onClick={() => setVisibleNoteForm(true)}
-                    />
-                  </Tooltip>
-                </Col>
-              </Row>
-                    */}
-              {/* <Row gutter={[8, 8]} style={{ float: 'right' }}>
-                <Col span="24">
-                  <Tooltip title="search">
-                    <Button
-                      style={{ marginInlineEnd: 5 }}
-                      type="primary"
-                      shape="circle"
-                      icon={<SearchOutlined />}
-                    />
-                  </Tooltip>
-
-                  <Tooltip title="Add Note">
-                    <Button
-                      style={{ marginInlineEnd: 5 }}
-                      type="primary"
-                      icon={<PlusOutlined />}
-                      onClick={() => setIntrestedVisible(true)}
-                    >
-                      Add Intrested Item
-                    </Button>
-                  </Tooltip>
-                </Col>
-              </Row> */}
               <Divider />
               <Row className="panel-footer-row">
                 <div className="btn-wrapper">

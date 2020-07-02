@@ -77,8 +77,8 @@ const LeadTable = (props) => {
             let color
             if (score.outCome == 'Positive') {
               color = '#5ccb88'
-            } else if (score.outCome == 'Negaitve') {
-              color = '#eb2f96'
+            } else if (score.outCome == 'Negative') {
+              color = '#f51044'
             } else {
               color = '#faad14'
             }
