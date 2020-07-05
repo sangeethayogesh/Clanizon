@@ -232,6 +232,17 @@ function HeaderBar(props) {
                   <DatabaseOutlined className="menuitem" />
                 </Link>
               </Menu.Item>
+              <Menu.Item key="2" className="sidemenu">
+                <Link
+                  to={
+                    currentUser.userRole == '1'
+                      ? '/admin/add-plot-area'
+                      : '/agent/leads'
+                  }
+                >
+                  <DatabaseOutlined className="menuitem" />
+                </Link>
+              </Menu.Item>
             </Menu>
           </Sider>
           {/* if drawer is not needed then making the body as a full width content in order to modify it */}

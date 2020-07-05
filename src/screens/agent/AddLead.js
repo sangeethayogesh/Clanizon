@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import HeaderBar from 'components/HeaderBar'
 import {
   Row,
@@ -10,7 +10,8 @@ import {
   Form,
   TimePicker,
   Collapse,
-  message
+  message,
+  Select
 } from 'antd'
 import { ArrowLeftOutlined, CompressOutlined } from '@ant-design/icons'
 import '../../styles/common.css'
@@ -19,6 +20,7 @@ import constants from '../../constants'
 import rest from 'services/http'
 import { useStoreActions, useStoreState } from 'easy-peasy'
 const { Panel } = Collapse
+const { Option, OptGroup } = Select
 const { RangePicker } = TimePicker
 const { Search } = Input
 const { Content, Header } = Layout
@@ -39,7 +41,8 @@ const AddLead = (props) => {
   const [isLoading, setIsLoading] = useState(false)
   const addLead = useStoreActions((actions) => actions.leads.addLead)
   const currentUser = useStoreState((state) => state.auth.user)
-
+  const [groups, setGroups] = useState(null)
+  const [properties, setProperties] = useState(null)
   const onFinish = (values) => {
     const data = values
     data.lead.userOccupation = '-'
@@ -59,7 +62,8 @@ const AddLead = (props) => {
       leadStatus: 1,
       leadInterest: data.leadInterest,
       leadCreateDate: new Date(),
-      nextScheduleDatetime: tomorrow
+      nextScheduleDatetime: tomorrow,
+      leadItemAssetId: data.leadItemAssetId
     }
     console.log('Success:', request)
     setIsLoading(true)
@@ -85,6 +89,36 @@ const AddLead = (props) => {
     console.log('Failed:', errorInfo)
     message.warning('Please fill mandatory fields')
   }
+  const getGroups = () => {
+    setIsLoading(true)
+    rest
+      .get(constants.URL.GET_ASSET_GROUPS)
+      .then((res) => {
+        setGroups(res.data)
+        setIsLoading(false)
+      })
+      .catch((err) => {
+        console.error(err)
+        setIsLoading(false)
+      })
+  }
+
+  const onChangeArea = (id) => {
+    setIsLoading(true)
+    rest
+      .get(constants.URL.GET_ASSET_BY_GROUP_ID + '?groupId=' + id)
+      .then((res) => {
+        setProperties(res.data)
+        setIsLoading(false)
+      })
+      .catch((err) => {
+        console.error(err)
+        setIsLoading(false)
+      })
+  }
+  useEffect(() => {
+    getGroups()
+  }, [])
   return (
     <div>
       <HeaderBar drawer={false}>
@@ -304,6 +338,49 @@ const AddLead = (props) => {
                             name="leadInterest"
                           >
                             <Input placeholder="Flat 1, Flat 2..," />
+                          </Form.Item>
+                        </Col>
+                        <Col>
+                          <Form.Item
+                            label="Intrested Area"
+                            colon={false}
+                            name="leadAssetArea"
+                          >
+                            <Select
+                              placeholder="Intrested Area"
+                              loading={isLoading}
+                              onChange={onChangeArea}
+                            >
+                              {groups &&
+                                groups.map((group) => {
+                                  return (
+                                    <Option key={group.assetGroupId}>
+                                      {group.assetGroupName}
+                                    </Option>
+                                  )
+                                })}
+                            </Select>
+                          </Form.Item>
+                        </Col>
+                        <Col>
+                          <Form.Item
+                            label="Intrested Property"
+                            colon={false}
+                            name="leadItemAssetId"
+                          >
+                            <Select
+                              placeholder="Intrested Property"
+                              loading={isLoading}
+                            >
+                              {properties &&
+                                properties.map((asset) => {
+                                  return (
+                                    <Option key={asset.assetId}>
+                                      {asset.assetNumber}
+                                    </Option>
+                                  )
+                                })}
+                            </Select>
                           </Form.Item>
                         </Col>
                       </Row>

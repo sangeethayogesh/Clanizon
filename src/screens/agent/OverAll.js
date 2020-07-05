@@ -11,7 +11,6 @@ import constants from '../../constants'
 import { useStoreState } from 'easy-peasy'
 const OverAll = (props) => {
   const history = useHistory()
-  console.log(history)
   const lead = history.location.leadDetail
   const currentUser = useStoreState((state) => state.auth.user)
   useEffect(() => {

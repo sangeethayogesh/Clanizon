@@ -1,0 +1,39 @@
+@import './common.css';
+.flat-card-outline {
+  border-radius: 14px;
+  box-shadow: 0 2px 4px 0 rgba(30, 30, 49, 0.03) !important;
+  border: 0.3px solid #d2d2d6 !important;
+  background-color: #fff;
+  margin: 0.5rem;
+}
+
+.tile {
+  border-radius: 4px;
+  font-family: Lato;
+  font-size: 14px;
+  font-weight: 700;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  min-width: 50px;
+  max-height: 50px;
+  text-align: center;
+  padding: 10px;
+  margin: 1.5rem 1rem 1rem;
+  cursor: pointer;
+}
+.tile-available {
+  border: 1px solid #7860ff;
+  background-color: #fff;
+  color: #c9c9f4;
+}
+.tile-booked {
+  background-color: #a595ff;
+  color: #fff;
+}
+.tile-disabled {
+  border: 1px solid #f6f8fe;
+  background-color: #f6f8fe;
+  color: #c9c9f4;
+}
