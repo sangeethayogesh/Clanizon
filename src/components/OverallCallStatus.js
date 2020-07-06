@@ -160,6 +160,13 @@ const OverallCallStatus = (props) => {
 
   function handleCollapse() {}
   function onCallStatusSave(values) {
+
+    var leadAssetList=[];
+    for(var i=0;i<values.leadAsset.length;i++){
+       var leaditem={};
+       leaditem.leadItemAssetId=values.leadAsset[i];
+       leadAssetList.push(leaditem);
+    }
     var data = { ...values }
     data.leadAuditCreatedUser = {
       userMobile: props.currentUser.userMobile
@@ -168,6 +175,7 @@ const OverallCallStatus = (props) => {
       ? data.leadAuditScheduleDatetime.$d
       : undefined
     data.leadAuditLeadId = props.leadId
+    data.leadItem=leadAssetList;
     data.leadAuditCreatedDatetime = new Date()
     setIsLoading(true)
     rest
@@ -224,7 +232,7 @@ const OverallCallStatus = (props) => {
           form={form}
           initialValues={{
             leadStatus: props.status + '',
-            leadInterest: props.interest
+            leadAsset: props.leadAsset
           }}
           onFinish={onCallStatusSave}
           onFinishFailed={onFinishFailed}
@@ -330,11 +338,15 @@ const OverallCallStatus = (props) => {
                   </Form.Item>
                 </Col>
                 <Col span="8">
-                  <Form.Item label="Interested In" name="leadInterest">
-                    <Input
-                      placeholder="Interested in"
-                      defaultValue={props.interest}
-                    ></Input>
+                  <Form.Item label="Interested In" name="leadAsset">
+                        <Select
+                            mode="multiple"
+                              placeholder="Intrested Property"
+                              defaultValue={props.leadAsset}
+                              loading={isLoading}
+                            >
+                              
+                            </Select>
                   </Form.Item>
                 </Col>
                 <Col span="8">
@@ -344,7 +356,7 @@ const OverallCallStatus = (props) => {
                     rules={[
                       {
                         required: true,
-                        message: 'Please give reviewe'
+                        message: 'Please give review'
                       }
                     ]}
                   >

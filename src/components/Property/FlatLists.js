@@ -48,7 +48,7 @@ const FlatLists = (props) => {
 
               return (
                 <Col key={id} className={className} span={3}>
-                  {id + 1}
+                  {asset.assetNumber}
                 </Col>
               )
             })}

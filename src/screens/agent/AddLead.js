@@ -55,6 +55,12 @@ const AddLead = (props) => {
       ? values.best_call_time[1].$d.toTimeString().split(' ')[0]
       : null
 
+    var leadList=[];
+    for(var i=0;i<data.leadItemAssetId.length;i++){
+       var leaditem={};
+       leaditem.leadItemAssetId=data.leadItemAssetId[i];
+       leadList.push(leaditem);
+    }
     const request = {
       leadAgentMobile: currentUser.userMobile,
       leadSource: data.leadSource ? data.leadSource : '-',
@@ -63,7 +69,8 @@ const AddLead = (props) => {
       leadInterest: data.leadInterest,
       leadCreateDate: new Date(),
       nextScheduleDatetime: tomorrow,
-      leadItemAssetId: data.leadItemAssetId
+      leadItem:leadList
+      
     }
     console.log('Success:', request)
     setIsLoading(true)
@@ -362,16 +369,18 @@ const AddLead = (props) => {
                             </Select>
                           </Form.Item>
                         </Col>
-                        <Col>
+                        <Col span="8">
                           <Form.Item
                             label="Intrested Property"
                             colon={false}
                             name="leadItemAssetId"
                           >
                             <Select
+                            mode="multiple"
                               placeholder="Intrested Property"
                               loading={isLoading}
                             >
+                              
                               {properties &&
                                 properties.map((asset) => {
                                   return (

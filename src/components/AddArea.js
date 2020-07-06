@@ -68,8 +68,10 @@ const AddArea = (props) => {
   const listOfGroups = useStoreState((state) => state.assets.assetGroups)
 
   const handleMapClick = (e) => {
-    // setPosition([...postion, e.latlng])
+    console.log(e);
+    //setPosition([...postion, e.latlng])
     setClickedLocation(e.latlng)
+    console.log(clickedLocation);
     setAddAreaVisible(true)
     console.log(e.latlng)
   }
@@ -184,7 +186,7 @@ const AddArea = (props) => {
               }
             ]}
           >
-            <Input placeholder="Area Latitude" disabled={true} />
+            <Input placeholder="Area Latitude"   />
           </Form.Item>
           <Form.Item
             colon={false}
@@ -197,7 +199,7 @@ const AddArea = (props) => {
               }
             ]}
           >
-            <Input placeholder="Area Longitude" disabled={true} />
+            <Input placeholder="Area Longitude"  />
           </Form.Item>
           <Form.Item {...tailLayout}>
             <Button type="primary" htmlType="submit" loading={isLoading}>
@@ -218,8 +220,8 @@ const AddArea = (props) => {
       </Modal>
       <Map
         center={postion}
-        zoom={14}
-        style={{ width: '100%', height: '500px' }}
+        zoom={10}
+        style={{ width: '100%', height: '600px' }}
         onclick={handleMapClick}
         animate={true}
       >
