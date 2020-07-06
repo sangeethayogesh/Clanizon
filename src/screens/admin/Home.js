@@ -17,12 +17,14 @@ import { AddPlot } from 'components/AddPlot'
 import { AddAgent } from 'components/AddAgent'
 import { Bar } from 'react-chartjs-2'
 import { useStoreActions, useStoreState } from 'easy-peasy'
+import { useHistory } from 'react-router-dom'
 
 // import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 // const { SubMenu } = Menu;
 const { Content } = Layout
 
 const UserHome = () => {
+  const history = useHistory()
   const getAllAgents = useStoreActions((actions) => actions.agents.getAllAgents)
   const agentList = useStoreState((state) => state.agents.list)
   const [visibleAddAgent, setVisibleAddAgent] = useState(false)
@@ -209,7 +211,7 @@ const UserHome = () => {
                     <div className="small-oval"></div>
                     <button
                       className="box-button"
-                      onClick={() => toggleAddNewPlot}
+                      onClick={() => history.push('/admin/add-plot-area')}
                     >
                       {' '}
                       + Add Plot

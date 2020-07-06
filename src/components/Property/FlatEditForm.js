@@ -1,11 +1,10 @@
-import React, { useState } from 'react'
+/* eslint-disable no-unused-expressions */
+import React, { useState, useEffect } from 'react'
 import { Row, Button, Input, message, Form, Layout, Radio, Tabs } from 'antd'
 import constants from '../../constants'
 import rest from 'services/http'
 import { useStoreState, useStoreActions } from 'easy-peasy'
 import { useHistory } from 'react-router-dom'
-
-const { TabPane } = Tabs
 const layout = {
   labelCol: {
     span: 24
@@ -20,37 +19,43 @@ const tailLayout = {
     span: 24
   }
 }
-
-const FlatForm = (props) => {
+const { TabPane } = Tabs
+const FlatEditForm = (props) => {
+  const { flat, group, status, onSuccess } = props
   const [isLoading, setLoading] = useState(false)
+  const [cStatus, setCStatus] = useState(status)
   const [form] = Form.useForm()
   const history = useHistory()
-  const [cStatus, setCStatus] = useState(1)
-  const addAsset = useStoreActions((state) => state.assets.addAsset)
+  const updateAsset = useStoreActions((state) => state.assets.updateAsset)
+  useEffect(() => {
+    setCStatus(status)
+  }, [])
+
   function callback(key) {
+    console.log(key)
     setCStatus(key)
   }
   const onFinishArea = (values) => {
-    console.log(values)
-    values.assetGroupId = props.group
-      ? props.group.assetGroupId
-      : history.replace('/login')
-    values.assestStatus = { assetStatusId: cStatus }
+    const data = { ...values }
+    data.assetId = flat.assetId
+    data.assetGroupId = flat.assetGroupId
+    data.assetStatus = {
+      assetStatusId: values.bookingStatus
+    }
     // eslint-disable-next-line no-unused-expressions
     setLoading(true)
     rest
-      .post(constants.URL.ADD_ASSET, values)
+      .post(constants.URL.ADD_ASSET, data)
       .then((response) => {
-        console.log(response.data)
-        addAsset(response.data)
-        message.success('Added!')
-        form.resetFields()
+        updateAsset(response.data)
+        message.success('Updated!')
+        onSuccess()
         setLoading(false)
       })
       .catch((error) => {
         console.log(error)
         setLoading(false)
-        message.error('Failed to add')
+        message.error('Update Failed')
       })
   }
   const onFinishFailedArea = (errorInfo) => {
@@ -64,7 +69,13 @@ const FlatForm = (props) => {
           {...layout}
           name="basic"
           form={form}
-          initialValues={{ assetStatus: { assetStatusId: 1 } }}
+          initialValues={{
+            bookingStatus: cStatus,
+            assetNumber: flat.assetNumber,
+            assetDimen: flat.assetDimen,
+            assetValue: flat.assetValue,
+            assetFacing: flat.assetFacing
+          }}
           onFinish={onFinishArea}
           onFinishFailed={onFinishFailedArea}
           autoComplete="false"
@@ -109,9 +120,10 @@ const FlatForm = (props) => {
           >
             <Input placeholder="Property value" />
           </Form.Item>
+
           <Form.Item
             label="Booking Status"
-            name={['assetStatus', 'assetStatusId']}
+            name="bookingStatus"
             rules={[
               {
                 required: true,
@@ -119,6 +131,11 @@ const FlatForm = (props) => {
               }
             ]}
           >
+            {/* <Radio.Group buttonStyle="solid" defaultValue={cStatus}>
+              <Radio.Button value="1">Open</Radio.Button>
+              <Radio.Button value="2">Booked</Radio.Button>
+              <Radio.Button value="3">Blocked</Radio.Button>
+            </Radio.Group> */}
             <Tabs
               defaultActiveKey={cStatus + ''}
               onChange={callback}
@@ -135,13 +152,13 @@ const FlatForm = (props) => {
           </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit" loading={isLoading}>
-              Save
+              Update
             </Button>
             <Button
               disabled={isLoading}
               htmlType="button"
               onClick={() => {
-                form.resetFields()
+                onSuccess()
               }}
               style={{ margin: '0 8px' }}
             >
@@ -154,4 +171,4 @@ const FlatForm = (props) => {
   )
 }
 
-export { FlatForm }
+export { FlatEditForm }

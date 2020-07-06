@@ -14,6 +14,12 @@ const assetModel = {
   addAsset: action((state, payload) => {
     state.assetDetails.push(payload)
   }),
+  updateAsset: action((state, payload) => {
+    var i = state.assetDetails.findIndex(
+      (asset) => asset.assetId === payload.assetId
+    )
+    state.assetDetails[i] = payload
+  }),
   unsetGroup: action((state, payload) => {
     state.assetGroups = null
   }),

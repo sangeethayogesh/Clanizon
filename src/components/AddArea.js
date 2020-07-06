@@ -68,12 +68,16 @@ const AddArea = (props) => {
   const listOfGroups = useStoreState((state) => state.assets.assetGroups)
 
   const handleMapClick = (e) => {
-    console.log(e);
+    console.log('clicked Location', e.latlng)
     //setPosition([...postion, e.latlng])
     setClickedLocation(e.latlng)
-    console.log(clickedLocation);
+    form.setFieldsValue({
+      asset: {
+        assetGroupLat: e.latlng.lat,
+        assetGroupLong: e.latlng.lng
+      }
+    })
     setAddAreaVisible(true)
-    console.log(e.latlng)
   }
 
   const onClickMarker = (group, index) => {
@@ -122,7 +126,10 @@ const AddArea = (props) => {
   const reset = () => {
     form.resetFields()
   }
-
+  const onCancelModel = () => {
+    setClickedLocation({})
+    setAddAreaVisible(false)
+  }
   return (
     <Layout.Content>
       <Modal
@@ -131,7 +138,7 @@ const AddArea = (props) => {
         okText="Save"
         visible={addAreaVisible}
         footer={null}
-        onCancel={() => setAddAreaVisible(false)}
+        onCancel={() => onCancelModel()}
       >
         <Form
           {...layout}
@@ -186,7 +193,7 @@ const AddArea = (props) => {
               }
             ]}
           >
-            <Input placeholder="Area Latitude"   />
+            <Input disabled={true} placeholder="Area Latitude" />
           </Form.Item>
           <Form.Item
             colon={false}
@@ -199,7 +206,7 @@ const AddArea = (props) => {
               }
             ]}
           >
-            <Input placeholder="Area Longitude"  />
+            <Input disabled={true} placeholder="Area Longitude" />
           </Form.Item>
           <Form.Item {...tailLayout}>
             <Button type="primary" htmlType="submit" loading={isLoading}>
@@ -209,7 +216,7 @@ const AddArea = (props) => {
               disabled={isLoading}
               htmlType="button"
               onClick={() => {
-                reset()
+                onCancelModel()
               }}
               style={{ margin: '0 8px' }}
             >
@@ -220,8 +227,8 @@ const AddArea = (props) => {
       </Modal>
       <Map
         center={postion}
-        zoom={10}
-        style={{ width: '100%', height: '600px' }}
+        zoom={9}
+        style={{ width: '100%', height: '87vh' }}
         onclick={handleMapClick}
         animate={true}
       >
