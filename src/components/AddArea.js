@@ -1,43 +1,20 @@
 import React, { useState, useEffect } from 'react'
-import { Map, TileLayer, Marker, Popup, Tooltip } from 'react-leaflet'
-import { Layout, Modal, Row, Col, message, Input, Form, Button } from 'antd'
+import { Map, TileLayer, Marker, Tooltip } from 'react-leaflet'
+import { Layout, Modal, message, Input, Form, Button, Upload, Card } from 'antd'
 import rest from 'services/http'
 import { useStoreActions, useStoreState } from 'easy-peasy'
 import constants from '../constants'
 import { useHistory } from 'react-router-dom'
+import { s3 } from '../utils/s3.js'
+import {
+  CloudUploadOutlined,
+  LoadingOutlined,
+  PlusOutlined,
+  UploadOutlined,
+  EllipsisOutlined
+} from '@ant-design/icons'
+import FileUpload from './FileUpload'
 
-const listOfGroups = [
-  {
-    assetGroupId: 2,
-    assetGroupName: 'AAKASH AVENEUE',
-    assetGroupPlan: 'TEST',
-    assetGroupLat: '13.090346556399028',
-    assetGroupLong: '80.24688720703125',
-    assetGroupGlink: 'http://google.com',
-    assetGroupLocation: 'Alandur',
-    assetGroupTypeId: 1
-  },
-  {
-    assetGroupId: 3,
-    assetGroupName: 'ERC AVENEUE',
-    assetGroupPlan: 'TEST',
-    assetGroupLat: '13.0798962968232',
-    assetGroupLong: '80.26581287384035',
-    assetGroupGlink: 'http://google.com',
-    assetGroupLocation: 'Central',
-    assetGroupTypeId: 1
-  },
-  {
-    assetGroupId: 4,
-    assetGroupName: 'EMPIRE AVENEUE',
-    assetGroupPlan: 'TEST',
-    assetGroupLat: '13.079436475227778',
-    assetGroupLong: '80.28259277343751',
-    assetGroupGlink: 'http://google.com',
-    assetGroupLocation: 'Rettari',
-    assetGroupTypeId: 1
-  }
-]
 const layout = {
   labelCol: {
     span: 24
@@ -69,7 +46,6 @@ const AddArea = (props) => {
 
   const handleMapClick = (e) => {
     console.log('clicked Location', e.latlng)
-    //setPosition([...postion, e.latlng])
     setClickedLocation(e.latlng)
     form.setFieldsValue({
       asset: {
@@ -93,6 +69,42 @@ const AddArea = (props) => {
     })
   }, [])
   const [addAreaVisible, setAddAreaVisible] = useState(false)
+  const [files, setFiles] = useState([])
+  const changeSuccess = (res) => {
+    const tfiles = [...files]
+    for (var i = 0; i < tfiles.length; i++) {
+      if (res.key.includes(tfiles[i].name)) {
+        tfiles[i].status = 'success'
+      }
+    }
+    setFiles(tfiles)
+  }
+  const handleUpload = (e) => {
+    var vaild = beforeUpload(e)
+    if (!vaild) {
+      return false
+    }
+    const fname = new Date().getTime()
+    var fi = {
+      name: fname,
+      status: 'start',
+      location: '',
+      file: e
+    }
+
+    setFiles((prevValues) => [...prevValues, fi])
+    console.log(files)
+    s3.uploadFile(e, fname)
+      .then((response) => {
+        message.success('Uploaded!')
+        changeSuccess(response)
+      })
+      .catch((err) => {
+        console.log(err)
+        message.error('Upload failed!')
+      })
+  }
+
   const addArea = (data) => {
     // eslint-disable-next-line no-unreachable
     rest
@@ -123,12 +135,21 @@ const AddArea = (props) => {
     console.log('Failed:', errorInfo)
     message.warning('Please fill mandatory fields')
   }
-  const reset = () => {
-    form.resetFields()
-  }
   const onCancelModel = () => {
     setClickedLocation({})
     setAddAreaVisible(false)
+  }
+  function startUpload() {}
+  function beforeUpload(file) {
+    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
+    if (!isJpgOrPng) {
+      message.error('You can only upload JPG/PNG file!')
+    }
+    const isLt2M = file.size / 1024 / 1024 < 2
+    if (!isLt2M) {
+      message.error('Image must smaller than 2MB!')
+    }
+    return isJpgOrPng && isLt2M
   }
   return (
     <Layout.Content>
@@ -208,6 +229,7 @@ const AddArea = (props) => {
           >
             <Input disabled={true} placeholder="Area Longitude" />
           </Form.Item>
+
           <Form.Item {...tailLayout}>
             <Button type="primary" htmlType="submit" loading={isLoading}>
               Save

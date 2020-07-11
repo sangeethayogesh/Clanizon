@@ -19,6 +19,7 @@ import {
   NotificationOutlined,
   UserOutlined,
   DatabaseOutlined,
+  BuildOutlined,
   PoweroffOutlined,
   SendOutlined
 } from '@ant-design/icons'
@@ -243,6 +244,13 @@ function HeaderBar(props) {
                   <DatabaseOutlined className="menuitem" />
                 </Link>
               </Menu.Item> */}
+              {currentUser.userRole == '2' && (
+                <Menu.Item key="3" className="sidemenu">
+                  <Link to={'/agent/area-list'}>
+                    <BuildOutlined className="menuitem" />
+                  </Link>
+                </Menu.Item>
+              )}
             </Menu>
           </Sider>
           {/* if drawer is not needed then making the body as a full width content in order to modify it */}

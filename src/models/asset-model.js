@@ -4,7 +4,7 @@ import constants from '../constants'
 
 const assetModel = {
   assetGroups: null,
-  asssetDetails: null,
+  assetDetails: null,
   setGroup: action((state, payload) => {
     state.assetGroups = payload
   }),

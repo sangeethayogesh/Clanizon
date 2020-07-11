@@ -8,6 +8,7 @@ import { FlatLists } from '../../components/Property/FlatLists'
 import '../../styles/flat.css'
 import { FlatForm } from '../../components/Property/FlatForm'
 import { FlatEditForm } from '../../components/Property/FlatEditForm'
+import { SubNavProperty } from 'components/SubNavProperty'
 
 const Property = (props) => {
   const history = useHistory()
@@ -27,7 +28,7 @@ const Property = (props) => {
   return (
     <>
       <HeaderBar drawer={false}>
-        <SubNavBar></SubNavBar>
+        <SubNavProperty></SubNavProperty>
         <Layout.Content id="lead-section" style={{ padding: '1rem' }}>
           <Row gutter={[16, 16]}>
             <Col span="17" className="flat-card-outline">

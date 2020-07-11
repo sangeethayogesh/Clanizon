@@ -13,6 +13,7 @@ import { LeadList } from 'screens/agent/LeadList'
 import LoginForm from 'screens/Login'
 import PrivateRoute from 'screens/auth/PrivateRoute'
 import { Property } from 'screens/admin/Property'
+import { AreaList } from 'screens/agent/AreaList'
 // import { Server, Model } from 'miragejs'
 
 // const leaddata = []
@@ -130,6 +131,18 @@ function AppRouter() {
         exact
         userRole="2"
       ></PrivateRoute>
+      <PrivateRoute
+        component={AddLead}
+        path="/agent/add-lead"
+        exact
+        userRole="2"
+      ></PrivateRoute>
+      <PrivateRoute
+        component={AreaList}
+        path="/agent/area-list"
+        exact
+        userRole="2"
+      ></PrivateRoute>
 
       <PrivateRoute
         component={AdminHome}
@@ -137,12 +150,7 @@ function AppRouter() {
         exact
         userRole="1"
       ></PrivateRoute>
-      <PrivateRoute
-        component={AddLead}
-        path="/agent/add-lead"
-        exact
-        userRole="2"
-      ></PrivateRoute>
+
       <PrivateRoute
         component={Property}
         path="/admin/property"
