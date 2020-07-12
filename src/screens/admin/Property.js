@@ -28,7 +28,7 @@ const Property = (props) => {
   return (
     <>
       <HeaderBar drawer={false}>
-        <SubNavProperty></SubNavProperty>
+        <SubNavProperty group={group}></SubNavProperty>
         <Layout.Content id="lead-section" style={{ padding: '1rem' }}>
           <Row gutter={[16, 16]}>
             <Col span="17" className="flat-card-outline">

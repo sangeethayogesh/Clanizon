@@ -1,27 +1,47 @@
 /* eslint-disable no-unused-expressions */
 import React, { useState } from 'react'
-import { PageHeader, Button, Layout, Modal, message } from 'antd'
+import { PageHeader, Button, Layout, Modal, message ,Carousel} from 'antd'
 import '../styles/agent-overall.css'
 import { Model } from 'miragejs'
+import ImgsViewer from 'react-images-viewer'
+
 import FileUpload from './FileUpload'
 import { s3 } from 'utils/s3'
 import rest from 'services/http'
-import constants from 'constants'
+//import constants from 'constants'
+
+import constants from '../constants'
 const { Header } = Layout
 const SubNavProperty = (props) => {
+  const { group } = props
+  const docList =[]
   const [loading, setLoading] = useState(false)
   const [successFiles, setSuccessFiles] = useState([])
   const [showUploadModal, setShowUploadModal] = useState(false)
   const onViewImage = () => {}
   const onClickUpload = () => {
-    setShowUploadModal(true)
-  }
-  const onOkUpload = () => {
-    setLoading(true)
     rest
-      .post(constants.URL.ADD_IMAGE_TO_ASSET_GROUP, successFiles)
+      .get(constants.URL.LIST_GROUP_IMAGE+group.assetGroupId  )
       .then((res) => {
         setLoading(false)
+        console.log(res)
+        setSuccessFiles(res.data)
+        message.success('Doc Done!')
+        setShowUploadModal(true)
+      })
+      .catch((err) => {
+        setLoading(false)
+        console.error(err)
+        message.error('Upload Error')
+      })
+  }
+  const onOkUpload = (uploaddocrequest) => {
+    setLoading(true)
+    rest
+      .post(constants.URL.ADD_IMAGE_TO_ASSET_GROUP, uploaddocrequest)
+      .then((res) => {
+        setLoading(false)
+       
         setShowUploadModal(false)
       })
       .catch((err) => {
@@ -36,11 +56,32 @@ const SubNavProperty = (props) => {
   }
   const addNewImage = (res) => {}
   const uploadToS3 = (e) => {
+    console.log("In file uplo");
     const fname = new Date().getTime()
+    setLoading(true);
     s3.uploadFile(e, fname)
       .then((response) => {
+       console.log(response);
+       var uploaddocrequest= {
+        "assetGroupId": group.assetGroupId,
+        "docTypeId": 2,
+        "docurl":response.location
+       };
+        //setSuccessFiles([...successFiles, response])
+       // console.log(successFiles);
+       rest
+      .post(constants.URL.ADD_IMAGE_TO_ASSET_GROUP, uploaddocrequest)
+      .then((res) => {
+        setLoading(false)
         message.success('Uploaded!')
-        setSuccessFiles([...successFiles, response])
+        setShowUploadModal(false)
+      })
+      .catch((err) => {
+        setLoading(false)
+        console.error(err)
+        message.error('Upload Error')
+      })
+    setShowUploadModal(false)
       })
       .catch((err) => {
         console.log(err)
@@ -64,7 +105,7 @@ const SubNavProperty = (props) => {
           </Button>
         ]}
       ></PageHeader>
-      <Modal
+      <Modal width={800} height={800}
         title="Upload Images"
         visible={showUploadModal}
         footer={[
@@ -81,19 +122,21 @@ const SubNavProperty = (props) => {
           </Button>
         ]}
       >
-        {/* <Upload customRequest={handleUpload} >
-              <Button>
-                <UploadOutlined />
-              </Button>
-            </Upload> */}
+
+
+         <Carousel >
+         {successFiles.map((file, index) => {
+           console.log(file);
+                        return (
+                          <input height= {450} type="image" src={file.docurl}>
+                            
+                          </input>
+                        )
+                      })}
+  </Carousel>
         <FileUpload handleFile={uploadToS3} />
-        <h4>Uploaded</h4>
-        <div>
-          {successFiles &&
-            successFiles.map((file, id) => {
-              return <li key={id}>{file.key}</li>
-            })}
-        </div>
+     
+       
       </Modal>
     </div>
   )

@@ -15,6 +15,8 @@ const constants = {
     GET_LEAD_BY_AGENT: 'http://realkeyip.in:8083/api/leads/leadbyagent',
     LOGIN: 'http://realkeyip.in:8083/api/user/login',
     GET_ASSET_GROUPS: 'http://realkeyip.in:8083/api/asset/listAssetGroup',
+    ADD_IMAGE_TO_ASSET_GROUP:'http://realkeyip.in:8083/api/documents/adddocument',
+    LIST_GROUP_IMAGE:'http://realkeyip.in:8083/api/documents/listdocumentbygroup?groupId=',
     ADD_NEW_GROUP: 'http://realkeyip.in:8083/api/asset/addgroup',
     GET_ASSET_BY_GROUP_ID:
       'http://realkeyip.in:8083/api/asset/listAssetByGroupId',
