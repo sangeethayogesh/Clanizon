@@ -109,7 +109,7 @@ const FlatEditForm = (props) => {
           </Form.Item>
           <Form.Item
             colon={false}
-            label="Property Value (sqft)"
+            label="Property Value"
             name="assetValue"
             rules={[
               {
@@ -119,6 +119,22 @@ const FlatEditForm = (props) => {
             ]}
           >
             <Input placeholder="Property value" />
+          </Form.Item>
+          <Form.Item
+            colon={false}
+            label="Value unit"
+            name="assetValueUnit"
+            rules={[
+              {
+                required: true,
+                message: 'Please enter the unit'
+              }
+            ]}
+          >
+            <Select placeholder="Select unit">
+                      <Option value="1">SqFt</Option>
+                      <Option value="2">Flat</Option>
+                    </Select>
           </Form.Item>
 
           <Form.Item

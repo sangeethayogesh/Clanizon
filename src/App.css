@@ -23,8 +23,8 @@
 .ant-carousel .slick-slide {
   text-align: center;
   height: 400px;
-  line-height: 320px;
-  background: #0c3480;
+  line-height: 10px;
+  background: #00040c;
   overflow: hidden;
 }
 .rectangle {

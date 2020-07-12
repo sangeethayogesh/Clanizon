@@ -74,6 +74,7 @@ const SubNavProperty = (props) => {
       .then((res) => {
         setLoading(false)
         message.success('Uploaded!')
+        successFiles.push(res.data);
         setShowUploadModal(false)
       })
       .catch((err) => {
@@ -97,11 +98,9 @@ const SubNavProperty = (props) => {
         onBack={() => window.history.back()}
         title="Back"
         extra={[
-          <Button className="book-btn" key="2" onClick={() => onViewImage()}>
-            Images
-          </Button>,
+          
           <Button key="1" onClick={() => onClickUpload()}>
-            Upload
+            Documents
           </Button>
         ]}
       ></PageHeader>

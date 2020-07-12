@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
-import { Row, Button, Input, message, Form, Layout, Radio, Tabs } from 'antd'
+import { Row, Button, Input, message, Form, Layout, Radio, Tabs,Select } from 'antd'
 import constants from '../../constants'
 import rest from 'services/http'
 import { useStoreState, useStoreActions } from 'easy-peasy'
 import { useHistory } from 'react-router-dom'
 
 const { TabPane } = Tabs
+const { Option } = Select
 const layout = {
   labelCol: {
     span: 24
@@ -108,6 +109,22 @@ const FlatForm = (props) => {
             ]}
           >
             <Input placeholder="Property value" />
+          </Form.Item>
+          <Form.Item
+            colon={false}
+            label="Value unit"
+            name="assetValueUnit"
+            rules={[
+              {
+                required: true,
+                message: 'Please enter the unit'
+              }
+            ]}
+          >
+            <Select placeholder="Select unit">
+                      <Option value="1">SqFt</Option>
+                      <Option value="2">Flat</Option>
+                    </Select>
           </Form.Item>
           <Form.Item
             label="Booking Status"
