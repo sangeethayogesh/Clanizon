@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-expressions */
 import React, { useState, useEffect } from 'react'
-import { Row, Button, Input, message, Form, Layout, Radio, Tabs } from 'antd'
+import { Row, Button, Input, message, Form, Layout, Radio, Tabs ,Select} from 'antd'
 import constants from '../../constants'
 import rest from 'services/http'
 import { useStoreState, useStoreActions } from 'easy-peasy'
@@ -20,6 +20,7 @@ const tailLayout = {
   }
 }
 const { TabPane } = Tabs
+const { Option } = Select
 const FlatEditForm = (props) => {
   const { flat, group, status, onSuccess } = props
   const [isLoading, setLoading] = useState(false)
