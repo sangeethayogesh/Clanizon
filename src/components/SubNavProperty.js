@@ -38,21 +38,21 @@ const SubNavProperty = (props) => {
         message.error('Upload Error')
       })
   }
-  const onOkUpload = (uploaddocrequest) => {
-    setLoading(true)
-    rest
-      .post(constants.URL.ADD_IMAGE_TO_ASSET_GROUP, uploaddocrequest)
-      .then((res) => {
-        setLoading(false)
-        setShowUploadModal(false)
-      })
-      .catch((err) => {
-        setLoading(false)
-        console.error(err)
-        message.error('Upload Error')
-      })
-    setShowUploadModal(false)
-  }
+  // const onOkUpload = (uploaddocrequest) => {
+  //   setLoading(true)
+  //   rest
+  //     .post(constants.URL.ADD_IMAGE_TO_ASSET_GROUP, uploaddocrequest)
+  //     .then((res) => {
+  //       setLoading(false)
+  //       setShowUploadModal(false)
+  //     })
+  //     .catch((err) => {
+  //       setLoading(false)
+  //       console.error(err)
+  //       message.error('Upload Error')
+  //     })
+  //   setShowUploadModal(false)
+  // }
   const onCancelUpload = () => {
     setShowUploadModal(false)
   }

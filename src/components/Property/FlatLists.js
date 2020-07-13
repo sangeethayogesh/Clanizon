@@ -32,7 +32,8 @@ const FlatLists = ({ group, onFlatClick }) => {
           color: '#150e4f'
         }}
       >
-        {assetList ? assetList.length : 0} Flats in {group.assetGroupName || ''}
+        {assetList ? assetList.length : 0} Flats in{' '}
+        {group.assetGroupName ? group.assetGroupName : ''}
       </h5>
       {/* {props.flatLists.map((flat, idx) => {
         return ( */}
