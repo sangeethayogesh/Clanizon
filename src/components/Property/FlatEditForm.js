@@ -18,14 +18,15 @@ const FlatEditForm = (props) => {
   const { flat, status, onSuccess } = props
   const [isLoading, setLoading] = useState(false)
   const [cStatus, setCStatus] = useState(status)
+  const [valueUnit, setValueUnit] = useState('1')
   const [form] = Form.useForm()
   const updateAsset = useStoreActions((state) => state.assets.updateAsset)
   useEffect(() => {
     setCStatus(status)
+    setValueUnit(flat.assetValueUnit)
   }, [])
 
   function callback(key) {
-    console.log(key)
     setCStatus(key)
   }
   const onFinishArea = (values) => {
@@ -67,6 +68,7 @@ const FlatEditForm = (props) => {
             assetNumber: flat.assetNumber,
             assetDimen: flat.assetDimen,
             assetValue: flat.assetValue,
+            assetValueUnit: valueUnit,
             assetFacing: flat.assetFacing
           }}
           onFinish={onFinishArea}
@@ -124,7 +126,7 @@ const FlatEditForm = (props) => {
               }
             ]}
           >
-            <Select placeholder="Select unit">
+            <Select defaultValue={valueUnit}>
               <Option value="1">SqFt</Option>
               <Option value="2">Flat</Option>
             </Select>

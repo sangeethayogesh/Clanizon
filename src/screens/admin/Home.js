@@ -32,7 +32,6 @@ const UserHome = () => {
   useEffect(() => {
     setLoading(true)
     getAllAgents(() => {
-      console.log('DATA RECEIVED::')
       setLoading(false)
     })
   }, [])
