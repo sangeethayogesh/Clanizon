@@ -126,19 +126,7 @@ const SubNavProperty = (props) => {
         height={800}
         title="Upload Images"
         visible={showUploadModal}
-        footer={[
-          <Button key="back" onClick={onCancelUpload}>
-            Return
-          </Button>,
-          <Button
-            key="submit"
-            type="primary"
-            loading={loading}
-            onClick={onOkUpload}
-          >
-            Submit
-          </Button>
-        ]}
+        footer={null}
       >
         <Carousel autoplay>
           {successFiles.map((file, index) => {
