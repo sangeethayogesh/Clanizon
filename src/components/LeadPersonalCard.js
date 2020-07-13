@@ -1,13 +1,10 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { Card, Descriptions, Typography } from 'antd'
 import '../styles/lead-personal-card.css'
 const { Text } = Typography
 const LeadPersonalCard = (props) => {
   const { lead, source } = props
-  function handleOnchange(str) {
-    console.log(str)
-  }
+
   return (
     <Card className="lead-card">
       <Descriptions

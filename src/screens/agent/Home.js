@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import PropTypes from 'prop-types'
 import { Carousel, Row, Col } from 'antd'
 
 import { useStoreActions, useStoreState } from 'easy-peasy'
@@ -92,7 +91,5 @@ const AgentHome = (props) => {
     </HeaderBar>
   )
 }
-
-AgentHome.propTypes = {}
 
 export { AgentHome }

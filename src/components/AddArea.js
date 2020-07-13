@@ -1,19 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { Map, TileLayer, Marker, Tooltip } from 'react-leaflet'
-import { Layout, Modal, message, Input, Form, Button, Upload, Card } from 'antd'
+import { Layout, Modal, message, Input, Form, Button } from 'antd'
 import rest from 'services/http'
 import { useStoreActions, useStoreState } from 'easy-peasy'
 import constants from '../constants'
 import { useHistory } from 'react-router-dom'
-import { s3 } from '../utils/s3.js'
-import {
-  CloudUploadOutlined,
-  LoadingOutlined,
-  PlusOutlined,
-  UploadOutlined,
-  EllipsisOutlined
-} from '@ant-design/icons'
-import FileUpload from './FileUpload'
 
 const layout = {
   labelCol: {
@@ -70,40 +61,15 @@ const AddArea = (props) => {
   }, [])
   const [addAreaVisible, setAddAreaVisible] = useState(false)
   const [files, setFiles] = useState([])
-  const changeSuccess = (res) => {
-    const tfiles = [...files]
-    for (var i = 0; i < tfiles.length; i++) {
-      if (res.key.includes(tfiles[i].name)) {
-        tfiles[i].status = 'success'
-      }
-    }
-    setFiles(tfiles)
-  }
-  const handleUpload = (e) => {
-    var vaild = beforeUpload(e)
-    if (!vaild) {
-      return false
-    }
-    const fname = new Date().getTime()
-    var fi = {
-      name: fname,
-      status: 'start',
-      location: '',
-      file: e
-    }
-
-    setFiles((prevValues) => [...prevValues, fi])
-    console.log(files)
-    s3.uploadFile(e, fname)
-      .then((response) => {
-        message.success('Uploaded!')
-        changeSuccess(response)
-      })
-      .catch((err) => {
-        console.log(err)
-        message.error('Upload failed!')
-      })
-  }
+  // const changeSuccess = (res) => {
+  //   const tfiles = [...files]
+  //   for (var i = 0; i < tfiles.length; i++) {
+  //     if (res.key.includes(tfiles[i].name)) {
+  //       tfiles[i].status = 'success'
+  //     }
+  //   }
+  //   setFiles(tfiles)
+  // }
 
   const addArea = (data) => {
     // eslint-disable-next-line no-unreachable
@@ -139,18 +105,7 @@ const AddArea = (props) => {
     setClickedLocation({})
     setAddAreaVisible(false)
   }
-  function startUpload() {}
-  function beforeUpload(file) {
-    const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
-    if (!isJpgOrPng) {
-      message.error('You can only upload JPG/PNG file!')
-    }
-    const isLt2M = file.size / 1024 / 1024 < 2
-    if (!isLt2M) {
-      message.error('Image must smaller than 2MB!')
-    }
-    return isJpgOrPng && isLt2M
-  }
+
   return (
     <Layout.Content>
       <Modal

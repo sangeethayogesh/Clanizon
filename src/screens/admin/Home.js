@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react'
 import { Row, Col, Layout, Modal, Table } from 'antd'
 import HeaderBar from 'components/HeaderBar'
-import ChatBox from 'components/chatbox'
 
 import {
   // HomeOutlined,

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Form, Input, Button, Layout, Card, Divider, message } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import { useStoreActions } from 'easy-peasy'
-import { useHistory, Redirect } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import rest from 'services/http'
 import constants from '../constants'
 const LoginForm = () => {

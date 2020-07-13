@@ -1,6 +1,5 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { Descriptions, Avatar } from 'antd'
+import { Descriptions } from 'antd'
 
 const UserInfoView = (props) => {
   const { lead } = props
@@ -51,7 +50,5 @@ const UserInfoView = (props) => {
     </>
   )
 }
-
-UserInfoView.propTypes = {}
 
 export { UserInfoView }

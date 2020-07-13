@@ -11,7 +11,6 @@ const AreaList = (props) => {
     (actions) => actions.assets.getAssetGroups
   )
   const assetGroups = useStoreState((state) => state.assets.assetGroups)
-  const currentUser = useStoreState((state) => state.auth.user)
 
   function handleChange(id) {
     setSelectedId(id)

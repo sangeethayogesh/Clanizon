@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from 'react'
 import { Table } from 'antd'
 import { useStoreState, useStoreActions } from 'easy-peasy'
-import constants from '../constants'
 const columns = [
   {
     title: 'Name',

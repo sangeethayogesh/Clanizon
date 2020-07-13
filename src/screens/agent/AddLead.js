@@ -13,16 +13,15 @@ import {
   message,
   Select
 } from 'antd'
-import { ArrowLeftOutlined, CompressOutlined } from '@ant-design/icons'
+import { ArrowLeftOutlined } from '@ant-design/icons'
 import '../../styles/common.css'
 import { useHistory } from 'react-router-dom'
 import constants from '../../constants'
 import rest from 'services/http'
 import { useStoreActions, useStoreState } from 'easy-peasy'
 const { Panel } = Collapse
-const { Option, OptGroup } = Select
+const { Option } = Select
 const { RangePicker } = TimePicker
-const { Search } = Input
 const { Content, Header } = Layout
 const tailLayout = {
   labelCol: {
@@ -55,11 +54,11 @@ const AddLead = (props) => {
       ? values.best_call_time[1].$d.toTimeString().split(' ')[0]
       : null
 
-    var leadList=[];
-    for(var i=0;i<data.leadItemAssetId.length;i++){
-       var leaditem={};
-       leaditem.leadItemAssetId=data.leadItemAssetId[i];
-       leadList.push(leaditem);
+    var leadList = []
+    for (var i = 0; i < data.leadItemAssetId.length; i++) {
+      var leaditem = {}
+      leaditem.leadItemAssetId = data.leadItemAssetId[i]
+      leadList.push(leaditem)
     }
     const request = {
       leadAgentMobile: currentUser.userMobile,
@@ -69,8 +68,7 @@ const AddLead = (props) => {
       leadInterest: data.leadInterest,
       leadCreateDate: new Date(),
       nextScheduleDatetime: tomorrow,
-      leadItem:leadList
-      
+      leadItem: leadList
     }
     console.log('Success:', request)
     setIsLoading(true)
@@ -376,11 +374,10 @@ const AddLead = (props) => {
                             name="leadItemAssetId"
                           >
                             <Select
-                            mode="multiple"
+                              mode="multiple"
                               placeholder="Intrested Property"
                               loading={isLoading}
                             >
-                              
                               {properties &&
                                 properties.map((asset) => {
                                   return (

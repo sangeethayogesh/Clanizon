@@ -1,10 +1,9 @@
 /* eslint-disable no-unused-expressions */
 import React, { useState, useEffect } from 'react'
-import { Row, Button, Input, message, Form, Layout, Radio, Tabs ,Select} from 'antd'
+import { Row, Button, Input, message, Form, Layout, Tabs, Select } from 'antd'
 import constants from '../../constants'
 import rest from 'services/http'
-import { useStoreState, useStoreActions } from 'easy-peasy'
-import { useHistory } from 'react-router-dom'
+import { useStoreActions } from 'easy-peasy'
 const layout = {
   labelCol: {
     span: 24
@@ -13,20 +12,13 @@ const layout = {
     span: 24
   }
 }
-const tailLayout = {
-  wrapperCol: {
-    offset: 24,
-    span: 24
-  }
-}
 const { TabPane } = Tabs
 const { Option } = Select
 const FlatEditForm = (props) => {
-  const { flat, group, status, onSuccess } = props
+  const { flat, status, onSuccess } = props
   const [isLoading, setLoading] = useState(false)
   const [cStatus, setCStatus] = useState(status)
   const [form] = Form.useForm()
-  const history = useHistory()
   const updateAsset = useStoreActions((state) => state.assets.updateAsset)
   useEffect(() => {
     setCStatus(status)
@@ -133,9 +125,9 @@ const FlatEditForm = (props) => {
             ]}
           >
             <Select placeholder="Select unit">
-                      <Option value="1">SqFt</Option>
-                      <Option value="2">Flat</Option>
-                    </Select>
+              <Option value="1">SqFt</Option>
+              <Option value="2">Flat</Option>
+            </Select>
           </Form.Item>
 
           <Form.Item

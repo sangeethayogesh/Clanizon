@@ -6,7 +6,6 @@ import {
   Row,
   Col,
   Button,
-  Input,
   Form,
   Select,
   DatePicker,
@@ -160,12 +159,11 @@ const OverallCallStatus = (props) => {
 
   function handleCollapse() {}
   function onCallStatusSave(values) {
-
-    var leadAssetList=[];
-    for(var i=0;i<values.leadAsset.length;i++){
-       var leaditem={};
-       leaditem.leadItemAssetId=values.leadAsset[i];
-       leadAssetList.push(leaditem);
+    var leadAssetList = []
+    for (var i = 0; i < values.leadAsset.length; i++) {
+      var leaditem = {}
+      leaditem.leadItemAssetId = values.leadAsset[i]
+      leadAssetList.push(leaditem)
     }
     var data = { ...values }
     data.leadAuditCreatedUser = {
@@ -175,7 +173,7 @@ const OverallCallStatus = (props) => {
       ? data.leadAuditScheduleDatetime.$d
       : undefined
     data.leadAuditLeadId = props.leadId
-    data.leadItem=leadAssetList;
+    data.leadItem = leadAssetList
     data.leadAuditCreatedDatetime = new Date()
     setIsLoading(true)
     rest
@@ -339,14 +337,12 @@ const OverallCallStatus = (props) => {
                 </Col>
                 <Col span="8">
                   <Form.Item label="Interested In" name="leadAsset">
-                        <Select
-                            mode="multiple"
-                              placeholder="Intrested Property"
-                              defaultValue={props.leadAsset}
-                              loading={isLoading}
-                            >
-                              
-                            </Select>
+                    <Select
+                      mode="multiple"
+                      placeholder="Intrested Property"
+                      defaultValue={props.leadAsset}
+                      loading={isLoading}
+                    ></Select>
                   </Form.Item>
                 </Col>
                 <Col span="8">

@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Layout, Row, Col } from 'antd'
 import HeaderBar from '../../components/HeaderBar'
-import { SubNavBar } from '../../components/SubNavBar'
-import { useStoreState } from 'easy-peasy'
 import { useHistory } from 'react-router-dom'
 import { FlatLists } from '../../components/Property/FlatLists'
 import '../../styles/flat.css'

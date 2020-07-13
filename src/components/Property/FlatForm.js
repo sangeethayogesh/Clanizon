@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { Row, Button, Input, message, Form, Layout, Radio, Tabs,Select } from 'antd'
+import { Row, Button, Input, message, Form, Layout, Tabs, Select } from 'antd'
 import constants from '../../constants'
 import rest from 'services/http'
-import { useStoreState, useStoreActions } from 'easy-peasy'
+import { useStoreActions } from 'easy-peasy'
 import { useHistory } from 'react-router-dom'
 
 const { TabPane } = Tabs
@@ -12,12 +12,6 @@ const layout = {
     span: 24
   },
   wrapperCol: {
-    span: 24
-  }
-}
-const tailLayout = {
-  wrapperCol: {
-    offset: 24,
     span: 24
   }
 }
@@ -122,9 +116,9 @@ const FlatForm = (props) => {
             ]}
           >
             <Select placeholder="Select unit">
-                      <Option value="1">SqFt</Option>
-                      <Option value="2">Flat</Option>
-                    </Select>
+              <Option value="1">SqFt</Option>
+              <Option value="2">Flat</Option>
+            </Select>
           </Form.Item>
           <Form.Item
             label="Booking Status"

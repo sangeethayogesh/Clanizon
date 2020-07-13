@@ -1,5 +1,4 @@
-import { action, computed, thunk, useStoreState } from 'easy-peasy'
-import constants from '../constants'
+import { action, computed, thunk } from 'easy-peasy'
 import rest from '../services/http'
 import { message } from 'antd'
 const leads = {

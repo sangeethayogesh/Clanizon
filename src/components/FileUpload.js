@@ -13,7 +13,7 @@ const FileUpload = (props) => {
   }
   return (
     <>
-      <Button onClick={handleClick}>Upload a file</Button>
+      <Button onClick={handleClick}>Upload Document</Button>
       <input
         type="file"
         ref={hiddenFileInput}

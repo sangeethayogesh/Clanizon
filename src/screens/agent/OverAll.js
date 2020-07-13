@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react'
-import PropTypes from 'prop-types'
 import HeaderBar from '../../components/HeaderBar'
 import { SubNavBar } from '../../components/SubNavBar'
 import { Row, Col, Descriptions, Card, Layout } from 'antd'
@@ -70,7 +69,5 @@ const OverAll = (props) => {
     </HeaderBar>
   )
 }
-
-OverAll.propTypes = {}
 
 export { OverAll }

@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { PageHeader, Button, Layout } from 'antd'
 import '../styles/agent-overall.css'
 const { Header } = Layout
@@ -22,7 +21,5 @@ const SubNavBar = (props) => {
     </div>
   )
 }
-
-SubNavBar.propTypes = {}
 
 export { SubNavBar }

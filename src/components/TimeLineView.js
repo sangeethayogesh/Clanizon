@@ -1,11 +1,9 @@
 import React from 'react'
-import PropTypes from 'prop-types'
-import { Timeline, Layout, Card } from 'antd'
-import { ClockCircleOutlined } from '@ant-design/icons'
+import { Timeline, Layout } from 'antd'
 import Text from 'antd/lib/typography/Text'
 import '../styles/timeline.css'
 
-const TimeLineView = props => {
+const TimeLineView = (props) => {
   return (
     <Layout.Content style={{ backgroundColor: '#fbfbfb', padding: '1rem' }}>
       <h6 className="t-header-title">Lead Timeline</h6>
@@ -15,7 +13,9 @@ const TimeLineView = props => {
           <Text className="t-sub-title">20 February 2020</Text>
           <div className="t-desc-area">
             <Text className="t-line">Cold call</Text>
-            <Text className="t-line">Intrested to buy. Request for site visit</Text>
+            <Text className="t-line">
+              Intrested to buy. Request for site visit
+            </Text>
           </div>
         </Timeline.Item>
         <Timeline.Item color="green">
@@ -23,7 +23,9 @@ const TimeLineView = props => {
           <Text className="t-sub-title">20 February 2020</Text>
           <div className="t-desc-area">
             <Text className="t-line">Cold call</Text>
-            <Text className="t-line">Intrested to buy. Request for site visit</Text>
+            <Text className="t-line">
+              Intrested to buy. Request for site visit
+            </Text>
           </div>
         </Timeline.Item>
         <Timeline.Item color="gray">
@@ -31,14 +33,14 @@ const TimeLineView = props => {
           <Text className="t-sub-title">20 February 2020</Text>
           <div className="t-desc-area">
             <Text className="t-line">Cold call</Text>
-            <Text className="t-line">Next scheduled for call on 25 February 2020</Text>
+            <Text className="t-line">
+              Next scheduled for call on 25 February 2020
+            </Text>
           </div>
         </Timeline.Item>
       </Timeline>
     </Layout.Content>
   )
 }
-
-TimeLineView.propTypes = {}
 
 export { TimeLineView }
