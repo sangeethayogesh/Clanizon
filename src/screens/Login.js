@@ -39,12 +39,12 @@ const LoginForm = () => {
   }
 
   return (
-    <Layout style={{ minHeight: '100vh' }}>
+    <Layout style={{ minHeight: '100vh' }} className="login-bg">
       <Card
         headStyle={{ textAlign: 'center' }}
         title="Login"
         bordered={false}
-        style={{ width: 400 }}
+        style={{ width: 400, padding: '3rem' }}
         className="login-card"
       >
         <Form
@@ -105,7 +105,7 @@ const LoginForm = () => {
           </Form.Item>
 
           <div style={{ textAlign: 'center' }}>
-            <span>Or</span>
+            <span style={{ color: '#ffff' }}>Or</span>
             <br></br>
             <a className="login-form-forgot" href="">
               Forgot password

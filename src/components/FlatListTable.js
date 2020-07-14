@@ -16,7 +16,7 @@ const columns = [
   {
     title: 'Flat Value',
     width: 150,
-    render: (asset) => asset.assetValue
+    render: (asset) => asset.assetValue + getUnit(asset)
   },
   {
     title: 'Flat Dimension',
@@ -57,7 +57,13 @@ const tableColumns = columns.map((item, idx) => ({
   key: idx,
   className: 't-head'
 }))
-
+const getUnit = (asset) => {
+  var name = ''
+  if (asset.assetValueUnit) {
+    name = asset.assetValueUnit == 1 ? ' / Sqft' : ' / Flat'
+  }
+  return name
+}
 const FlatListTable = (props) => {
   const [loading, setLoading] = useState(false)
   const getAssetById = useStoreActions((actions) => actions.assets.getAssetById)

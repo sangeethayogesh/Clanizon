@@ -18,16 +18,18 @@ const FlatEditForm = (props) => {
   const { flat, status, onSuccess } = props
   const [isLoading, setLoading] = useState(false)
   const [cStatus, setCStatus] = useState(status)
-  const [valueUnit, setValueUnit] = useState('1')
+  const [valueUnit, setValueUnit] = useState(1)
   const [form] = Form.useForm()
   const updateAsset = useStoreActions((state) => state.assets.updateAsset)
   useEffect(() => {
     setCStatus(status)
-    setValueUnit(flat.assetValueUnit)
   }, [])
 
   function callback(key) {
     setCStatus(key)
+  }
+  const onChangeUnit = (key) => {
+    setValueUnit(key)
   }
   const onFinishArea = (values) => {
     const data = { ...values }
@@ -68,7 +70,6 @@ const FlatEditForm = (props) => {
             assetNumber: flat.assetNumber,
             assetDimen: flat.assetDimen,
             assetValue: flat.assetValue,
-            assetValueUnit: valueUnit,
             assetFacing: flat.assetFacing
           }}
           onFinish={onFinishArea}
@@ -126,8 +127,20 @@ const FlatEditForm = (props) => {
               }
             ]}
           >
-            <Select defaultValue={valueUnit}>
-              <Option value="1">SqFt</Option>
+            {/* <Tabs
+              defaultActiveKey={valueUnit + ''}
+              onChange={onChangeUnit}
+              style={{ margin: 0 }}
+            >
+              <TabPane tab="Sqft" key="1"></TabPane>
+              <TabPane tab="Flat" key="2"></TabPane>
+            </Tabs> */}
+            <Select
+              defaultValue={
+                flat.assetValueUnit ? flat.assetValueUnit.toString() : '1'
+              }
+            >
+              <Option value="1">Sqft</Option>
               <Option value="2">Flat</Option>
             </Select>
           </Form.Item>

@@ -12,14 +12,27 @@
     animation: App-logo-spin infinite 20s linear;
   }
 }
+.login-bg {
+  height: 100vh;
+  background-image: url(asssets/bg.jpg) !important;
+  background-position: 50% !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+  background-size: cover !important;
+}
 .login-card {
   position: absolute !important;
   left: 50%;
   top: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.5) !important;
+  color: #ffffff !important;
+  padding: 5rem;
 }
-
+.ant-card-head-title {
+  color: #ffffff !important;
+}
 .ant-carousel .slick-slide {
   text-align: center;
   height: 400px;

@@ -39,11 +39,7 @@ const AreaList = (props) => {
         <br></br>
       </Row>
       <Spin spinning={loading}>
-        <Select
-          style={{ width: 120 }}
-          onChange={handleChange}
-          placeholder="Select Area"
-        >
+        <Select onChange={handleChange} placeholder="Select Area">
           {assetGroups &&
             assetGroups.map((group, index) => {
               return (
