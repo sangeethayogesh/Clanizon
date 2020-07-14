@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import { Table } from 'antd'
 import { useStoreState, useStoreActions } from 'easy-peasy'
+const priceformatter = require('priceformatter')
 const columns = [
   {
     title: 'Name',
@@ -16,13 +17,14 @@ const columns = [
   {
     title: 'Flat Value',
     width: 150,
-    render: (asset) => asset.assetValue + getUnit(asset)
+    render: (asset) =>
+      priceformatter(asset.assetValue).toString() + getUnit(asset)
   },
   {
     title: 'Flat Dimension',
     width: 200,
     // eslint-disable-next-line react/display-name
-    render: (asset) => asset.assetDimen
+    render: (asset) => asset.assetDimen + ' / Sqft'
   },
   {
     title: 'Flat Facing',
@@ -58,7 +60,7 @@ const tableColumns = columns.map((item, idx) => ({
   className: 't-head'
 }))
 const getUnit = (asset) => {
-  var name = ''
+  var name = ' / Sqft'
   if (asset.assetValueUnit) {
     name = asset.assetValueUnit == 1 ? ' / Sqft' : ' / Flat'
   }
