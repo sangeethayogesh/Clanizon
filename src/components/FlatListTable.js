@@ -62,7 +62,7 @@ const tableColumns = columns.map((item, idx) => ({
 const getUnit = (asset) => {
   var name = ' / Sqft'
   if (asset.assetValueUnit) {
-    name = asset.assetValueUnit == 1 ? ' / Sqft' : ' / Flat'
+    name = asset.assetValueUnit == 1 ? ' / ft<sup>2</sup>' : ' / Flat'
   }
   return name
 }
