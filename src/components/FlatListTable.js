@@ -24,7 +24,7 @@ const columns = [
     title: 'Flat Dimension',
     width: 200,
     // eslint-disable-next-line react/display-name
-    render: (asset) => asset.assetDimen + ' / Sqft'
+    render: (asset) => asset.assetDimen + ' Sqft'
   },
   {
     title: 'Flat Facing',
