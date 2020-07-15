@@ -24,7 +24,7 @@ const columns = [
     title: 'Flat Dimension',
     width: 200,
     // eslint-disable-next-line react/display-name
-    render: (asset) => asset.assetDimen + 'ft<sup>2</sup>'
+    render: (asset) => asset.assetDimen + ' Sqft'
   },
   {
     title: 'Flat Facing',
@@ -62,7 +62,7 @@ const tableColumns = columns.map((item, idx) => ({
 const getUnit = (asset) => {
   var name = ' / Sqft'
   if (asset.assetValueUnit) {
-    name = asset.assetValueUnit == 1 ? ' / ft<sup>2</sup>' : ' / Flat'
+    name = asset.assetValueUnit == 1 ? ' / Sqft' : ' / Flat'
   }
   return name
 }
