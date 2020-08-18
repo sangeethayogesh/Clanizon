@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react'
 import { Row, Col, Layout, Modal, Table } from 'antd'
 import HeaderBar from 'components/HeaderBar'
+import ChatBox from 'components/chatbox'
 
 import {
   // HomeOutlined,
@@ -161,8 +162,7 @@ const UserHome = () => {
                   <div className="body-header">Welcome back Admin</div>
                   <div className="body-content" style={{ fontSize: '14px' }}>
                     You’ve earned 80% in this week ! Keep it up and improve your
-                    goals Lorem Ipsum is simply dummy text of the printing and
-                    typesetting industry.
+                    goals.
                   </div>
                 </div>
               </div>
@@ -213,6 +213,13 @@ const UserHome = () => {
                     >
                       {' '}
                       + Add Plot
+                    </button>
+                    <button
+                      className="box-button"
+                      onClick={() => history.push('/admin/add-lead')}
+                    >
+                      {' '}
+                      + Add Lead
                     </button>
                   </div>
                 </Col>
@@ -294,7 +301,7 @@ const UserHome = () => {
             </Content>
           </Layout>
         </Layout>
-        {/* <ChatBox /> */}
+      <ChatBox /> 
       </HeaderBar>
     </Layout>
   )

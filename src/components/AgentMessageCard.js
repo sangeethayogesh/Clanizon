@@ -8,11 +8,12 @@ import dayjs from 'dayjs'
 const relativeTime = require('dayjs/plugin/relativeTime')
 dayjs.extend(relativeTime)
 const AgentMessageCard = props => {
+  console.log(props);
   return (
     <div className="agent-message-card" style={{ backgroundColor: 'white', minHeight: '145px' }}>
       <Card className=" ag-bg-img">
         <Row>
-          <Col span={6}>
+          <Col span={6}>a
           </Col>
           <Col span={18}>
             <Row>
@@ -25,7 +26,7 @@ const AgentMessageCard = props => {
             </Row>
             <Row>
               <Text className="ag-message-time">
-                {dayjs(props.data.createdAt).fromNow()}
+                {dayjs(props.data.createdDate).fromNow()}
               </Text>
             </Row>
           </Col>

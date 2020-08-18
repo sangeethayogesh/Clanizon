@@ -227,7 +227,7 @@ function HeaderBar(props) {
                   to={
                     currentUser.userRole == '1'
                       ? '/admin/overall-product-report'
-                      : '/agent/leads'
+                      : '/agent/overall-product-report'
                   }
                 >
                   <DatabaseOutlined className="menuitem" />

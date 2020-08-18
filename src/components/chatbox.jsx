@@ -1,17 +1,45 @@
-import React from 'react'
+
+import constants from '../constants'
+import rest from 'services/http'
+import React, { useState, useEffect } from 'react'
 import FloatingButton from './floatingButton'
-import { Tabs, Form, Input, Button, Row, Col, Select } from 'antd'
+import { Tabs, Form, Input, Button, Row, Col, Select,  message} from 'antd'
 import { PaperClipOutlined } from '@ant-design/icons'
+import { useStoreState, useStoreActions } from 'easy-peasy'
 
 // const FormItem = Form.Item
 const { TextArea } = Input
 // import '../../src/App.css'
 const { TabPane } = Tabs
 const ChatBox = () => {
+  const [form] = Form.useForm()
   const [show, setShow] = React.useState(false)
+  const [loading, setLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const currentUser = useStoreState((state) => state.auth.user)
   const buttonClick = (e) => {
     e.preventDefault()
     setShow(!show)
+  }
+  const onFinish = (values) => {
+  console.log(values);
+  var request = {
+    "message":values.message,
+    "createdDate":new Date(),
+    "createdBy":currentUser.userMobile
+  }
+  rest
+  .post(constants.URL.ADD_NEW_MESSAGE, request)
+  .then((res) => {
+    message.success('Message Sent!')
+    setIsLoading(false)
+    form.resetFields()
+  })
+  .catch((err) => {
+    message.error('Message Failed!')
+    setIsLoading(false)
+    console.error(err)
+  })
   }
   const tailLayout = {
     wrapperCol: { offset: 9, span: 16 }
@@ -28,12 +56,15 @@ const ChatBox = () => {
             <TabPane tab="All" key="1">
               <Form
                 labelCol={{ span: 10 }}
+                onFinish={onFinish}
+                form={form}
                 wrapperCol={{ span: 24 }}
                 layout="vertical"
               >
                 <Form.Item
                   label="Message"
                   name="message"
+                  
                   rules={[{ required: true }]}
                   className="chatbox-inputs"
                 >
@@ -61,51 +92,9 @@ const ChatBox = () => {
                     </Form.Item>
                   </Col>
                 </Row>
-              </Form>
+              </Form> 
             </TabPane>
-            <TabPane tab="Individual" key="2">
-              <Form
-                labelCol={{ span: 10 }}
-                wrapperCol={{ span: 24 }}
-                layout="vertical"
-              >
-                <Form.Item label="Select Agent" className="chatbox-inputs">
-                  <Select placeholder="Agent Name">
-                    <Select.Option value="demo">Demo</Select.Option>
-                  </Select>
-                </Form.Item>
-                <Form.Item
-                  label="Message"
-                  name="message"
-                  rules={[{ required: true }]}
-                  className="chatbox-inputs"
-                >
-                  <TextArea
-                    style={{
-                      padding: '10px 20px'
-                    }}
-                  />
-                </Form.Item>
-                <Row>
-                  <Col span="1"></Col>
-                  <Col span="4">
-                    <Form.Item>
-                      <Button className="chatbox-attachment">
-                        <PaperClipOutlined />
-                      </Button>
-                    </Form.Item>
-                  </Col>
-                  <Col span="5" />
-                  <Col span="14">
-                    <Form.Item {...tailLayout}>
-                      <Button type="primary" htmlType="submit">
-                        Send
-                      </Button>
-                    </Form.Item>
-                  </Col>
-                </Row>
-              </Form>
-            </TabPane>
+           
           </Tabs>
           {/* </div> */}
         </div>

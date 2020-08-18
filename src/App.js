@@ -126,6 +126,12 @@ function AppRouter() {
         userRole="2"
       ></PrivateRoute>
       <PrivateRoute
+        component={OverallProductReport}
+        path="/agent/overall-product-report"
+        exact
+        userRole="2"
+      ></PrivateRoute>
+      <PrivateRoute
         component={OverAll}
         path="/agent/overall"
         exact
@@ -154,6 +160,12 @@ function AppRouter() {
       <PrivateRoute
         component={Property}
         path="/admin/property"
+        exact
+        userRole="1"
+      ></PrivateRoute>
+      <PrivateRoute
+        component={AddLead}
+        path="/admin/add-lead"
         exact
         userRole="1"
       ></PrivateRoute>

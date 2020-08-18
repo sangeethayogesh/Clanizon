@@ -39,8 +39,17 @@ const AddLead = (props) => {
   const [form] = Form.useForm()
   const [isLoading, setIsLoading] = useState(false)
   const addLead = useStoreActions((actions) => actions.leads.addLead)
+  const getAllAgents = useStoreActions((actions) => actions.agents.getAllAgents)
+  const agentList = useStoreState((state) => state.agents.list)
   const currentUser = useStoreState((state) => state.auth.user)
+  const [loading, setLoading] = useState(false)
   const [groups, setGroups] = useState(null)
+  useEffect(() => {
+    setLoading(true)
+    getAllAgents(() => {
+      setLoading(false)
+    })
+  }, [])
   const [properties, setProperties] = useState(null)
   const onFinish = (values) => {
     const data = values
@@ -61,7 +70,7 @@ const AddLead = (props) => {
       leadList.push(leaditem)
     }
     const request = {
-      leadAgentMobile: currentUser.userMobile,
+      leadAgentMobile: data.agentMobile,
       leadSource: data.leadSource ? data.leadSource : '-',
       leadCustomer: data.lead,
       leadStatus: 1,
@@ -266,6 +275,28 @@ const AddLead = (props) => {
                             ]}
                           >
                             <Input placeholder="Alternative Mobile" />
+                          </Form.Item>
+                        </Col>
+                        <Col span="8">
+                          <Form.Item
+                            label="Assign to Agent"
+                            colon={false}
+                            name="agentMobile"
+                          >
+                            <Select
+                              mode="single"
+                              placeholder="Assign an Agent"
+                             
+                            >
+                              {agentList &&
+                                agentList.map((agent) => {
+                                  return (
+                                    <Option key={agent.userMobile}>
+                                      {agent.userFname}
+                                    </Option>
+                                  )
+                                })}
+                            </Select>
                           </Form.Item>
                         </Col>
                       </Row>

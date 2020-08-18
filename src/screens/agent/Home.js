@@ -13,9 +13,9 @@ import constants from '../../constants'
 
 const AgentHome = (props) => {
   const currentUser = useStoreState((state) => state.auth.user)
-  // const getAdminMessages = useStoreActions(
-  //   (actions) => actions.broadCastMeassages.getMessages
-  // )
+  const getAdminMessages = useStoreActions(
+   (actions) => actions.broadCastMeassages.getMessages
+   )
   const adminMessages = useStoreState(
     (state) => state.broadCastMeassages.messages
   )
@@ -23,21 +23,25 @@ const AgentHome = (props) => {
   const getLeadStatusCount = useStoreActions(
     (actions) => actions.leads.getLeadStatusCount
   )
+  
   const leadStatusCount = useStoreState((state) => state.leads.statusCount)
 
   useEffect(() => {
     // Update the document title using the browser API
-    // getAdminMessages(() => {
-    //   console.log('admin Msg Received')
-    // })
+   getAdminMessages(() => {
+     console.log('admin Msg Received')
+     })
     getLeadStatusCount(
       constants.URL.GET_LEAD_STATUS_COUNT + '?mobile=' + currentUser.userMobile
     )
   }, [])
+  console.log(adminMessages);
   return (
     <HeaderBar>
       <Carousel autoplay dotPosition="bottom">
+        
         {adminMessages.map((msg, i) => (
+          
           <AgentMessageCard key={i} data={msg} />
         ))}
       </Carousel>

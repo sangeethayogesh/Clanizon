@@ -4,7 +4,8 @@ const NAME_SPACE = 'api/'
 const today = new Date().toISOString().split('T')[0]
 const constants = {
   URL: {
-    GET_ADMIN_MESSAGES: NAME_SPACE + 'admin_messages',
+    GET_ADMIN_MESSAGES: 'http://realkeyip.in:8083/api/user/usermessages',
+    ADD_NEW_MESSAGE: 'http://realkeyip.in:8083/api/user/createmessage',
     GET_TODAY_LEADS:
       'http://realkeyip.in:8083/api/leads/leadbyagentanddate?date=' + today,
     GET_ALL_AGENTS: 'http://realkeyip.in:8083//api/user/userbyrole?roleId=2',

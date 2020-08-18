@@ -15,6 +15,7 @@ const broadCastMeassageModel = {
     actions.setMessages([])
     rest.get(constants.URL.GET_ADMIN_MESSAGES)
       .then((res) => {
+        console.log(res);
         actions.setMessages(res.data)
         callback()
       }).catch((err) => {
