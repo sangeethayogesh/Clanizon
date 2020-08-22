@@ -49,7 +49,7 @@ const AgentHome = (props) => {
         <Col>
           <OverViewCard
             color="#7571c7"
-            title="New Leads "
+            title="Universe"
             count={leadStatusCount.created}
             showbutton={true}
           ></OverViewCard>
@@ -57,7 +57,7 @@ const AgentHome = (props) => {
         <Col>
           <OverViewCard
             color="#4cc311"
-            title="Prospecting"
+            title="Market Platform"
             count={leadStatusCount.prospecting}
             showbutton={false}
           ></OverViewCard>
@@ -65,7 +65,7 @@ const AgentHome = (props) => {
         <Col>
           <OverViewCard
             color="#1890ff"
-            title="Completed Leads"
+            title="Working Platform"
             count={leadStatusCount.completed}
             showbutton={false}
           ></OverViewCard>
@@ -73,7 +73,7 @@ const AgentHome = (props) => {
         <Col>
           <OverViewCard
             color="#ff707c"
-            title="Closure Leads"
+            title="Buying Platform"
             count={leadStatusCount.closure}
             showbutton={false}
           ></OverViewCard>

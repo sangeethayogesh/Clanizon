@@ -9,6 +9,8 @@ import { AddPlotArea } from './screens/admin/AddPlotArea'
 import { AgentHome } from './screens/agent/Home'
 import { OverAll } from './screens/agent/OverAll'
 import AddLead from 'screens/agent/AddLead'
+import AddProduct from 'screens/admin/AddProduct'
+import { ProductList } from 'screens/admin/ProductList'
 import { LeadList } from 'screens/agent/LeadList'
 import LoginForm from 'screens/Login'
 import PrivateRoute from 'screens/auth/PrivateRoute'
@@ -142,6 +144,18 @@ function AppRouter() {
         path="/agent/add-lead"
         exact
         userRole="2"
+      ></PrivateRoute>
+      <PrivateRoute
+        component={AddProduct}
+        path="/admin/add-product"
+        exact
+        userRole="1"
+      ></PrivateRoute>
+      <PrivateRoute
+        component={ProductList}
+        path="/admin/add-productlist"
+        exact
+        userRole="1"
       ></PrivateRoute>
       <PrivateRoute
         component={AreaList}

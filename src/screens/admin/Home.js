@@ -61,7 +61,7 @@ const UserHome = () => {
 
   const columns = [
     {
-      title: 'Agents',
+      title: 'Employees',
       key: 'name',
       render: (agent) => (
         <span>{agent.userFname}</span>
@@ -178,7 +178,7 @@ const UserHome = () => {
               </Modal>
               <Modal
                 visible={visibleAddAgent}
-                title="Add new agent"
+                title="Add new Employee"
                 onCancel={() => toggleAddAgent()}
                 footer={null}
                 width="40%"
@@ -202,13 +202,14 @@ const UserHome = () => {
                       </Col>
                       <Col span="6">
                         <span className="count">198</span>
-                        <span className="count-desc"> New plots added</span>
+                        <span className="count-desc"> Market Platform
+</span>
                       </Col>
                     </Row>
                     <div className="oval"></div>
                     <div className="small-oval"></div>
                     <button
-                      className="box-button"
+                      style={{ display:  "none" }} className="box-button"
                       onClick={() => history.push('/admin/add-plot-area')}
                     >
                       {' '}
@@ -219,7 +220,7 @@ const UserHome = () => {
                       onClick={() => history.push('/admin/add-lead')}
                     >
                       {' '}
-                      + Add Lead
+                      + Add Data
                     </button>
                   </div>
                 </Col>
@@ -236,9 +237,9 @@ const UserHome = () => {
                           <span className="letter">A</span>
                         </div>
                       </Col>
-                      <Col span="6">
+                      <Col span="10">
                         <span className="count">256</span>
-                        <span className="count-desc">Available Plots</span>
+                        <span className="count-desc">Working Platform</span>
                       </Col>
                     </Row>
                     <div className="oval"></div>
@@ -260,7 +261,7 @@ const UserHome = () => {
                       </Col>
                       <Col span="6">
                         <span className="count">198</span>
-                        <span className="count-desc">Booked Plots</span>
+                        <span className="count-desc">Buying Platform</span>
                       </Col>
                     </Row>
                     <div className="oval"></div>

@@ -41,7 +41,7 @@ const OverallProductReport = (props) => {
   }
   const getAllLeads = () => {
     rest
-      .get('http://realkeyip.in:8083/api/leads/getAllLeads')
+      .get('http://35.154.38.203:8083/api/leads/getAllLeads')
       .then((response) => {
         processData(response.data)
       })
@@ -58,7 +58,7 @@ const OverallProductReport = (props) => {
       <Row gutter={[24, 16]}>
         <Col span="6" sm={(6, 6)} xs={24}>
           <CategoryTile
-            title="Created"
+            title="Market Platform"
             count={(list && list.created && list.created.length) || 0}
             gradient={['#c185fa', '#6a3ec3']}
             onClick={showAddAgent}
@@ -79,7 +79,7 @@ const OverallProductReport = (props) => {
         </Col>
         <Col span="6" sm={6} xs={24}>
           <CategoryTile
-            title="Prospecting"
+            title="Working Platform"
             count={(list && list.prospecting && list.prospecting.length) || 0}
             gradient={['#efd67c', '#f76b1c']}
           ></CategoryTile>
@@ -98,7 +98,7 @@ const OverallProductReport = (props) => {
         </Col>
         <Col span="6" sm={6} xs={24}>
           <CategoryTile
-            title="Closure"
+            title="Buying Platform"
             count={(list && list.closer && list.closer.length) || 0}
             gradient={['#b9e270', '#60904d']}
           ></CategoryTile>
@@ -117,7 +117,7 @@ const OverallProductReport = (props) => {
         </Col>
         <Col span="6" sm={6} xs={24}>
           <CategoryTile
-            title="Converted"
+            title="Closure"
             count={(list && list.converted && list.converted.length) || 0}
             gradient={['#ff5878', '#ff5878']}
           ></CategoryTile>

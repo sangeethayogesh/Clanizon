@@ -15,7 +15,7 @@ const OverViewCard = (props) => {
             <Text className="o-initial-text">{props.title[0]}</Text>
           </div>
         </Col>
-        <Col span="9" offset={2}>
+        <Col span="10" offset={2}>
           <Row>
             <Text className="o-count">{props.count}</Text>
           </Row>
@@ -24,7 +24,7 @@ const OverViewCard = (props) => {
           </Row>
         </Col>
         {props.showbutton && (
-          <Col span="8">
+          <Col span="7">
             <div className="o-center">
               <Button
                 className="o-add-btn"
@@ -32,7 +32,7 @@ const OverViewCard = (props) => {
                   history.push('agent/add-lead')
                 }}
               >
-                + Add Lead
+                + Add Data
               </Button>
             </div>
           </Col>

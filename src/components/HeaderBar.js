@@ -233,6 +233,17 @@ function HeaderBar(props) {
                   <DatabaseOutlined className="menuitem" />
                 </Link>
               </Menu.Item>
+              <Menu.Item key="4" className="sidemenu">
+                <Link
+                  to={
+                    currentUser.userRole == '1'
+                      ? '/admin/add-productlist'
+                      : '/agent/area-list'
+                  }
+                >
+                  <BuildOutlined className="menuitem" />
+                </Link>
+              </Menu.Item>
               {/* <Menu.Item key="3" className="sidemenu">
                 <Link
                   to={
