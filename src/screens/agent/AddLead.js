@@ -35,23 +35,40 @@ const tailLayout = {
 const AddLead = (props) => {
   var today = new Date()
   var tomorrow = new Date()
+  var companyData;
   tomorrow.setDate(today.getDate() + 1)
   const history = useHistory()
   const [form] = Form.useForm()
   const [isLoading, setIsLoading] = useState(false)
   const addLead = useStoreActions((actions) => actions.leads.addLead)
+  
   const getAllAgents = useStoreActions((actions) => actions.agents.getAllAgents)
+  const getAllCompany = useStoreActions((actions) => actions.company.getAllCompany)
   const agentList = useStoreState((state) => state.agents.list)
+  const getAllProduct = useStoreActions((actions) => actions.product.getAllProduct)
+  const productList = useStoreState((state) => state.product.productList)
+  const companyList = useStoreState((state) => state.company.companyList)
+  const refdata = useStoreState((state) => state.refData.referencedata)
   const currentUser = useStoreState((state) => state.auth.user)
   const [loading, setLoading] = useState(false)
-  const [groups, setGroups] = useState(null)
+  var leadItem;
+  
   useEffect(() => {
     setLoading(true)
     getAllAgents(() => {
       setLoading(false)
     })
+    getAllCompany(() => {
+      setLoading(false)
+     
+    })
+    getAllProduct(() => {
+      setLoading(false)
+     
+    })
   }, [])
   const [properties, setProperties] = useState(null)
+  const  [contactlist, setContactlist] = useState(null)
   const onFinish = (values) => {
     const data = values
     data.lead.userOccupation = '-'
@@ -71,16 +88,17 @@ const AddLead = (props) => {
       leadList.push(leaditem)
     }
     const request = {
-      leadAgentMobile: data.agentMobile,
-      leadSource: data.leadSource ? data.leadSource : '-',
-      leadCustomer: data.lead,
-      leadStatus: 1,
-      leadInterest: data.leadInterest,
+      leadAgentMobile:data.agentMobile,
+      leadSource: 'AD',      
+      leadStatus: 2,
+      companyid:data.companyName,
+      "orderValue":100,
+       "partPayment":50,
+      "fullPayment":12,
       leadCreateDate: new Date(),
       nextScheduleDatetime: tomorrow,
-      leadItem: leadList
-    }
-    console.log('Success:', request)
+      leadItem: leadItem
+    }        
     setIsLoading(true)
     rest
       .post(constants.URL.ADD_NEW_LEAD, request)
@@ -96,20 +114,25 @@ const AddLead = (props) => {
         console.error(err)
       })
   }
+
   function callback(key) {
     console.log(key)
   }
 
+  const onDataChange = (value) => {
+    leadItem=value;
+  }
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo)
     message.warning('Please fill mandatory fields')
   }
+
   const getGroups = () => {
     setIsLoading(true)
     rest
       .get(constants.URL.GET_ASSET_GROUPS)
       .then((res) => {
-        setGroups(res.data)
+       
         setIsLoading(false)
       })
       .catch((err) => {
@@ -121,8 +144,10 @@ const AddLead = (props) => {
   const onChangeArea = (id) => {
     setIsLoading(true)
     rest
-      .get(constants.URL.GET_ASSET_BY_GROUP_ID + '?groupId=' + id)
+      .post(constants.URL.GET_ASSET_BY_GROUP_ID + '?groupId=' + id)
       .then((res) => {
+       
+        
         setProperties(res.data)
         setIsLoading(false)
       })
@@ -130,6 +155,30 @@ const AddLead = (props) => {
         console.error(err)
         setIsLoading(false)
       })
+  }
+
+  const handleCompanyChange = (value) =>{
+    setIsLoading(true)
+    console.log(value);
+    rest
+      .get(constants.URL.GET_COMPANY_DETAIl + '?companyid=' + value)
+      .then((res) => {
+        console.log(res);
+        form.setFieldsValue(res.data);
+        setContactlist(res.data.contactInformation);
+      })
+      .catch((err) => {
+        console.error(err)
+        setIsLoading(false)
+      })
+  }
+  const handleContactChange= (value) =>{
+    contactlist.map((contact) => {
+  if(contact.userMobile==value){
+    form.setFieldsValue(contact);
+  }
+
+    })
   }
   useEffect(() => {
     getGroups()
@@ -192,7 +241,6 @@ const AddLead = (props) => {
                   layout="vertical"
                   name="basic"
                   form={form}
-                  initialValues={{}}
                   onFinish={onFinish}
                   onFinishFailed={onFinishFailed}
                   autoComplete="false"
@@ -201,25 +249,28 @@ const AddLead = (props) => {
                     defaultActiveKey={['1', '2', '3']}
                     onChange={callback}
                   >
-                    <Panel header="Company Information" key="1">
+                   <Panel header="Company Information" key="1">
                     <Row gutter={[8, 0]}>
                     <Col span="8">
                           <Form.Item
                             label="Company"
                             colon={false}
-                            name="agentMobile"
+                            name="companyName"
                           >
                             <Select
                               mode="single"
                               placeholder="Select a Company"
-                             
-                            >                             
-                                    <Option key="1">
-                                      Clanizon
+                              onChange={handleCompanyChange}
+                            >   
+                            {companyList &&
+                                companyList.map((company) => {
+                                  return (
+                                    <Option key={company.companyid}>
+                                      {company.companyName}
                                     </Option>
-                                      <Option key="2">
-                                      Ideaperch
-                                    </Option>
+                                  )
+                                })}                          
+                                
                                  
                             </Select>
                           </Form.Item>
@@ -228,9 +279,9 @@ const AddLead = (props) => {
                           <Form.Item
                             colon={false}
                             label="Bank Name"
-                            name={['lead', 'bname']}
+                            name="bankName"
                           >
-                            <Input placeholder="State bank of India" />
+                            <Input placeholder="Enter bank Name" />
                           </Form.Item>
                         </Col>
 
@@ -238,38 +289,86 @@ const AddLead = (props) => {
                           <Form.Item
                             colon={false}
                             label="Branch"
-                            name={['lead', 'bbranch']}
+                            name="branch"
                           >
-                            <Input placeholder="Chennai" />
+                            <Input placeholder="Enter Bank Branch" />
                           </Form.Item>
                         </Col>
                         </Row> 
-
+                      <Row gutter={[8, 0]}>
+                        <Col span="16">
+                          <Form.Item
+                            label="Address"
+                            colon={false}
+                            name="address"
+                          >
+                            <Input.TextArea placeholder="Address" />
+                          </Form.Item>
+                        </Col>
+                        <Col span="8">
+                          <Form.Item
+                            label="City"
+                            colon={false}
+                            name="city"
+                          >
+                            <Input placeholder="City Name" />
+                          </Form.Item>
+                        </Col>
+                      </Row>
+                      <Row gutter={[8, 0]}>
+                        <Col span="8">
+                          <Form.Item
+                            label="State"
+                            colon={false}
+                            name="state"
+                          >
+                            <Input placeholder="State" />
+                          </Form.Item>
+                        </Col>
+                        <Col span="8">
+                          <Form.Item
+                            label="Country"
+                            colon={false}
+                            name="country"
+                          >
+                            <Input placeholder="Country" />
+                          </Form.Item>
+                        </Col>
+                      </Row>
                     </Panel>
                     <Panel header="Contact Information" key="1">
                       <Row gutter={[8, 0]}>
                         <Col span="8">
-                          <Form.Item
+                        <Form.Item
+                            label="Contact Name"
                             colon={false}
-                            label="Lead First Name"
-                            name={['lead', 'userFname']}
-                            rules={[
-                              {
-                                required: true,
-                                message: 'Please enter the first name'
-                              }
-                            ]}
+                            name="userFname"
                           >
-                            <Input placeholder="First Name" />
+                            <Select
+                              mode="single"
+                              placeholder="Select a Contact"
+                              onChange={handleContactChange}
+                            >   
+                            {contactlist &&
+                                contactlist.map((contact) => {
+                                  return (
+                                    <Option key={contact.userMobile}>
+                                      {contact.userFname}
+                                    </Option>
+                                  )
+                                })}                          
+                                
+                                 
+                            </Select>
                           </Form.Item>
                         </Col>
                         <Col span="8">
                           <Form.Item
                             colon={false}
-                            label="Lead Last Name"
-                            name={['lead', 'userSname']}
+                            label="Department"
+                            name="department"
                           >
-                            <Input placeholder="Last Name" />
+                            <Input placeholder="Department" />
                           </Form.Item>
                         </Col>
 
@@ -277,7 +376,7 @@ const AddLead = (props) => {
                           <Form.Item
                             colon={false}
                             label="Email Id"
-                            name={['lead', 'userEmailid']}
+                            name="userEmailid"
                             rules={[
                               {
                                 type: 'email',
@@ -292,17 +391,7 @@ const AddLead = (props) => {
                           <Form.Item
                             colon={false}
                             label="Contact Number"
-                            name={['lead', 'userMobile']}
-                            rules={[
-                              {
-                                required: true,
-                                message: 'Please enter the contact number'
-                              },
-                              {
-                                pattern: /^\d{10}$/,
-                                message: 'Enter a valid contact number'
-                              }
-                            ]}
+                            name= "userMobile"                           
                           >
                             <Input placeholder="Mobile" />
                           </Form.Item>
@@ -347,50 +436,12 @@ const AddLead = (props) => {
                         </Col>
                       </Row>
                     </Panel>
-                    <Panel header="Residential Information" key="2">
-                      <Row gutter={[8, 0]}>
-                        <Col span="16">
-                          <Form.Item
-                            label="Address"
-                            colon={false}
-                            name={['lead', 'userAddress']}
-                          >
-                            <Input.TextArea placeholder="Address" />
-                          </Form.Item>
-                        </Col>
-                        <Col span="8">
-                          <Form.Item
-                            label="City"
-                            colon={false}
-                            name={['lead', 'userCity']}
-                          >
-                            <Input placeholder="City Name" />
-                          </Form.Item>
-                        </Col>
-                      </Row>
-                      <Row gutter={[8, 0]}>
-                        <Col span="8">
-                          <Form.Item
-                            label="State"
-                            colon={false}
-                            name={['lead', 'userState']}
-                          >
-                            <Input placeholder="State" />
-                          </Form.Item>
-                        </Col>
-                        <Col span="8">
-                          <Form.Item
-                            label="Country"
-                            colon={false}
-                            name={['lead', 'userCountry']}
-                          >
-                            <Input placeholder="Country" />
-                          </Form.Item>
-                        </Col>
-                      </Row>
-                    </Panel>
+                    
                     <Panel header="Proposal Information" key="3">
-                    <ProductLead></ProductLead>
+                    <ProductLead 
+                    productList={productList}
+                    refdata={refdata}
+                    onDataChange={onDataChange}></ProductLead>
                     </Panel>
                   </Collapse>
                   <Row

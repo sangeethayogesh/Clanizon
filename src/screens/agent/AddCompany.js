@@ -42,6 +42,7 @@ const AddCompany = (props) => {
   const addLead = useStoreActions((actions) => actions.leads.addLead)
   const getAllAgents = useStoreActions((actions) => actions.agents.getAllAgents)
   const agentList = useStoreState((state) => state.agents.list)
+  var userList;
   const currentUser = useStoreState((state) => state.auth.user)
   const [loading, setLoading] = useState(false)
   const [groups, setGroups] = useState(null)
@@ -53,45 +54,18 @@ const AddCompany = (props) => {
   }, [])
   const [properties, setProperties] = useState(null)
   const onFinish = (values) => {
-    const data = values
-    data.lead.userOccupation = '-'
-    data.lead.userPassword = data.lead.userMobile
-    data.lead.userMobileAlt = data.lead.userMobile
-    data.lead.preferredCallStart = values.best_call_time
-      ? values.best_call_time[0].$d.toTimeString().split(' ')[0]
-      : null
-    data.lead.preferredCallEnd = values.best_call_time
-      ? values.best_call_time[1].$d.toTimeString().split(' ')[0]
-      : null
-
-    var leadList = []
-    for (var i = 0; i < data.leadItemAssetId.length; i++) {
-      var leaditem = {}
-      leaditem.leadItemAssetId = data.leadItemAssetId[i]
-      leadList.push(leaditem)
-    }
-    const request = {
-      leadAgentMobile: data.agentMobile,
-      leadSource: data.leadSource ? data.leadSource : '-',
-      leadCustomer: data.lead,
-      leadStatus: 1,
-      leadInterest: data.leadInterest,
-      leadCreateDate: new Date(),
-      nextScheduleDatetime: tomorrow,
-      leadItem: leadList
-    }
-    console.log('Success:', request)
-    setIsLoading(true)
+    
+    values.contactInformation=userList;
     rest
-      .post(constants.URL.ADD_NEW_LEAD, request)
+      .post(constants.URL.ADD_NEW_COMPANY, values)
       .then((res) => {
         addLead(res.data)
-        message.success('Lead Added!')
+        message.success('Company Added!')
         setIsLoading(false)
         form.resetFields()
       })
       .catch((err) => {
-        message.error('Failed!')
+        message.error('Failed to Add Company')
         setIsLoading(false)
         console.error(err)
       })
@@ -130,6 +104,10 @@ const AddCompany = (props) => {
         console.error(err)
         setIsLoading(false)
       })
+  }
+
+  const onDataChange = (value) => {
+    userList=value;
   }
   useEffect(() => {
     getGroups()
@@ -209,30 +187,18 @@ const AddCompany = (props) => {
                           <Form.Item
                             label="Company"
                             colon={false}
-                            name="agentMobile"
+                            name="companyName"
                           >
-                            <Select
-                              mode="single"
-                              placeholder="Select a Company"
-                             
-                            >                             
-                                    <Option key="1">
-                                      Clanizon
-                                    </Option>
-                                      <Option key="2">
-                                      Ideaperch
-                                    </Option>
-                                 
-                            </Select>
+                           <Input placeholder="Enter Company Name" />
                           </Form.Item>
                         </Col>
                         <Col span="8">
                           <Form.Item
                             colon={false}
                             label="Bank Name"
-                            name={['lead', 'bname']}
+                            name="bankName"
                           >
-                            <Input placeholder="State bank of India" />
+                            <Input placeholder="Enter bank Name" />
                           </Form.Item>
                         </Col>
 
@@ -240,9 +206,9 @@ const AddCompany = (props) => {
                           <Form.Item
                             colon={false}
                             label="Branch"
-                            name={['lead', 'bbranch']}
+                            name="branch"
                           >
-                            <Input placeholder="Chennai" />
+                            <Input placeholder="Enter Bank Branch" />
                           </Form.Item>
                         </Col>
                         </Row> 
@@ -251,7 +217,7 @@ const AddCompany = (props) => {
                           <Form.Item
                             label="Address"
                             colon={false}
-                            name={['lead', 'userAddress']}
+                            name="address"
                           >
                             <Input.TextArea placeholder="Address" />
                           </Form.Item>
@@ -260,7 +226,7 @@ const AddCompany = (props) => {
                           <Form.Item
                             label="City"
                             colon={false}
-                            name={['lead', 'userCity']}
+                            name="city"
                           >
                             <Input placeholder="City Name" />
                           </Form.Item>
@@ -271,7 +237,7 @@ const AddCompany = (props) => {
                           <Form.Item
                             label="State"
                             colon={false}
-                            name={['lead', 'userState']}
+                            name="state"
                           >
                             <Input placeholder="State" />
                           </Form.Item>
@@ -280,7 +246,7 @@ const AddCompany = (props) => {
                           <Form.Item
                             label="Country"
                             colon={false}
-                            name={['lead', 'userCountry']}
+                            name="country"
                           >
                             <Input placeholder="Country" />
                           </Form.Item>
@@ -288,7 +254,7 @@ const AddCompany = (props) => {
                       </Row>
                     </Panel>
                     <Panel header="Contact Information" key="3">
-                    <CompanyContact></CompanyContact>
+                    <CompanyContact onDataChange={onDataChange}></CompanyContact>
                     </Panel>
                   </Collapse>
                   <Row

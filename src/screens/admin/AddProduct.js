@@ -44,6 +44,7 @@ const AddProduct = (props) => {
   const currentUser = useStoreState((state) => state.auth.user)
   const [loading, setLoading] = useState(false)
   const [groups, setGroups] = useState(null)
+  const refdata = useStoreState((state) => state.refData.referencedata)
   useEffect(() => {
     setLoading(true)
     getAllAgents(() => {
@@ -52,45 +53,17 @@ const AddProduct = (props) => {
   }, [])
   const [properties, setProperties] = useState(null)
   const onFinish = (values) => {
-    const data = values
-    data.lead.userOccupation = '-'
-    data.lead.userPassword = data.lead.userMobile
-    data.lead.userMobileAlt = data.lead.userMobile
-    data.lead.preferredCallStart = values.best_call_time
-      ? values.best_call_time[0].$d.toTimeString().split(' ')[0]
-      : null
-    data.lead.preferredCallEnd = values.best_call_time
-      ? values.best_call_time[1].$d.toTimeString().split(' ')[0]
-      : null
-
-    var leadList = []
-    for (var i = 0; i < data.leadItemAssetId.length; i++) {
-      var leaditem = {}
-      leaditem.leadItemAssetId = data.leadItemAssetId[i]
-      leadList.push(leaditem)
-    }
-    const request = {
-      leadAgentMobile: data.agentMobile,
-      leadSource: data.leadSource ? data.leadSource : '-',
-      leadCustomer: data.lead,
-      leadStatus: 1,
-      leadInterest: data.leadInterest,
-      leadCreateDate: new Date(),
-      nextScheduleDatetime: tomorrow,
-      leadItem: leadList
-    }
-    console.log('Success:', request)
-    setIsLoading(true)
+       setIsLoading(true)
     rest
-      .post(constants.URL.ADD_NEW_LEAD, request)
+      .post(constants.URL.ADD_PRODUCT, values)
       .then((res) => {
         addLead(res.data)
-        message.success('Lead Added!')
+        message.success('Product Added!')
         setIsLoading(false)
         form.resetFields()
       })
       .catch((err) => {
-        message.error('Failed!')
+        message.error('Product Add Failed!')
         setIsLoading(false)
         console.error(err)
       })
@@ -204,35 +177,43 @@ const AddProduct = (props) => {
                       <Row gutter={[8, 0]}>
                         <Col span="8">
                           <Form.Item
-                            label="Product_Business"
+                            label="Product Business"
                             colon={false}
+                            name="businessid"
                           >
-                            <Select placeholder="Product_Business">
-                              <Option>UPS</Option>
-                              <Option>Connectivity</Option>
-                              <Option>Racks</Option>
-                              <Option>Industrial & service</Option>
+                            <Select placeholder="Select Product Business">
+                            {refdata &&refdata.businesstype &&
+                                refdata.businesstype.map((business) => {
+                                  return (
+                                    <Option key={business.key}>
+                                      {business.value}
+                                    </Option>
+                                  )
+                                })}
                             </Select>
                           </Form.Item>
                         </Col>
                         <Col span="8">
                           <Form.Item
                             colon={false}
-                            label="product Model No"
+                            name="productModel"
+                            label="Product Model No"
                           >
-                            <Input placeholder="product Model No" />
+                            <Input placeholder="Enter product Model No" />
                           </Form.Item>
                         </Col>
                         <Col span="8">
                           <Form.Item
                             colon={false}
-                            label="product Name"
+                            name="productName"
+                            label="Product Name"
                           >
                             <Input placeholder="product Name" />
                           </Form.Item>
                         </Col>
                         <Col span="16">
                           <Form.Item
+                          name="productDescription"
                             label="Product Description"
                             colon={false}
                           >
@@ -242,6 +223,7 @@ const AddProduct = (props) => {
                         <Col span="8">
                           <Form.Item
                             colon={false}
+                            name="unitPrice"
                             label="Product Unit price"
                           >
                             <Input placeholder="Product Unit price" />
@@ -250,6 +232,7 @@ const AddProduct = (props) => {
 
                         <Col span="16">
                           <Form.Item
+                          name="productSpecification"
                             label="product Specification"
                             colon={false}
                           >
@@ -259,6 +242,7 @@ const AddProduct = (props) => {
                         <Col span="8">
                           <Form.Item
                             colon={false}
+                            name="assetQty"
                             label="Quantity"
                           >
                             <Input placeholder="Quantity" />

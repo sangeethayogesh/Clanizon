@@ -272,9 +272,7 @@ const OverallCallStatus = (props) => {
                     defaultActiveKey={[props.status]}
                   >
                     <Select placeholder="Select Lead Status">
-                      <Option key={1} value="1">
-                        Created
-                      </Option>
+                     
                       <Option key={2} value="2">
                         Prospecting
                       </Option>
