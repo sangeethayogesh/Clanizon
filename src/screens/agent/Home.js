@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
-import { Carousel, Row, Col } from 'antd'
+import { Carousel, Row, Col,Button } from 'antd'
+import { useHistory } from 'react-router-dom'
 
 import { useStoreActions, useStoreState } from 'easy-peasy'
 
@@ -12,6 +13,7 @@ import '../../styles/common.css'
 import constants from '../../constants'
 
 const AgentHome = (props) => {
+  const history = useHistory()
   const currentUser = useStoreState((state) => state.auth.user)
   const getAdminMessages = useStoreActions(
    (actions) => actions.broadCastMeassages.getMessages
@@ -38,14 +40,19 @@ const AgentHome = (props) => {
   console.log(adminMessages);
   return (
     <HeaderBar>
-      <Carousel autoplay dotPosition="bottom">
-        
-        {adminMessages.map((msg, i) => (
-          
-          <AgentMessageCard key={i} data={msg} />
-        ))}
-      </Carousel>
-      <Row gutter={[12, 12]}>
+      <div className="rectangle">
+        <div
+          style={{
+            padding: '1rem'
+          }}
+        >
+          <div className="body-header">Welcome back {currentUser.userFname} </div>
+        </div>
+      </div>
+      <Row style={{
+                      justifyContent: "space-evenly"
+                    }} 
+          gutter={[12, 12]}>
         <Col>
           <OverViewCard
             color="#7571c7"
@@ -79,6 +86,20 @@ const AgentHome = (props) => {
           ></OverViewCard>
         </Col>
       </Row>
+      <Row justify="end">      
+          <Button style={{fontSize: '15px'}} type="link" 
+            onClick={() => history.push('/agent/add-product')} >
+            + Add Product
+          </Button > 
+          <label style={{fontSize: '18px'}}> | </label> 
+          <Button style={{fontSize: '15px'}} type="link" onClick={() => history.push('/agent/add-company')} >
+            + Add Universe
+          </Button > 
+          <label style={{fontSize: '18px'}}> | </label>
+          <Button style={{fontSize: '15px'}} type="link" onClick={() => history.push('/agent/add-lead')} >
+            + Add Market Platform 
+          </Button > 
+      </Row>
       <Row>
         <h5
           style={{
@@ -88,11 +109,20 @@ const AgentHome = (props) => {
             color: '#150e4f'
           }}
         >
-          Today Lead List
+          Today Market Platform
         </h5>
         <LeadTable currentUser={currentUser}></LeadTable>
       </Row>
+      <Carousel autoplay >
+        
+        {adminMessages.map((msg, i) => (
+          
+          <AgentMessageCard key={i} data={msg} />
+        ))}
+       </Carousel>
+
     </HeaderBar>
+
   )
 }
 

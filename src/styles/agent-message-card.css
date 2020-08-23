@@ -1,11 +1,11 @@
 .agent-message-card{
-    border-radius: 17px;
-  background-color: #fefaff;
+  /* border-radius: 50px; */
+  background-color: #000000;
  
 }
 .ag-message-title{
     font-family: Lato;
-  font-size: 25px;
+  font-size: 15px;
   font-weight: bold;
   color: #ff236d;
 }
@@ -22,9 +22,9 @@
     margin-top: 0.5rem;
 }
 .ag-bg-img{
-    background: url(../asssets/mail.svg) no-repeat top left;
+  background: url(../asssets/announce.png) no-repeat top left;
   background-size: contain;
   left: 0px;
-  min-height: 145px;
+  min-height: 40px;
   overflow-x: hidden;
 }

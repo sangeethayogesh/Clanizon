@@ -47,7 +47,7 @@
   width: inherit;
   /* height: 215px; */
   border-radius: 17px;
-  margin-bottom: 2%;
+  margin-bottom: 1%;
   background-color: #fcf5ff;
 }
 
@@ -64,7 +64,7 @@
 }
 
 .body-header {
-  width: 244px;
+  width: 600px;
   height: 30px;
   font-family: Lato;
   font-size: 25px;
@@ -74,7 +74,7 @@
   line-height: normal;
   letter-spacing: normal;
   color: #ff236d;
-  padding-bottom: 45px;
+  padding-bottom: 30px;
 }
 
 .box-content {
@@ -175,7 +175,7 @@
 }
 
 .admin-page-column-left {
-  margin-right: 2%;
+  margin-right: 1%;
 }
 
 .admin-page-column-right {
@@ -236,13 +236,14 @@
 }
 
 .box-button {
-  float: right;
-  top: 36%;
+  float: left;
+  border-radius: 500px;
   position: relative;
+  margin-right: 2%;
 }
 
 .row-gap {
-  padding: 1%;
+  padding: .5%;
 }
 
 .oval {

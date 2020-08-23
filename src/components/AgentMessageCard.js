@@ -10,20 +10,20 @@ dayjs.extend(relativeTime)
 const AgentMessageCard = props => {
   console.log(props);
   return (
-    <div className="agent-message-card" style={{ backgroundColor: 'white', minHeight: '145px' }}>
-      <Card className=" ag-bg-img">
+    <div className="agent-message-card" style={{backgroundColor:"white",  minHeight: '40px' }}>
+      <Card className="ag-bg-img" >
         <Row>
-          <Col span={6}>a
+          <Col span={2}>
           </Col>
           <Col span={18}>
             <Row>
-              <Text className="ag-message-title">Hello !</Text>
+              <Text className="ag-message-title">{props.data.message}   |   {dayjs(props.data.createdDate).fromNow()}</Text>
             </Row>
-            <Row>
+            {/* <Row>
               <Text className="ag-message-text">
                 {props.data.message}
               </Text>
-            </Row>
+            </Row> */}
             <Row>
               <Text className="ag-message-time">
                 {dayjs(props.data.createdDate).fromNow()}

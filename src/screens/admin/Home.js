@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import React, { useState, useEffect } from 'react'
-import { Row, Col, Layout, Modal, Table } from 'antd'
+import { Row, Col,Button, Layout, Modal, Table, Input } from 'antd'
 import HeaderBar from 'components/HeaderBar'
 import ChatBox from 'components/chatbox'
 
@@ -18,23 +18,32 @@ import { AddAgent } from 'components/AddAgent'
 import { Bar } from 'react-chartjs-2'
 import { useStoreActions, useStoreState } from 'easy-peasy'
 import { useHistory } from 'react-router-dom'
-
+import { OverViewCard } from '../../components/OverViewCard'
+import constants from '../../constants'
 // import { UserOutlined, LaptopOutlined, NotificationOutlined } from '@ant-design/icons';
 // const { SubMenu } = Menu;
 const { Content } = Layout
 
 const UserHome = () => {
   const history = useHistory()
+  const currentUser = useStoreState((state) => state.auth.user)
   const getAllAgents = useStoreActions((actions) => actions.agents.getAllAgents)
   const agentList = useStoreState((state) => state.agents.list)
   const [visibleAddAgent, setVisibleAddAgent] = useState(false)
   const [visibleAddNewPlot, setVisibleAddNewPlot] = useState(false)
   const [loading, setLoading] = useState(false)
+  const getLeadStatusCount = useStoreActions(
+    (actions) => actions.leads.getLeadStatusCount
+  )
+  const leadStatusCount = useStoreState((state) => state.leads.statusCount)
   useEffect(() => {
     setLoading(true)
     getAllAgents(() => {
       setLoading(false)
     })
+    getLeadStatusCount(
+      constants.URL.GET_LEAD_STATUS_COUNT
+    )
   }, [])
   const toggleAddNewPlot = () => {
     setVisibleAddNewPlot(!visibleAddNewPlot)
@@ -89,30 +98,30 @@ const UserHome = () => {
         <span className="table-email">{agent.userEmailid}</span>
       )
     },
-    {
-      title: (
-        <PlusSquareFilled
-          className="table-icon"
-          style={{
-            fontSize: '20px'
-          }}
-          onClick={toggleAddAgent}
-        />
-      ),
-      key: 'city',
-      render: (agent) => agent.userCity
-    },
-    {
-      title: (
-        <FunnelPlotOutlined
-          style={{
-            fontSize: '20px'
-          }}
-        />
-      ),
-      key: 'role',
-      render: (agent) => agent.userOccupation
-    }
+    // {
+    //   title: (
+    //     <PlusSquareFilled
+    //       className="table-icon"
+    //       style={{
+    //         fontSize: '20px'
+    //       }}
+    //       onClick={toggleAddAgent}
+    //     />
+    //   ),
+    //   key: 'city',
+    //   render: (agent) => agent.userCity
+    // },
+    // {
+    //   title: (
+    //     <FunnelPlotOutlined
+    //       style={{
+    //         fontSize: '20px'
+    //       }}
+    //     />
+    //   ),
+    //   key: 'role',
+    //   render: (agent) => agent.userOccupation
+    // }
   ]
   // const addNewPlot = () => {
   //   setNewPlot(!newPlot)
@@ -159,11 +168,11 @@ const UserHome = () => {
                     padding: '1rem'
                   }}
                 >
-                  <div className="body-header">Welcome back Admin</div>
-                  <div className="body-content" style={{ fontSize: '14px' }}>
+                  <div className="body-header">Welcome back  {currentUser.userFname} </div>
+                  {/* <div className="body-content" style={{ fontSize: '14px' }}>
                     You’ve earned 80% in this week ! Keep it up and improve your
                     goals.
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <Modal
@@ -186,7 +195,43 @@ const UserHome = () => {
               >
                 <AddAgent doClose={() => toggleAddAgent()} />
               </Modal>
-              <Row justify="left">
+              <Row style={{
+                      justifyContent: "space-evenly"
+                    }} gutter={[12, 12]}>
+                <Col>
+                  <OverViewCard
+                    color="#7571c7"
+                    title="Universe"
+                    count={leadStatusCount.created}
+                    showbutton={true}
+                  ></OverViewCard>
+                </Col>
+                <Col>
+                  <OverViewCard
+                    color="#4cc311"
+                    title="Market Platform"
+                    count={leadStatusCount.prospecting}
+                    showbutton={false}
+                  ></OverViewCard>
+                </Col>
+                <Col>
+                  <OverViewCard
+                    color="#1890ff"
+                    title="Working Platform"
+                    count={leadStatusCount.completed}
+                    showbutton={false}
+                  ></OverViewCard>
+                </Col>
+                <Col>
+                  <OverViewCard
+                    color="#ff707c"
+                    title="Buying Platform"
+                    count={leadStatusCount.closure}
+                    showbutton={false}
+                  ></OverViewCard>
+                </Col>
+              </Row>
+              {/* <Row justify="left">
                 <Col span="8">
                   <div
                     className="box-content"
@@ -215,21 +260,6 @@ const UserHome = () => {
                       {' '}
                       + Add Plot
                     </button>
-                    <button
-                      className="box-button"
-                      onClick={() => history.push('/admin/add-lead')}
-                    >
-                      {' '}
-                      + Add Data
-                    </button>
-                    <button
-                      className="box-button"
-                      onClick={() => history.push('/admin/add-company')}
-                    >
-                      {' '}
-                      + Add Universe
-                    </button>
-                    
                   </div>
                 </Col>
                 <Col span="8">
@@ -276,8 +306,35 @@ const UserHome = () => {
                     <div className="small-oval"></div>
                   </div>
                 </Col>
-              </Row>
+              </Row> */}
               <div className="row-gap"></div>
+              <Row justify="end">
+                  <Button style={{fontSize: '15px'}} type="link" 
+                    onClick={toggleAddAgent} >
+                    + Add Employees
+                  </Button > 
+                  <label style={{fontSize: '18px'}}> | </label> 
+                  <Button style={{fontSize: '15px'}} type="link" 
+                    onClick={() => 
+                        currentUser.userRole == '1'
+                        ? history.push('/admin/add-product')
+                        : history.push('/agent/add-product')} >
+                    + Add Product
+                  </Button > 
+                  <label style={{fontSize: '18px'}}> | </label> 
+                  <Button style={{fontSize: '15px'}} type="link" onClick={() => history.push('/admin/add-company')} >
+                    + Add Universe
+                  </Button > 
+                  <label style={{fontSize: '18px'}}> | </label>
+                  <Button style={{fontSize: '15px'}} type="link" onClick={() => history.push('/admin/add-lead')} >
+                    + Add Market Platform 
+                  </Button >
+                  <label style={{fontSize: '18px'}}> | </label>
+                  <Button style={{fontSize: '15px'}} type="link" onClick={() => history.push('/admin/add-financial-metrics')} >
+                  + Add Financial Metrics
+                  </Button >            
+              </Row>
+              <div style={{padding: '.25%'}}></div>
               <Row>
                 <Col span="12">
                   <div className="admin-page-column-left">
