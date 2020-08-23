@@ -39,7 +39,7 @@ const columns = [
 
   },
   {
-    title: 'Quality',
+    title: 'Quantity',
     width: 150
 
   }

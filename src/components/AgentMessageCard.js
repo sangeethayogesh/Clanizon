@@ -17,7 +17,7 @@ const AgentMessageCard = props => {
           </Col>
           <Col span={18}>
             <Row>
-              <Text className="ag-message-title">Hello Agent!</Text>
+              <Text className="ag-message-title">Hello !</Text>
             </Row>
             <Row>
               <Text className="ag-message-text">

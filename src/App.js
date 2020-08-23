@@ -5,6 +5,7 @@ import models from './models'
 import './App.css'
 import AdminHome from './screens/admin/Home'
 import OverallProductReport from './screens/admin/OverallProductReport'
+import ProductLead from './components/ProductLead'
 import { AddPlotArea } from './screens/admin/AddPlotArea'
 import { AgentHome } from './screens/agent/Home'
 import { OverAll } from './screens/agent/OverAll'
@@ -16,6 +17,7 @@ import LoginForm from 'screens/Login'
 import PrivateRoute from 'screens/auth/PrivateRoute'
 import { Property } from 'screens/admin/Property'
 import { AreaList } from 'screens/agent/AreaList'
+import AddCompany from './screens/agent/AddCompany'
 // import { Server, Model } from 'miragejs'
 
 // const leaddata = []
@@ -156,6 +158,12 @@ function AppRouter() {
         path="/admin/add-productlist"
         exact
         userRole="1"
+      ></PrivateRoute>
+      <PrivateRoute
+        component={AddCompany}
+        path="/agent/add-company"
+        exact
+        userRole="2"
       ></PrivateRoute>
       <PrivateRoute
         component={AreaList}

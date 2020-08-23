@@ -196,7 +196,7 @@ const HomeNew = props => {
               options={{
                 title: {
                   display: true,
-                  text: 'Overall Performance',
+                  text: 'Employee Performance',
                   fontSize: 20
                 },
                 legend: {

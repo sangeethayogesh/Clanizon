@@ -259,9 +259,9 @@ const AddProduct = (props) => {
                         <Col span="8">
                           <Form.Item
                             colon={false}
-                            label="Quality"
+                            label="Quantity"
                           >
-                            <Input placeholder="Quality" />
+                            <Input placeholder="Quantity" />
                           </Form.Item>
                         </Col>
 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import ProductLead from 'components/ProductLead'
+import CompanyContact from 'components/CompanyContact'
 import HeaderBar from 'components/HeaderBar'
 import {
   Row,
@@ -32,7 +32,7 @@ const tailLayout = {
     span: 24
   }
 }
-const AddLead = (props) => {
+const AddCompany = (props) => {
   var today = new Date()
   var tomorrow = new Date()
   tomorrow.setDate(today.getDate() + 1)
@@ -201,6 +201,8 @@ const AddLead = (props) => {
                     defaultActiveKey={['1', '2', '3']}
                     onChange={callback}
                   >
+                  
+                    
                     <Panel header="Company Information" key="1">
                     <Row gutter={[8, 0]}>
                     <Col span="8">
@@ -244,110 +246,6 @@ const AddLead = (props) => {
                           </Form.Item>
                         </Col>
                         </Row> 
-
-                    </Panel>
-                    <Panel header="Contact Information" key="1">
-                      <Row gutter={[8, 0]}>
-                        <Col span="8">
-                          <Form.Item
-                            colon={false}
-                            label="Lead First Name"
-                            name={['lead', 'userFname']}
-                            rules={[
-                              {
-                                required: true,
-                                message: 'Please enter the first name'
-                              }
-                            ]}
-                          >
-                            <Input placeholder="First Name" />
-                          </Form.Item>
-                        </Col>
-                        <Col span="8">
-                          <Form.Item
-                            colon={false}
-                            label="Lead Last Name"
-                            name={['lead', 'userSname']}
-                          >
-                            <Input placeholder="Last Name" />
-                          </Form.Item>
-                        </Col>
-
-                        <Col span="8">
-                          <Form.Item
-                            colon={false}
-                            label="Email Id"
-                            name={['lead', 'userEmailid']}
-                            rules={[
-                              {
-                                type: 'email',
-                                message: 'Please enter valid email id'
-                              }
-                            ]}
-                          >
-                            <Input placeholder="Email Id" />
-                          </Form.Item>
-                        </Col>
-                        <Col span="8">
-                          <Form.Item
-                            colon={false}
-                            label="Contact Number"
-                            name={['lead', 'userMobile']}
-                            rules={[
-                              {
-                                required: true,
-                                message: 'Please enter the contact number'
-                              },
-                              {
-                                pattern: /^\d{10}$/,
-                                message: 'Enter a valid contact number'
-                              }
-                            ]}
-                          >
-                            <Input placeholder="Mobile" />
-                          </Form.Item>
-                        </Col>
-
-                        <Col span="8">
-                          <Form.Item
-                            colon={false}
-                            label="Alternate Contact Number"
-                            name={['lead', 'userMobileAlt']}
-                            rules={[
-                              {
-                                pattern: /^\d{10}$/,
-                                message: 'Enter a valid contact number'
-                              }
-                            ]}
-                          >
-                            <Input placeholder="Alternative Mobile" />
-                          </Form.Item>
-                        </Col>
-                        <Col span="8">
-                          <Form.Item
-                            label="Assign to Agent"
-                            colon={false}
-                            name="agentMobile"
-                          >
-                            <Select
-                              mode="single"
-                              placeholder="Assign an Agent"
-                             
-                            >
-                              {agentList &&
-                                agentList.map((agent) => {
-                                  return (
-                                    <Option key={agent.userMobile}>
-                                      {agent.userFname}
-                                    </Option>
-                                  )
-                                })}
-                            </Select>
-                          </Form.Item>
-                        </Col>
-                      </Row>
-                    </Panel>
-                    <Panel header="Residential Information" key="2">
                       <Row gutter={[8, 0]}>
                         <Col span="16">
                           <Form.Item
@@ -389,8 +287,8 @@ const AddLead = (props) => {
                         </Col>
                       </Row>
                     </Panel>
-                    <Panel header="Proposal Information" key="3">
-                    <ProductLead></ProductLead>
+                    <Panel header="Contact Information" key="3">
+                    <CompanyContact></CompanyContact>
                     </Panel>
                   </Collapse>
                   <Row
@@ -419,6 +317,6 @@ const AddLead = (props) => {
   )
 }
 
-AddLead.propTypes = {}
+AddCompany.propTypes = {}
 
-export default AddLead
+export default AddCompany
