@@ -147,6 +147,10 @@ const AddAgent = (props) => {
           </Select>
         </Form.Item>
 
+        <Form.Item name={['agent', 'userTarget']} label="Monthly Target">
+          <Input placeholder="Monthly Buying Platform Target " />
+        </Form.Item>
+
         <Form.Item {...tailLayout}>
           <Button type="primary" htmlType="submit" loading={isLoading}>
             Save

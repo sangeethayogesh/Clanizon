@@ -17,7 +17,7 @@ const AgentMessageCard = props => {
           </Col>
           <Col span={18}>
             <Row>
-              <Text className="ag-message-title">{props.data.message}   |   {dayjs(props.data.createdDate).fromNow()}</Text>
+              <Text className="ag-message-title">{props.data.message}</Text>
             </Row>
             {/* <Row>
               <Text className="ag-message-text">

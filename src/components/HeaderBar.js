@@ -78,9 +78,9 @@ function HeaderBar(props) {
               </span>
             </Col>
             <Col span="1" style={{ textAlign: 'center' }}>
-              <div className="divider-left divider-right">
+              {/* <div className="divider-left divider-right">
                 <MenuOutlined className="header-menu" />
-              </div>
+              </div> */}
             </Col>
             {/* <Col span="1" style={{ textAlign: 'center' }}>
               <div className="divider-right">
@@ -89,9 +89,9 @@ function HeaderBar(props) {
             </Col> */}
             <Col span="1" style={{ textAlign: 'center' }}>
               <div className="divider-right">
-                <Badge dot>
+                {/* <Badge dot>
                   <NotificationOutlined className="header-menu" />
-                </Badge>
+                </Badge> */}
               </div>
             </Col>
             <Col span="2" style={{ textAlign: 'center' }}>

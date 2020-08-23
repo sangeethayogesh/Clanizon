@@ -70,7 +70,7 @@ const UserHome = () => {
 
   const columns = [
     {
-      title: 'Employees',
+      title: 'First Name',
       key: 'name',
       render: (agent) => (
         <span>{agent.userFname}</span>
@@ -84,18 +84,28 @@ const UserHome = () => {
       )
     },
     {
+      title: 'Second Name',
       key: 'secondname',
       render: (agent) => (agent.userSname ? agent.userSname : '')
     },
     {
+      title: 'Mobile',
       key: 'mobile',
       render: (agent) => agent.userMobile
     },
 
     {
+      title: 'Email',
       key: 'email',
       render: (agent) => (
         <span className="table-email">{agent.userEmailid}</span>
+      )
+    },
+    {
+      title: 'Monthly Target',
+      key: 'monthlytarget',
+      render: (agent) => (
+        <span className="table-email">10</span>
       )
     },
     // {
@@ -338,7 +348,7 @@ const UserHome = () => {
               <Row>
                 <Col span="12">
                   <div className="admin-page-column-left">
-                    <Table
+                    <Table size='small'
                       loading={loading}
                       dataSource={agentList}
                       columns={columns}
