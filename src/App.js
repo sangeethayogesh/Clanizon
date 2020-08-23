@@ -12,6 +12,8 @@ import { OverAll } from './screens/agent/OverAll'
 import AddLead from 'screens/agent/AddLead'
 import AddProduct from 'screens/admin/AddProduct'
 import { ProductList } from 'screens/admin/ProductList'
+import { FinancialList } from 'screens/admin/FinancialList'
+import AddFinancialMetrics from 'screens/admin/AddFinancialMetrics'
 import { LeadList } from 'screens/agent/LeadList'
 import LoginForm from 'screens/Login'
 import PrivateRoute from 'screens/auth/PrivateRoute'
@@ -154,8 +156,26 @@ function AppRouter() {
         userRole="1"
       ></PrivateRoute>
       <PrivateRoute
+        component={AddProduct}
+        path="/agent/add-product"
+        exact
+        userRole="2"
+      ></PrivateRoute>
+      <PrivateRoute
         component={ProductList}
-        path="/admin/add-productlist"
+        path="/admin/productlist"
+        exact
+        userRole="1"
+      ></PrivateRoute>
+      <PrivateRoute
+        component={ProductList}
+        path="/agent/productlist"
+        exact
+        userRole="2"
+      ></PrivateRoute>
+      <PrivateRoute
+        component={AddCompany}
+        path="/admin/add-company"
         exact
         userRole="1"
       ></PrivateRoute>
@@ -202,6 +222,30 @@ function AppRouter() {
         path="/admin/add-plot-area"
         exact
         userRole="1"
+      ></PrivateRoute>
+      <PrivateRoute
+        component={AddFinancialMetrics}
+        path="/admin/add-financial-metrics"
+        exact
+        userRole="1"
+      ></PrivateRoute>
+      <PrivateRoute
+        component={AddFinancialMetrics}
+        path="/agent/add-financial-metrics"
+        exact
+        userRole="2"
+      ></PrivateRoute>
+      <PrivateRoute
+        component={FinancialList}
+        path="/admin/financiallist"
+        exact
+        userRole="1"
+      ></PrivateRoute>
+      <PrivateRoute
+        component={FinancialList}
+        path="/agent/financiallist"
+        exact
+        userRole="2"
       ></PrivateRoute>
       <Route path="*" render={() => <Redirect to="/login"></Redirect>}></Route>
     </>

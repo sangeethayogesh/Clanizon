@@ -20,6 +20,8 @@ import {
   UserOutlined,
   DatabaseOutlined,
   BuildOutlined,
+  PieChartOutlined  ,
+  AimOutlined,
   PoweroffOutlined,
   SendOutlined
 } from '@ant-design/icons'
@@ -230,18 +232,7 @@ function HeaderBar(props) {
                       : '/agent/overall-product-report'
                   }
                 >
-                  <DatabaseOutlined className="menuitem" />
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="4" className="sidemenu">
-                <Link
-                  to={
-                    currentUser.userRole == '1'
-                      ? '/admin/add-productlist'
-                      : '/agent/area-list'
-                  }
-                >
-                  <BuildOutlined className="menuitem" />
+                  <AimOutlined className="menuitem" />
                 </Link>
               </Menu.Item>
               {/* <Menu.Item key="3" className="sidemenu">
@@ -255,10 +246,27 @@ function HeaderBar(props) {
                   <DatabaseOutlined className="menuitem" />
                 </Link>
               </Menu.Item> */}
-              {currentUser.userRole == '2' && (
+              {/* {currentUser.userRole == '2' && (
                 <Menu.Item key="3" className="sidemenu">
                   <Link to={'/agent/area-list'}>
                     <BuildOutlined className="menuitem" />
+                  </Link>
+                </Menu.Item>
+              )} */}
+              <Menu.Item key="3" className="sidemenu">
+                <Link
+                  to={                
+                  currentUser.userRole == '1'
+                  ? '/admin/productlist'
+                  : '/agent/productlist'}
+                >
+                  <BuildOutlined className="menuitem" />
+                </Link>
+              </Menu.Item>
+              {currentUser.userRole == '1' && (
+                <Menu.Item key="4" className="sidemenu">
+                  <Link to={'/admin/financiallist'}>
+                    <PieChartOutlined className="menuitem" />
                   </Link>
                 </Menu.Item>
               )}

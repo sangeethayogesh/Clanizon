@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react'
 
 import HeaderBar from '../../components/HeaderBar'
 import { Row, Button, Col, Select } from 'antd'
-import { ProductFlatListTable } from '../../components/ProductFlatListTable'
+import { FinancialFlatListTable } from '../../components/FinancialFlatListTable'
 import { useStoreActions, useStoreState } from 'easy-peasy'
 import { useHistory } from 'react-router-dom'
 const { Option } = Select
-const ProductList = (props) => {
+const FinancialList = (props) => {
   const history = useHistory()
   const [selectedId, setSelectedId] = useState(0)
   const [loading, setLoading] = useState(false)
@@ -14,7 +14,6 @@ const ProductList = (props) => {
     (actions) => actions.assets.getAssetGroups
   )
   const assetGroups = useStoreState((state) => state.assets.assetGroups)
-  const currentUser = useStoreState((state) => state.auth.user)
 
   function handleChange (id) {
     setSelectedId(id)
@@ -32,20 +31,17 @@ const ProductList = (props) => {
       <Row gutter={[8, 8]}>
 
         <Col span="3">
-          <Button block type="primary"  onClick={() => 
-                      currentUser.userRole == '1'
-                      ? history.push('/admin/add-product')
-                      : history.push('/agent/add-product')}>
-            Add Product
-          </Button>
+          <Button block type="primary" onClick={() => history.push('/admin/add-financial-metrics')} >
+            Add Financial Metrics
+          </Button >
         </Col>
         <br></br>
       </Row>
 
       <br></br>
-      <ProductFlatListTable id={selectedId} />
+      <FinancialFlatListTable id={selectedId} />
     </HeaderBar>
   )
 }
 
-export { ProductList }
+export { FinancialList }

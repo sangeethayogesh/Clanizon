@@ -222,6 +222,14 @@ const UserHome = () => {
                       {' '}
                       + Add Data
                     </button>
+                    <button
+                      className="box-button"
+                      onClick={() => history.push('/admin/add-company')}
+                    >
+                      {' '}
+                      + Add Universe
+                    </button>
+                    
                   </div>
                 </Col>
                 <Col span="8">
