@@ -55,17 +55,60 @@ const UserHome = () => {
   }
 
   const state = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Aug'],
     datasets: [
       {
+        type:'bar',
         backgroundColor: '#7e31ed',
         // borderColor: 'rgba(0,0,0,1)',
-        label: 'performance',
+        label: 'Achieved',
+        data: [18, 14, 17, 19, 21, 14, 12, 15],
+        barThickness: 20,
+        borderWidth: 2
+      },
+      {
+        type:'line',
+        borderColor: '#EC932F',
+        backgroundColor: '#EC932F',
+        pointBorderColor: '#EC932F',
+        pointBackgroundColor: '#EC932F',
+        pointHoverBackgroundColor: '#EC932F',
+        pointHoverBorderColor: '#EC932F',
+        fill: false,
+        // borderColor: 'rgba(0,0,0,1)',
+        label: 'Monthly Target',
         barThickness: 20,
         borderWidth: 2,
-        data: [65, 59, 80, 81, 56, 100, 90]
+        data: [20, 20, 20, 20, 20, 20, 20, 20]
       }
     ]
+  }
+
+  const state1 = {
+    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    datasets: [{
+        label: 'Sales',
+        type:'line',
+        data: [18, 14, 17, 19, 24, 14, 10],
+        fill: false,
+        borderColor: '#EC932F',
+        backgroundColor: '#EC932F',
+        pointBorderColor: '#EC932F',
+        pointBackgroundColor: '#EC932F',
+        pointHoverBackgroundColor: '#EC932F',
+        pointHoverBorderColor: '#EC932F',
+        yAxisID: 'y-axis-2'
+      },{
+        type: 'bar',
+        label: 'Monthly Target',
+        data: [20, 20, 20, 20, 20, 20, 20],
+        fill: false,
+        backgroundColor: '#71B37C',
+        borderColor: '#71B37C',
+        hoverBackgroundColor: '#71B37C',
+        hoverBorderColor: '#71B37C',
+        yAxisID: 'y-axis-1'
+      }]
   }
 
   const columns = [
@@ -363,11 +406,12 @@ const UserHome = () => {
                         title: {
                           display: true,
                           text: 'Employee Performance',
-                          fontSize: 20
+                          fontSize: 15,
+                          position: "top"
                         },
                         legend: {
                           display: true,
-                          position: 'right'
+                          position: 'bottom'
                         }
                       }}
                     />
