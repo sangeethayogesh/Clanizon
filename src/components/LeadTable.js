@@ -23,7 +23,7 @@ const LeadTable = (props) => {
   const columns = [
     {
       title: 'Name',
-      width: 200,
+      width: 100,
       // eslint-disable-next-line react/display-name
       render: (user) => (
         <span style={{ color: '#000000a6', fontWeight: 'bold' }}>
@@ -33,20 +33,20 @@ const LeadTable = (props) => {
       )
     },
     {
-      title: 'Contact Number',
-      width: 150,
+      title: 'Mobile',
+      width: 100,
       render: (user) => user.leadCustomer.userMobile
     },
     {
       title: 'Email',
-      width: 200,
+      width: 100,
       // eslint-disable-next-line react/display-name
       render: (user) =>
         user.leadCustomer.userEmailid ? user.leadCustomer.userEmailid : '-'
     },
     {
       title: 'Status',
-      width: 150,
+      width: 100,
       render: (user) => (
         <span style={{ color: '#4c46a7', fontWeight: 'bold' }}>
           {constants.getLeadStatusById(user.leadStatus)}
@@ -55,7 +55,7 @@ const LeadTable = (props) => {
     },
     {
       title: 'Next Schedule',
-      width: 150,
+      width: 100,
       // eslint-disable-next-line react/display-name
       render: (user) => (
         <span>
@@ -65,11 +65,11 @@ const LeadTable = (props) => {
     },
     {
       title: 'Source',
-      width: 150,
+      width: 100,
       render: (user) => (user.leadSource ? user.leadSource : '-')
     },
     {
-      title: 'Score Summary',
+      title: 'Score',
       // eslint-disable-next-line react/display-name
       render: (user) => (
         <div className="icons-list">

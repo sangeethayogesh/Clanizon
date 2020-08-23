@@ -248,6 +248,34 @@ const UserHome = () => {
               >
                 <AddAgent doClose={() => toggleAddAgent()} />
               </Modal>
+              {/* <div className="row-gap"></div> */}
+              <Row justify="end">
+                  <Button style={{fontSize: '15px'}} type="link" 
+                    onClick={toggleAddAgent} >
+                    + Add Employees
+                  </Button > 
+                  <label style={{fontSize: '18px'}}> | </label> 
+                  <Button style={{fontSize: '15px'}} type="link" 
+                    onClick={() => 
+                        currentUser.userRole == '1'
+                        ? history.push('/admin/add-product')
+                        : history.push('/agent/add-product')} >
+                    + Add Product
+                  </Button > 
+                  <label style={{fontSize: '18px'}}> | </label> 
+                  <Button style={{fontSize: '15px'}} type="link" onClick={() => history.push('/admin/add-company')} >
+                    + Add Universe
+                  </Button > 
+                  <label style={{fontSize: '18px'}}> | </label>
+                  <Button style={{fontSize: '15px'}} type="link" onClick={() => history.push('/admin/add-lead')} >
+                    + Add Market Platform 
+                  </Button >
+                  <label style={{fontSize: '18px'}}> | </label>
+                  <Button style={{fontSize: '15px'}} type="link" onClick={() => history.push('/admin/add-financial-metrics')} >
+                  + Add Financial Metrics
+                  </Button >            
+              </Row>
+              <div style={{padding: '1%'}}></div>
               <Row style={{
                       justifyContent: "space-evenly"
                     }} gutter={[12, 12]}>
@@ -360,36 +388,19 @@ const UserHome = () => {
                   </div>
                 </Col>
               </Row> */}
-              <div className="row-gap"></div>
-              <Row justify="end">
-                  <Button style={{fontSize: '15px'}} type="link" 
-                    onClick={toggleAddAgent} >
-                    + Add Employees
-                  </Button > 
-                  <label style={{fontSize: '18px'}}> | </label> 
-                  <Button style={{fontSize: '15px'}} type="link" 
-                    onClick={() => 
-                        currentUser.userRole == '1'
-                        ? history.push('/admin/add-product')
-                        : history.push('/agent/add-product')} >
-                    + Add Product
-                  </Button > 
-                  <label style={{fontSize: '18px'}}> | </label> 
-                  <Button style={{fontSize: '15px'}} type="link" onClick={() => history.push('/admin/add-company')} >
-                    + Add Universe
-                  </Button > 
-                  <label style={{fontSize: '18px'}}> | </label>
-                  <Button style={{fontSize: '15px'}} type="link" onClick={() => history.push('/admin/add-lead')} >
-                    + Add Market Platform 
-                  </Button >
-                  <label style={{fontSize: '18px'}}> | </label>
-                  <Button style={{fontSize: '15px'}} type="link" onClick={() => history.push('/admin/add-financial-metrics')} >
-                  + Add Financial Metrics
-                  </Button >            
-              </Row>
-              <div style={{padding: '.25%'}}></div>
+              <div style={{padding: '1%'}}></div>
               <Row>
                 <Col span="12">
+                  <h5
+                    style={{
+                      fontFamily: 'Lato',
+                      fontSize: '14px',
+                      fontWeight: 'bold',
+                      color: '#150e4f'
+                    }}
+                  >
+                    Employees
+                  </h5>
                   <div className="admin-page-column-left">
                     <Table size='small'
                       loading={loading}
@@ -399,12 +410,22 @@ const UserHome = () => {
                   </div>
                 </Col>
                 <Col span="12">
+                  <h5
+                      style={{
+                        fontFamily: 'Lato',
+                        fontSize: '14px',
+                        fontWeight: 'bold',
+                        color: '#150e4f'
+                      }}
+                    >
+                      Employee Performance
+                    </h5>
                   <div className="admin-page-column-right">
                     <Bar
                       data={state}
                       options={{
                         title: {
-                          display: true,
+                          display: false,
                           text: 'Employee Performance',
                           fontSize: 15,
                           position: "top"

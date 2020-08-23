@@ -28,12 +28,26 @@ const FinancialList = (props) => {
   }, [])
   return (
     <HeaderBar>
-      <Row gutter={[8, 8]}>
+      <h5
+        style={{
+          fontFamily: 'Lato',
+          fontSize: '20px',
+          fontWeight: 'bold',
+          color: '#150e4f',
+          paddingLeft:'10px'
+        }}
+      >
+        Financial Metrics
+      </h5>
+      <Row justify="end" gutter={[8, 8]}>
 
-        <Col span="3">
-          <Button block type="primary" onClick={() => history.push('/admin/add-financial-metrics')} >
+        <Col span="4">
+          {/* <Button block type="primary" onClick={() => history.push('/admin/add-financial-metrics')} >
             Add Financial Metrics
-          </Button >
+          </Button > */}
+          <Button style={{fontSize: '15px', paddingRight:'10px'}} type="link" onClick={() => history.push('/admin/add-financial-metrics')} >
+                  + Add Financial Metrics
+          </Button >  
         </Col>
         <br></br>
       </Row>

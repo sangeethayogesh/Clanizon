@@ -176,6 +176,7 @@
 
 .admin-page-column-left {
   margin-right: 1%;
+  background: #fff;
 }
 
 .admin-page-column-right {
@@ -243,7 +244,7 @@
 }
 
 .row-gap {
-  padding: .5%;
+  padding: .25%;
 }
 
 .oval {

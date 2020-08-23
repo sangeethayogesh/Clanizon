@@ -29,15 +29,32 @@ const ProductList = (props) => {
   }, [])
   return (
     <HeaderBar>
-      <Row gutter={[8, 8]}>
-
+      <h5
+        style={{
+          fontFamily: 'Lato',
+          fontSize: '20px',
+          fontWeight: 'bold',
+          color: '#150e4f',
+          paddingLeft:'10px'
+        }}
+      >
+        Products
+      </h5>
+      <Row justify="end" gutter={[8, 8]}>
         <Col span="3">
-          <Button block type="primary"  onClick={() => 
+          {/* <Button block type="primary"  onClick={() => 
                       currentUser.userRole == '1'
                       ? history.push('/admin/add-product')
                       : history.push('/agent/add-product')}>
             Add Product
-          </Button>
+          </Button> */}
+          <Button style={{fontSize: '15px', paddingRight:'10px'}} type="link" 
+                    onClick={() => 
+                        currentUser.userRole == '1'
+                        ? history.push('/admin/add-product')
+                        : history.push('/agent/add-product')} >
+                    + Add Product
+          </Button >
         </Col>
         <br></br>
       </Row>
