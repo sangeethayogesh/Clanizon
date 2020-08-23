@@ -29,18 +29,21 @@ const ProductList = (props) => {
   }, [])
   return (
     <HeaderBar>
-      <h5
-        style={{
-          fontFamily: 'Lato',
-          fontSize: '20px',
-          fontWeight: 'bold',
-          color: '#150e4f',
-          paddingLeft:'10px'
-        }}
-      >
-        Products
-      </h5>
-      <Row justify="end" gutter={[8, 8]}>
+     
+      <Row justify="space-between" gutter={[8, 8]}>
+        <Col>
+            <h5
+            style={{
+              fontFamily: 'Lato',
+              fontSize: '20px',
+              fontWeight: 'bold',
+              color: '#150e4f',
+              paddingLeft:'10px'
+            }}
+          >
+            Products
+          </h5>
+        </Col>
         <Col span="3">
           {/* <Button block type="primary"  onClick={() => 
                       currentUser.userRole == '1'
@@ -56,10 +59,7 @@ const ProductList = (props) => {
                     + Add Product
           </Button >
         </Col>
-        <br></br>
       </Row>
-
-      <br></br>
       <ProductFlatListTable id={selectedId} />
     </HeaderBar>
   )
