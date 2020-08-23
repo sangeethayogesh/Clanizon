@@ -129,7 +129,8 @@ const FinancialList = (props) => {
 
       <Row>
         <Col span ="12">
-          <Row>
+          <Row justify='space-between' >
+            <Col>
              <h5
                   style={{
                     fontFamily: 'Lato',
@@ -140,12 +141,16 @@ const FinancialList = (props) => {
                   }}
                 >
                   Product Contribution
-              </h5>              
+              </h5>   
+              </Col>
+              <Col paddingRight= '10px'>
+                  From :    <DatePicker defaultValue={moment('2020/08/01', dateFormat)} format={dateFormat} style={{ width: 200, height: 32, paddingLeft: '10px', paddingRight: '10px' }}/>
+                  To :    <DatePicker defaultValue={moment(new Date().toJSON().slice(0,10).replace(/-/g,'/'), dateFormat)} format={dateFormat} style={{ width: 200, height: 32, paddingLeft: '10px', paddingRight: '10px'  }}/>
+              </Col> 
+              <Col span=".25">
+              </Col>      
           </Row>
-          <Row>
-            From :    <DatePicker defaultValue={moment('2020/08/01', dateFormat)} format={dateFormat} style={{ width: 200, height: 32, paddingLeft: '10px' }}/>
-            To :    <DatePicker defaultValue={moment(new Date().toJSON().slice(0,10).replace(/-/g,'/'), dateFormat)} format={dateFormat} style={{ width: 200, height: 32, paddingLeft: '10px' }}/>
-          </Row>
+          
             <div className="admin-page-column-left">
               {/* <Polar 
                 data={datastoreFinancialSplit}
@@ -180,23 +185,27 @@ const FinancialList = (props) => {
             </div>
           </Col>
           <Col span="12">
-          <Row>
-             <h5
-                  style={{
-                    fontFamily: 'Lato',
-                    fontSize: '14px',
-                    fontWeight: 'bold',
-                    color: '#150e4f',
-                    paddingBottom: "10px"
-                  }}
-                >
-                  Financial Trend
-              </h5>              
-          </Row>
-          <Row>
-            From :    <DatePicker defaultValue={moment('2020/08/01', dateFormat)} format={dateFormat} style={{ width: 200, height: 32, paddingLeft: '10px' }}/>
-            To :    <DatePicker defaultValue={moment(new Date().toJSON().slice(0,10).replace(/-/g,'/'), dateFormat)} format={dateFormat} style={{ width: 200, height: 32, paddingLeft: '10px' }}/>
-          </Row>
+            <Row justify='space-between' >
+              <Col>
+              <h5
+                    style={{
+                      fontFamily: 'Lato',
+                      fontSize: '14px',
+                      fontWeight: 'bold',
+                      color: '#150e4f',
+                      paddingBottom: "10px"
+                    }}
+                  >
+                    Financial Trend
+                </h5>   
+                </Col>
+                <Col paddingRight= '10px'>
+                    From :    <DatePicker defaultValue={moment('2020/08/01', dateFormat)} format={dateFormat} style={{ width: 200, height: 32, paddingLeft: '10px', paddingRight: '10px' }}/>
+                    To :    <DatePicker defaultValue={moment(new Date().toJSON().slice(0,10).replace(/-/g,'/'), dateFormat)} format={dateFormat} style={{ width: 200, height: 32, paddingLeft: '10px', paddingRight: '10px'  }}/>
+                </Col> 
+                <Col span=".25">
+                </Col>      
+            </Row>
             <div className="admin-page-column-right">
               <Bar
                 data={datastoreFinancial}

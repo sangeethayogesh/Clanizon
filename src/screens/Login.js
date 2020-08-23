@@ -42,7 +42,7 @@ const LoginForm = () => {
     <Layout style={{ minHeight: '100vh' }} className="login-bg">
       <Card
         headStyle={{ textAlign: 'center' }}
-        title="Login"
+        title="CRM"
         bordered={false}
         style={{ width: 400, padding: '3rem' }}
         className="login-card"
