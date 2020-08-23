@@ -98,7 +98,7 @@ const FinancialFlatListTable = (props) => {
     <div>
       <Table
         columns={tableColumns}
-        size="middle"
+        size="small"
         loading={loading}
         dataSource={assetDetails}
         pagination={{ pageSize: 8 }}

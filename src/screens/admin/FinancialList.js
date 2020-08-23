@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react'
 
 import HeaderBar from '../../components/HeaderBar'
-import { Row, Button, Col, Select } from 'antd'
+import { Row, Button, Col, DatePicker, Select } from 'antd'
 import { FinancialFlatListTable } from '../../components/FinancialFlatListTable'
 import { useStoreActions, useStoreState } from 'easy-peasy'
 import { useHistory } from 'react-router-dom'
 import { Bar, Polar, Radar } from 'react-chartjs-2'
+import moment from 'moment'
 
+const dateFormat = 'YYYY/MM/DD'
 const { Option } = Select
 const FinancialList = (props) => {
   const history = useHistory()
@@ -126,18 +128,24 @@ const FinancialList = (props) => {
       <FinancialFlatListTable id={selectedId} />
 
       <Row>
-        <Col span="12">
-            <h5
-                style={{
-                  fontFamily: 'Lato',
-                  fontSize: '14px',
-                  fontWeight: 'bold',
-                  color: '#150e4f',
-                  paddingBottom: "10px"
-                }}
-              >
-                Product Contribution
-              </h5>
+        <Col span ="12">
+          <Row>
+             <h5
+                  style={{
+                    fontFamily: 'Lato',
+                    fontSize: '14px',
+                    fontWeight: 'bold',
+                    color: '#150e4f',
+                    paddingBottom: "10px"
+                  }}
+                >
+                  Product Contribution
+              </h5>              
+          </Row>
+          <Row>
+            From :    <DatePicker defaultValue={moment('2020/08/01', dateFormat)} format={dateFormat} style={{ width: 200, height: 32, paddingLeft: '10px' }}/>
+            To :    <DatePicker defaultValue={moment(new Date().toJSON().slice(0,10).replace(/-/g,'/'), dateFormat)} format={dateFormat} style={{ width: 200, height: 32, paddingLeft: '10px' }}/>
+          </Row>
             <div className="admin-page-column-left">
               {/* <Polar 
                 data={datastoreFinancialSplit}
@@ -172,18 +180,23 @@ const FinancialList = (props) => {
             </div>
           </Col>
           <Col span="12">
-            <h5
-                style={{
-                  fontFamily: 'Lato',
-                  fontSize: '14px',
-                  fontWeight: 'bold',
-                  color: '#150e4f',
-                  paddingBottom: "10px",
-                  paddingLeft: "5px"
-                }}
-              >
-                Financial Trend
-              </h5>
+          <Row>
+             <h5
+                  style={{
+                    fontFamily: 'Lato',
+                    fontSize: '14px',
+                    fontWeight: 'bold',
+                    color: '#150e4f',
+                    paddingBottom: "10px"
+                  }}
+                >
+                  Financial Trend
+              </h5>              
+          </Row>
+          <Row>
+            From :    <DatePicker defaultValue={moment('2020/08/01', dateFormat)} format={dateFormat} style={{ width: 200, height: 32, paddingLeft: '10px' }}/>
+            To :    <DatePicker defaultValue={moment(new Date().toJSON().slice(0,10).replace(/-/g,'/'), dateFormat)} format={dateFormat} style={{ width: 200, height: 32, paddingLeft: '10px' }}/>
+          </Row>
             <div className="admin-page-column-right">
               <Bar
                 data={datastoreFinancial}
