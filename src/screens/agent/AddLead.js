@@ -71,6 +71,7 @@ const AddLead = (props) => {
   const  [contactlist, setContactlist] = useState(null)
   const onFinish = (values) => {
     const data = values
+	 var  companyName
     data.lead.userOccupation = '-'
     data.lead.userPassword = data.lead.userMobile
     data.lead.userMobileAlt = data.lead.userMobile
@@ -82,10 +83,11 @@ const AddLead = (props) => {
       : null
 
 
-      console.log(values);
+     
+	  
       companyList.map((company) => {
-        if(company.companyid==data.companyid){
-          // values.companyName=company.companyName;
+        if(company.companyid == values.companyid){
+            companyName=company.companyName;
         }
       })
     
@@ -93,7 +95,7 @@ const AddLead = (props) => {
       leadAgentMobile:values.agentMobile,
       leadSource: 'AD',      
       leadStatus: 2,
-      companyName:values.companyName,
+      companyName:companyName,
       contactName:values.userFname,
       companyid:values.companyid,
       companyContact:values.userMobile,
