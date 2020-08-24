@@ -20,18 +20,18 @@ const ReportCard = (props) => {
                   fontFamily: 'Lato'
                 }}
               >
-                {lead.leadCustomer.userFname.slice(0, 2)}
+                {lead.companyName.slice(0, 2)}
               </Avatar>
             </Col>
             <Col>
               <Row>
                 <span className="r-user-name">
-                  {lead.leadCustomer.userFname || ''}
+                  {lead.contactName || ''}
                 </span>
               </Row>
               <Row>
                 <span className="r-user-status">
-                  {lead.leadCustomer.userEmailid}
+                  {lead.emailId}
                 </span>
               </Row>
             </Col>
@@ -44,7 +44,7 @@ const ReportCard = (props) => {
           <Row gutter={[6, 6]}>
             <Col span="12">
               <Text className="r-by-code">
-                {lead.leadCustomer.userCity || '-'}
+                {lead.orderValue}
               </Text>
             </Col>
             <Col span="9">
