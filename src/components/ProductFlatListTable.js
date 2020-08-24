@@ -4,71 +4,111 @@ import React, { useEffect, useState } from 'react'
 import { Table } from 'antd'
 import { useStoreState, useStoreActions } from 'easy-peasy'
 const priceformatter = require('priceformatter')
-const columns = [
-  {
-    title: 'Product_Business',
-    width: 150
-    // eslint-disable-next-line react/display-name
 
-  },
-  {
-    title: 'Product Model No',
-    width: 150
 
-  },
-  {
-    title: 'Product Name',
-    width: 150
-    // eslint-disable-next-line react/display-name
 
-  },
-  {
-    title: 'Product Description',
-    width: 150
 
-  },
-  {
-    title: 'Product Unit price',
-    width: 150
-    // eslint-disable-next-line react/display-name
-  },
 
-  {
-    title: 'Product Specification',
-    width: 150
-
-  },
-  {
-    title: 'Quantity',
-    width: 150
-
-  }
-
-  //   {
-  //     title: 'Action',
-  //     dataIndex: '',
-  //     // eslint-disable-next-line react/display-name
-  //     render: (agent) => (
-  //       <span>
-  //         <a>Add Call</a>
-  //       </span>
-  //     )
-  //   }
-]
-const tableColumns = columns.map((item, idx) => ({
-  ...item,
-  ellipsis: true,
-  key: idx,
-  className: 't-head'
-}))
-const getUnit = (asset) => {
-  var name = ' / Sqft'
-  if (asset.assetValueUnit) {
-    name = asset.assetValueUnit == 1 ? ' / Sqft' : ' / Flat'
-  }
-  return name
-}
 const ProductFlatListTable = (props) => {
+  const productList = useStoreState((state) => state.product.productList)
+  const getAllProduct = useStoreActions((actions) => actions.product.getAllProduct)
+  useEffect(() => {
+    
+    getAllProduct(() => {
+      setLoading(false)
+     
+    })
+  }, [])
+  const columns = [
+    {
+      title: 'Product Code',
+      width: 150,
+      render: (user) => (
+        <span style={{ color: '#000000a6', fontWeight: 'bold' }}>
+          {user.productCode}{' '}          
+        </span>
+      )
+      
+      // eslint-disable-next-line react/display-name
+  
+    },
+    {
+      title: 'Product Model No',
+      width: 150,
+      render: (user) => (
+        <span style={{ color: '#000000a6', fontWeight: 'bold' }}>
+          {user.productModel}{' '}          
+        </span>
+      )
+  
+    },
+    {
+      title: 'Product Name',
+      width: 150,
+      render: (user) => (
+        <span style={{ color: '#000000a6', fontWeight: 'bold' }}>
+          {user.productName}{' '}          
+        </span>
+      )
+      // eslint-disable-next-line react/display-name
+  
+    },
+    {
+      title: 'Product Description',
+      width: 150,
+      render: (user) => (
+        <span style={{ color: '#000000a6', fontWeight: 'bold' }}>
+          {user.productDescription}{' '}          
+        </span>
+      )
+  
+    },
+    {
+      title: 'Product Unit price',
+      width: 150,
+      render: (user) => (
+        <span style={{ color: '#000000a6', fontWeight: 'bold' ,textAlign: 'right'}}>
+          {user.unitPrice}{' '}          
+        </span>
+      )
+      // eslint-disable-next-line react/display-name
+    },
+  
+    {
+      title: 'Product Specification',
+      width: 150,
+      render: (user) => (
+        <span style={{ color: '#000000a6', fontWeight: 'bold' }}>
+          {user.productSpecification}{' '}          
+        </span>
+      )
+  
+    },
+    {
+      title: 'Quantity',
+      width: 150, render: (user) => (
+        <span style={{ color: '#000000a6', fontWeight: 'bold' }}>
+          {user.assetQty}{' '}          
+        </span>
+      )
+  
+    }
+  
+    
+  ]
+  const tableColumns = columns.map((item, idx) => ({
+    ...item,
+    ellipsis: true,
+    key: idx,
+    className: 't-head'
+  }))
+  const getUnit = (asset) => {
+    var name = ' / Sqft'
+    if (asset.assetValueUnit) {
+      name = asset.assetValueUnit == 1 ? ' / Sqft' : ' / Flat'
+    }
+    return name
+  }
   const [loading, setLoading] = useState(false)
   const getAssetById = useStoreActions((actions) => actions.assets.getAssetById)
   const assetDetails = useStoreState((state) => state.assets.assetDetails)
@@ -90,7 +130,7 @@ const ProductFlatListTable = (props) => {
         columns={tableColumns}
         size="middle"
         loading={loading}
-        dataSource={assetDetails}
+        dataSource={productList}
         pagination={{ pageSize: 8 }}
       ></Table>
     </div>

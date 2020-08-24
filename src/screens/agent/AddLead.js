@@ -427,6 +427,8 @@ const AddLead = (props) => {
                     <ProductLead 
                     productList={productList}
                     refdata={refdata}
+                    allowEdit={true}
+                   
                     onDataChange={onDataChange}></ProductLead>
                     </Panel>
                   </Collapse>

@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import HeaderBar from '../../components/HeaderBar'
 import { SubNavBar } from '../../components/SubNavBar'
 import { Row, Col, Descriptions, Card, Layout } from 'antd'
+import { useStoreActions } from 'easy-peasy'
 import { LeadPersonalCard } from '../../components/LeadPersonalCard'
 import '../../styles/agent-overall.css'
 import { OverallCallStatus } from '../../components/OverallCallStatus'
@@ -11,8 +12,24 @@ import { useStoreState } from 'easy-peasy'
 const OverAll = (props) => {
   const history = useHistory()
   const lead = history.location.leadDetail
+  const getleadDetail = useStoreActions(
+    (actions) => actions.leads.getLeadDetail
+  )
   const currentUser = useStoreState((state) => state.auth.user)
-  
+  const leadDetail = useStoreState((store) => store.leads.leadDetail)
+  const [loading, setLoading] = useState(false)
+  const data = {
+    url:
+      constants.URL.GET_LEAD_DETAIL + '?leadId=' + lead.leadId,
+    callback: () => {
+      setLoading(false)
+    }
+  }
+  useEffect(() => {
+    setLoading(true)
+    getleadDetail(data)
+  }, [])
+
   useEffect(() => {
     if (lead === undefined) history.goBack()
   }, [])
@@ -26,6 +43,7 @@ const OverAll = (props) => {
               <Col span={16}>
                 <OverallCallStatus
                   leadId={lead.leadId}
+                  leadDetail={leadDetail}
                   status={lead.leadStatus}
                   leadAsset={lead.leadAsset}
                   currentUser={currentUser}
@@ -54,6 +72,7 @@ const OverAll = (props) => {
                 <div style={{ paddingTop: '1rem' }}>
                   <LeadPersonalCard
                     lead={lead}
+
                     source={lead.leadSource}
                   ></LeadPersonalCard>
                 </div>

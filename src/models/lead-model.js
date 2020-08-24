@@ -17,6 +17,12 @@ const leads = {
   }),
   unsetTodayLeads: action((state, payload) => {
     state.today_leads = []
+  })
+  ,setLeadDetail: action((state, payload) => {
+    state.leadDetail = payload
+  }),
+  unsetLeadDetail: action((state, payload) => {
+    state.today_leads = []
   }),
   getTodayLeads: thunk(async (actions, data) => {
     actions.setTodayLeads([])
@@ -34,6 +40,23 @@ const leads = {
         console.error(err)
       })
   }),
+  getLeadDetail: thunk(async (actions, data) => {
+    actions.setLeadDetail([])
+    rest
+      .get(data.url)
+      .then((res) => {
+        // const data = res.data.map((item) => ({
+        //   ...item,
+        //   next_schedule: '10:30AM'
+        // }))
+        actions.setLeadDetail(res.data)
+        data.callback()
+      })
+      .catch((err) => {
+        console.error(err)
+      })
+  }),
+  
   setAllLeads: action((state, payload) => {
     state.allLeads = payload
   }),
@@ -54,6 +77,7 @@ const leads = {
         message.error('Failed loading status count!')
       })
   }),
+  
   setLeadStatusCount: action((state, payload) => {
     const created = payload.filter((leads) => leads.category == 'Created')
     const prospecting = payload.filter(

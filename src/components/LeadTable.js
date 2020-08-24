@@ -37,7 +37,7 @@ const LeadTable = (props) => {
       render: (user) => user.contactName
     },
     {
-      title: 'Contact Nummber',
+      title: 'Contact Number',
       width: 100,
       // eslint-disable-next-line react/display-name
       render: (user) =>
