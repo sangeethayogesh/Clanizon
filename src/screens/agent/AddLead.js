@@ -150,8 +150,14 @@ const AddLead = (props) => {
       .then((res) => {
         console.log(res);
         setIsLoading(false)
-        form.setFieldsValue(res.data);
         setContactlist(res.data.contactInformation);
+        form.setFieldsValue({
+          bankName:res.data.bankName,
+          branch:res.data.branch,
+          country:res.data.country,
+          state:res.data.state,
+          city:res.data.city
+        });
       })
       .catch((err) => {
         console.error(err)
@@ -428,7 +434,7 @@ const AddLead = (props) => {
                     productList={productList}
                     refdata={refdata}
                     allowEdit={true}
-                   
+                    leadItem={[]}
                     onDataChange={onDataChange}></ProductLead>
                     </Panel>
                   </Collapse>

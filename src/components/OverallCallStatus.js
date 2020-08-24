@@ -1,6 +1,8 @@
 /* eslint-disable no-useless-computed-key */
 /* eslint-disable space-before-function-paren */
 import React, { useState } from 'react'
+import ProductLead from 'components/ProductLead'
+import { useStoreActions } from 'easy-peasy'
 import {
   Collapse,
   Row,
@@ -159,6 +161,16 @@ const OverallCallStatus = (props) => {
   const history = useHistory()
   const [isLoading, setIsLoading] = useState(false)
 const refdata = useStoreState((state) => state.refData.referencedata)
+const getAllProduct = useStoreActions((actions) => actions.product.getAllProduct)
+var leadItem=[];
+if(props.leadDetail && props.leadDetail.leadItem){
+  leadItem=props.leadDetail.leadItem;
+}
+const onDataChange = (value) => {
+  console.log(value);
+  
+}
+const productList = useStoreState((state) => state.product.productList)
   function handleCollapse() {}
   function onCallStatusSave(values) {
     var leadAssetList = []
@@ -424,6 +436,14 @@ const refdata = useStoreState((state) => state.refData.referencedata)
 
                </Row>              
             </Panel>
+            <Panel header="Proposal Information" key="3">
+                    <ProductLead 
+                    productList={productList}
+                    refdata={refdata}
+                    leadItem={leadItem}
+                    allowEdit={false}
+                    onDataChange={onDataChange}></ProductLead>
+                    </Panel>
                         
            </Collapse>
             <Divider/>

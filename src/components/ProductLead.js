@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react'
 import DataGrid, { Column, Editing, Summary, TotalItem,Lookup } from 'devextreme-react/data-grid';
 import service from './data.js';
 import {  orders} from './data.js';
 
+import { useStoreActions, useStoreState } from 'easy-peasy'
 
 class ProductLead extends React.Component {
   constructor(props) {
@@ -19,15 +20,14 @@ class ProductLead extends React.Component {
     this.onRowUpdated = this.logEvent.bind(this, 'RowUpdated');
     this.onRowRemoving = this.logEvent.bind(this, 'RowRemoving');
     this.onRowRemoved = this.logEvent.bind(this, 'RowRemoved');
-
+    
     
     window.productList =this.props.productList;
   }
   logEvent(eventName) {
-    console.log(orders);
-    orders.push()
+    
      if(eventName!=null && (eventName=='RowInserted'||eventName=='RowRemoved' ||eventName=='RowUpdated')){
-      this.props.onDataChange(orders);
+      this.props.onDataChange(this.props.leadItem);
      }  
     }   
     calculateSalesAmount(rowData) {
@@ -57,8 +57,8 @@ class ProductLead extends React.Component {
       <React.Fragment>
         <DataGrid
           id="gridContainer"
-          dataSource={orders}
-          keyExpr="productid"
+          dataSource={this.props.leadItem}
+          keyExpr="productId"
           repaintChangesOnly={true}
           showBorders={true}
           onEditingStart={this.onEditingStart}
@@ -71,10 +71,15 @@ class ProductLead extends React.Component {
           onRowRemoved={this.onRowRemoved}>
           <Editing
             mode="row"
+
             allowAdding={true}
             allowUpdating={true}
             allowDeleting={true}
             useIcons={true}>
+
+            allowAdding={this.props.allowEdit}
+            allowUpdating={this.props.allowEdit}
+
           </Editing>
           <Column dataField="businessId" caption="Business" width={125}  >
             <Lookup dataSource={this.props.refdata.businesstype} valueExpr="key" displayExpr="value" />

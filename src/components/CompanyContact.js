@@ -24,7 +24,7 @@ class CompanyContact extends React.Component {
   }
   logEvent(eventName) {
      if(eventName!=null && (eventName=='RowInserted'||eventName=='RowRemoved' ||eventName=='RowUpdated')){
-      this.props.onDataChange(users);
+      this.props.onDataChange(this.props.contact);
      }  
     }      
   render() {
@@ -32,7 +32,7 @@ class CompanyContact extends React.Component {
       <React.Fragment>
         <DataGrid
           id="gridContainer"
-          dataSource={users}
+          dataSource={this.props.contact}
           keyExpr="ID"
           repaintChangesOnly={true}
           showBorders={true}

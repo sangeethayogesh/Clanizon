@@ -255,7 +255,9 @@ const AddCompany = (props) => {
                       </Row>
                     </Panel>
                     <Panel header="Contact Information" key="3">
-                    <CompanyContact onDataChange={onDataChange}></CompanyContact>
+                    <CompanyContact 
+                    contact={[]}
+                    onDataChange={onDataChange}></CompanyContact>
                     </Panel>
                   </Collapse>
                   <Row

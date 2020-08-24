@@ -1,11 +1,4 @@
-export const users = [{
-  'userFname' : "jayaraj",
-  "ID":1,
-  'userEmailid' : "jay@clanizonn.com",
-  "department":"Develpment",
-  "branch":"velore",
-  'userMobile':545858323
-}];
+export const users = [];
   
   export const orders = [];
 
