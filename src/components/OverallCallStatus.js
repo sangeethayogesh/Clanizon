@@ -11,7 +11,8 @@ import {
   DatePicker,
   Divider,
   Radio,
-  message
+  message,
+  Input
 } from 'antd'
 import '../styles/overall-call-status.css'
 import constants from '../constants'
@@ -238,7 +239,7 @@ const refdata = useStoreState((state) => state.refData.referencedata)
         >
           <Collapse
             className="call-status-card"
-            defaultActiveKey={['1']}
+            defaultActiveKey={['1','2']}
             onChange={handleCollapse}
             expandIconPosition="right"
             expandIcon={() => {
@@ -250,18 +251,23 @@ const refdata = useStoreState((state) => state.refData.referencedata)
                 <Col span="8">
                   <Form.Item
                     colon={false}
-                    label="Call type"
+                    label="Activityies"
                     name={['leadAuditType', 'auditTypeId']}
                     rules={[
                       {
                         required: true,
-                        message: 'Please enter the Call type"'
+                        message: 'Please enter the Activity"'
                       }
                     ]}
                   >
-                    <Select placeholder="Select Call Type">
-                      <Option value="1">Inbound</Option>
-                      <Option value="2">Outbound</Option>
+                    <Select placeholder="Select Activity">
+                      <Option value="1">Call</Option>
+                      <Option value="2">Presentation</Option>
+                      <Option value="3">Proposal Submission</Option>
+                      <Option value="4">Demo</Option>
+                      <Option value="5">PO Collection</Option>
+                      <Option value="6">Payment Collection</Option>
+                      <Option value="7">Visit</Option>
                     </Select>
                   </Form.Item>
                 </Col>
@@ -360,7 +366,67 @@ const refdata = useStoreState((state) => state.refData.referencedata)
                   </Form.Item>
                 </Col>
               </Row>
+              </Panel>
               <Divider />
+              <Panel header="Payment Terms" key="2">
+              <Row gutter={[8, 0]}>
+          
+                <Col span="8">
+                  <Form.Item
+                    colon={false}
+                    label="Payment terms"
+                    name={['paymentType', 'paymentTypeId']}
+                    // rules={[
+                    //   {
+                    //     required: true,
+                    //     message: 'Please enter the Payment Terms"'
+                    //   }
+                    // ]}
+                  >
+                    <Select placeholder="Select Payment Terms">
+                      <Option value="1">Advance</Option>
+                      <Option value="2">Part Payment</Option>
+                      <Option value="3">Full payment</Option>
+                    </Select>
+                  </Form.Item>
+                </Col>
+
+                <Col span="8">
+                  <Form.Item
+                    colon={false}
+                    label="Amount"
+                    name={['amount', 'paymentAmount']}
+                    // rules={[
+                    //   {
+                    //     required: true,
+                    //     message: 'Please enter the PaymentAmount'
+                    //   }
+                    // ]}
+                  >
+                    <Input placeholder="Area Location" />
+                  </Form.Item>
+                </Col>
+
+                <Col span="8">
+                  <Form.Item
+                    label="Schedule Date"
+                    name="paymentScheduleDatetime"
+                    // rules={[
+                    //   {
+                    //     required: true,
+                    //     message: 'Please enter Schedule Date'
+                    //   }
+                    // ]}
+                  >
+                    <DatePicker format="YYYY-MM-DD"></DatePicker>
+                  </Form.Item>
+                </Col>
+
+               </Row>              
+            </Panel>
+                        
+           </Collapse>
+            <Divider/>
               <Row className="panel-footer-row">
                 <div className="btn-wrapper">
                   <Form.Item>
@@ -385,8 +451,7 @@ const refdata = useStoreState((state) => state.refData.referencedata)
                   </Form.Item>
                 </div>
               </Row>
-            </Panel>
-          </Collapse>
+
         </Form>
       </Col>
     </Row>

@@ -11,12 +11,12 @@ const SubNavBar = (props) => {
         ghost={true}
         onBack={() => window.history.back()}
         title="Back"
-        extra={[
-          <Button className="book-btn" key="2">
-            Book
-          </Button>,
-          <Button key="1">. . .</Button>
-        ]}
+        // extra={[
+        //   <Button className="book-btn" key="2">
+        //     Book
+        //   </Button>,
+        //   <Button key="1">. . .</Button>
+        // ]}
       ></PageHeader>
     </div>
   )
