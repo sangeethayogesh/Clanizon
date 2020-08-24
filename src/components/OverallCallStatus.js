@@ -17,6 +17,7 @@ import '../styles/overall-call-status.css'
 import constants from '../constants'
 import rest from 'services/http'
 import { useHistory } from 'react-router-dom'
+import { useStoreState } from 'easy-peasy'
 const { Option } = Select
 const { Panel } = Collapse
 
@@ -156,7 +157,7 @@ const OverallCallStatus = (props) => {
   const [form] = Form.useForm()
   const history = useHistory()
   const [isLoading, setIsLoading] = useState(false)
-
+const refdata = useStoreState((state) => state.refData.referencedata)
   function handleCollapse() {}
   function onCallStatusSave(values) {
     var leadAssetList = []
@@ -273,18 +274,15 @@ const OverallCallStatus = (props) => {
                   >
                     <Select placeholder="Select Lead Status">
                      
-                      <Option key={2} value="2">
-                        Prospecting
-                      </Option>
-                      <Option key={3} value="3">
-                        Closure
-                      </Option>
-                      <Option key={4} value="4">
-                        Converted
-                      </Option>
-                      <Option key={5} value="5">
-                        Completed
-                      </Option>
+                    {refdata &&refdata.leadStatus &&
+                                refdata.leadStatus.map((leadStatus) => {
+                                  if(leadStatus.key!=1){
+                                  return (
+                                    <Option key={leadStatus.key}>
+                                      {leadStatus.value}
+                                    </Option>
+                                  )}
+                                })}
                     </Select>
                   </Form.Item>
                 </Col>
@@ -301,10 +299,10 @@ const OverallCallStatus = (props) => {
                     ]}
                   >
                     <Select placeholder="Call Purpose">
-                      {constants.auditStatus.map((status, index) => {
+                      {refdata && refdata.leadAuditStatus.map((status, index) => {
                         return (
-                          <Option key={index} value={status.auditStatusId}>
-                            {status.auditStatus}
+                          <Option key={status.key}>
+                            {status.value}
                           </Option>
                         )
                       })}

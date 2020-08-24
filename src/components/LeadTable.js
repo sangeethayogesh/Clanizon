@@ -22,27 +22,26 @@ const LeadTable = (props) => {
   const todayLeads = useStoreState((store) => store.leads.today_leads)
   const columns = [
     {
-      title: 'Name',
+      title: 'Company Name',
       width: 100,
       // eslint-disable-next-line react/display-name
       render: (user) => (
         <span style={{ color: '#000000a6', fontWeight: 'bold' }}>
-          {user.leadCustomer.userFname}{' '}
-          {user.leadCustomer.userSname ? user.leadCustomer.userSname : ''}
+          {user.companyName}{' '}          
         </span>
       )
     },
     {
-      title: 'Mobile',
+      title: 'Contact Name',
       width: 100,
-      render: (user) => user.leadCustomer.userMobile
+      render: (user) => user.contactName
     },
     {
-      title: 'Email',
+      title: 'Contact Nummber',
       width: 100,
       // eslint-disable-next-line react/display-name
       render: (user) =>
-        user.leadCustomer.userEmailid ? user.leadCustomer.userEmailid : '-'
+        user.leadAgentMobile ? user.leadAgentMobile: '-'
     },
     {
       title: 'Status',

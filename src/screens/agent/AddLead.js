@@ -81,17 +81,23 @@ const AddLead = (props) => {
       ? values.best_call_time[1].$d.toTimeString().split(' ')[0]
       : null
 
-    var leadList = []
-    for (var i = 0; i < data.leadItemAssetId.length; i++) {
-      var leaditem = {}
-      leaditem.leadItemAssetId = data.leadItemAssetId[i]
-      leadList.push(leaditem)
-    }
+
+      console.log(values);
+      companyList.map((company) => {
+        if(company.companyid==data.companyid){
+          values.companyName=company.companyName;
+        }
+      })
+    
     const request = {
-      leadAgentMobile:data.agentMobile,
+      leadAgentMobile:values.agentMobile,
       leadSource: 'AD',      
       leadStatus: 2,
-      companyid:data.companyName,
+      companyName:values.companyName,
+      contactName:values.userFname,
+      companyid:values.companyid,
+      companyContact:values.userMobile,
+      emailId:values.userEmailid,
       "orderValue":100,
        "partPayment":50,
       "fullPayment":12,
@@ -99,7 +105,7 @@ const AddLead = (props) => {
       nextScheduleDatetime: tomorrow,
       leadItem: leadItem
     }        
-    setIsLoading(true)
+    
     rest
       .post(constants.URL.ADD_NEW_LEAD, request)
       .then((res) => {
@@ -120,6 +126,7 @@ const AddLead = (props) => {
   }
 
   const onDataChange = (value) => {
+    console.log(value);
     leadItem=value;
   }
   const onFinishFailed = (errorInfo) => {
@@ -128,33 +135,11 @@ const AddLead = (props) => {
   }
 
   const getGroups = () => {
-    setIsLoading(true)
-    rest
-      .get(constants.URL.GET_ASSET_GROUPS)
-      .then((res) => {
-       
-        setIsLoading(false)
-      })
-      .catch((err) => {
-        console.error(err)
-        setIsLoading(false)
-      })
+    
   }
 
   const onChangeArea = (id) => {
-    setIsLoading(true)
-    rest
-      .post(constants.URL.GET_ASSET_BY_GROUP_ID + '?groupId=' + id)
-      .then((res) => {
-       
-        
-        setProperties(res.data)
-        setIsLoading(false)
-      })
-      .catch((err) => {
-        console.error(err)
-        setIsLoading(false)
-      })
+    
   }
 
   const handleCompanyChange = (value) =>{
@@ -164,6 +149,7 @@ const AddLead = (props) => {
       .get(constants.URL.GET_COMPANY_DETAIl + '?companyid=' + value)
       .then((res) => {
         console.log(res);
+        setIsLoading(false)
         form.setFieldsValue(res.data);
         setContactlist(res.data.contactInformation);
       })
@@ -255,7 +241,7 @@ const AddLead = (props) => {
                           <Form.Item
                             label="Company"
                             colon={false}
-                            name="companyName"
+                            name="companyid"
                           >
                             <Select
                               mode="single"

@@ -12,6 +12,7 @@ const OverAll = (props) => {
   const history = useHistory()
   const lead = history.location.leadDetail
   const currentUser = useStoreState((state) => state.auth.user)
+  
   useEffect(() => {
     if (lead === undefined) history.goBack()
   }, [])
@@ -41,11 +42,7 @@ const OverAll = (props) => {
                     <Descriptions.Item label="Lead Status">
                       {constants.getLeadStatusById(lead.leadStatus)}
                     </Descriptions.Item>
-                    <Descriptions.Item label="Best time to call">
-                      {lead.leadCustomer.preferredCallStart +
-                        '-' +
-                        lead.leadCustomer.preferredCallEnd}
-                    </Descriptions.Item>
+                   
                     {/* <Descriptions.Item label="Intrested  area">
                 Adayar{' '}
               </Descriptions.Item>
@@ -56,7 +53,7 @@ const OverAll = (props) => {
                 </Card>
                 <div style={{ paddingTop: '1rem' }}>
                   <LeadPersonalCard
-                    lead={lead.leadCustomer}
+                    lead={lead}
                     source={lead.leadSource}
                   ></LeadPersonalCard>
                 </div>

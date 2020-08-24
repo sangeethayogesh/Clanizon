@@ -14,18 +14,16 @@ const LeadPersonalCard = (props) => {
         column={{ xxl: 2, xl: 2, lg: 2, md: 2, sm: 2, xs: 1 }}
       >
         <Descriptions.Item label="Lead Name">
-          <Text>{lead.userFname + ' ' + lead.userSname}</Text>
+          <Text>{lead.companyName}</Text>
         </Descriptions.Item>
-        <Descriptions.Item label="Email">{lead.userEmailid}</Descriptions.Item>
+        <Descriptions.Item label="Email">{lead.emailId}</Descriptions.Item>
         <Descriptions.Item label="Contact Number">
-          {lead.userMobile}
+          {lead.companyContact}
         </Descriptions.Item>
         <Descriptions.Item label="Alternative Contact number">
           {lead.userMobileAlt}
         </Descriptions.Item>
-        <Descriptions.Item label="Address">
-          {lead.userAddress}
-        </Descriptions.Item>
+        
         <Descriptions.Item label="Lead source">{source}</Descriptions.Item>
       </Descriptions>
     </Card>

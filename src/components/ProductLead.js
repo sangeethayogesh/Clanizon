@@ -31,10 +31,9 @@ class ProductLead extends React.Component {
      }  
     }   
     calculateSalesAmount(rowData) {
-      if(rowData.unitPrice!=null&&rowData.qty!=null)
+    
       return rowData.unitPrice * rowData.qty;
-      else
-      return 0;
+    
   }
     setModelValue(rowData, value) {           
       var productList= JSON.parse(localStorage.productList);
@@ -42,7 +41,7 @@ class ProductLead extends React.Component {
          productList.map((product) => {
                  if(product.productModel==value){
                   rowData.productDescription=product.productDescription;
-                  rowData.unitprice=product.unitprice;
+                  rowData.unitPrice=product.unitPrice;
                   rowData.productModel=product.productModel;
                   rowData.productId=product.productId;
                   rowData.productName=product.productName;
@@ -76,7 +75,7 @@ class ProductLead extends React.Component {
             allowUpdating={true}
             allowDeleting={true}>
           </Editing>
-          <Column dataField="key" caption="Business" width={125}  >
+          <Column dataField="businessId" caption="Business" width={125}  >
             <Lookup dataSource={this.props.refdata.businesstype} valueExpr="key" displayExpr="value" />
           </Column>
           <Column dataField="productModel" caption="Model" setCellValue={this.setModelValue} width={125} >
@@ -84,7 +83,7 @@ class ProductLead extends React.Component {
           </Column>
           <Column dataField="productDescription" caption="Description"/>
          
-          <Column dataField="unitprice" Caption="Unit price" alignment="right" format="currency" editorOptions={{ format: 'currency' }} />
+          <Column dataField="unitPrice" Caption="Unit price" alignment="right" format="currency" editorOptions={{ format: 'currency' }} />
           <Column dataField="qty" caption="Qty"  />
           <Column dataField="leadItemPrice" 
           calculateCellValue={this.calculateSalesAmount} caption="Total Price"  alignment="right" format="currency" editorOptions={{ format: 'currency' }} />

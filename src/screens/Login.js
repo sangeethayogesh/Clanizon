@@ -1,7 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState ,useEffect} from 'react'
 import { Form, Input, Button, Layout, Card, Divider, message } from 'antd'
 import { UserOutlined, LockOutlined } from '@ant-design/icons'
 import { useStoreActions } from 'easy-peasy'
+
 import { useHistory } from 'react-router-dom'
 import rest from 'services/http'
 import constants from '../constants'
@@ -9,6 +10,7 @@ const LoginForm = () => {
   const history = useHistory()
   const [isLoading, setIsLoading] = useState(false)
   const setCurrentUser = useStoreActions((actions) => actions.auth.setUser)
+  const getRefData = useStoreActions((actions) => actions.refData.getRefData)
   const onFinish = (data) => {
     console.log('Received values of form: ', data)
     // rest.post(constants.URL.LOGIN,data.user){
@@ -19,6 +21,10 @@ const LoginForm = () => {
       .then((response) => {
         setIsLoading(false)
         if (response.data) {
+          
+            getRefData()
+          
+          
           setCurrentUser(response.data)
           if (!response.data.userRole) {
             message.warn('User role not found')
