@@ -99,18 +99,18 @@ const LoginForm = () => {
               >
                 Log in
               </Button>
-              <Divider type="vertical"></Divider>
-              <a href="">Register</a>
+              {/* <Divider type="vertical"></Divider>
+              <a href="">Register</a> */}
             </div>
           </Form.Item>
 
-          <div style={{ textAlign: 'center' }}>
+          {/* <div style={{ textAlign: 'center' }}>
             <span style={{ color: '#ffff' }}>Or</span>
             <br></br>
             <a className="login-form-forgot" href="">
               Forgot password
             </a>
-          </div>
+          </div> */}
         </Form>
       </Card>
     </Layout>
