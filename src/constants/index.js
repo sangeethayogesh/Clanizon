@@ -22,13 +22,13 @@ const constants = {
     GET_ASSET_BY_GROUP_ID:
       'http://35.154.38.203:8083/api/asset/listAssetByGroupId',
     ADD_ASSET: 'http://35.154.38.203:8083/api/asset/addAsset',
-    ADD_NEW_COMPANY: 'http://localhost:8084/api/user/createcompany',
-    GET_ALL_COMPANY:'http://localhost:8084/api/user/listcompany',
-    GET_REF_DATA:'http://localhost:8084/api/user/referencedata',
-    ADD_PRODUCT:'http://localhost:8084/api/asset/addAsset',
-    GET_COMPANY_DETAIl:'http://localhost:8084/api/user/getcomapanydetail',
-    GET_PRODUCT:'http://localhost:8084/api/asset/listproductbyBusiness',
-    GET_ALL_PRODUCT:'http://localhost:8084/api/asset/listallproduct'
+    ADD_NEW_COMPANY: 'http://35.154.38.203:8084/api/user/createcompany',
+    GET_ALL_COMPANY:'http://35.154.38.203:8084/api/user/listcompany',
+    GET_REF_DATA:'http://35.154.38.203:8084/api/user/referencedata',
+    ADD_PRODUCT:'http://35.154.38.203:8084/api/asset/addAsset',
+    GET_COMPANY_DETAIl:'http://35.154.38.203:8084/api/user/getcomapanydetail',
+    GET_PRODUCT:'http://35.154.38.203:8084/api/asset/listproductbyBusiness',
+    GET_ALL_PRODUCT:'http://35.154.38.203:8084/api/asset/listallproduct'
   },
   DATA: {
     admin_messages: [
