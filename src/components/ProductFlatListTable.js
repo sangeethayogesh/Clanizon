@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import { Table } from 'antd'
 import { useStoreState, useStoreActions } from 'easy-peasy'
+import constants from '../constants'
 const priceformatter = require('priceformatter')
 
 
@@ -20,18 +21,30 @@ const ProductFlatListTable = (props) => {
     })
   }, [])
   const columns = [
-    {
-      title: 'Product Code',
+       {
+      title: 'Business',
       width: 150,
       render: (user) => (
         <span style={{ color: '#000000a6', fontWeight: 'bold' }}>
-          {user.productCode}{' '}          
+          {constants.getBusinessType(user.businessid)}   
         </span>
       )
       
       // eslint-disable-next-line react/display-name
   
     },
+    // {
+    //   title: 'Product Code',
+    //   width: 150,
+    //   render: (user) => (
+    //     <span style={{ color: '#000000a6', fontWeight: 'bold' }}>
+    //       {user.productCode}{' '}          
+    //     </span>
+    //   )
+      
+    //   // eslint-disable-next-line react/display-name
+  
+    // },
     {
       title: 'Product Model No',
       width: 150,
