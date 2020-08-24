@@ -79,12 +79,12 @@ const leads = {
   }),
   
   setLeadStatusCount: action((state, payload) => {
-    const created = payload.filter((leads) => leads.category == 'Created')
+    const created = payload.filter((leads) => leads.category == 'Universe')
     const prospecting = payload.filter(
-      (leads) => leads.category == 'Prospecting'
+      (leads) => leads.category == 'Market platform'
     )
-    const closure = payload.filter((leads) => leads.category == 'Closure')
-    const completed = payload.filter((leads) => leads.category == 'Completed')
+    const closure = payload.filter((leads) => leads.category == 'Buying Platform')
+    const completed = payload.filter((leads) => leads.category == 'Working platform"')
     state.statusCount = {
       created: created[0] ? created[0].count : 0,
       prospecting: prospecting[0] ? prospecting[0].count : 0,
