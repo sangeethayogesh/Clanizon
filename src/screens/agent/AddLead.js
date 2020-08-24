@@ -85,7 +85,7 @@ const AddLead = (props) => {
       console.log(values);
       companyList.map((company) => {
         if(company.companyid==data.companyid){
-          values.companyName=company.companyName;
+          // values.companyName=company.companyName;
         }
       })
     
@@ -218,7 +218,7 @@ const AddLead = (props) => {
                 color: '#150e4f'
               }}
             >
-              Create New Lead
+              Create New Market Platform
             </h5>
             <Row gutter={[16, 16]}>
               <Col span={24}>

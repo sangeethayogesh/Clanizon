@@ -295,16 +295,16 @@ const refdata = useStoreState((state) => state.refData.referencedata)
                 <Col span="8">
                   <Form.Item
                     colon={false}
-                    label="Call purpose"
+                    label="Activity purpose"
                     name={['leadAuditStatus', 'auditStatusId']}
                     rules={[
                       {
                         required: true,
-                        message: 'Please enter the call purpose'
+                        message: 'Please enter the Activity purpose'
                       }
                     ]}
                   >
-                    <Select placeholder="Call Purpose">
+                    <Select placeholder="Activity purpose">
                       {refdata && refdata.leadAuditStatus.map((status, index) => {
                         return (
                           <Option key={status.key}>

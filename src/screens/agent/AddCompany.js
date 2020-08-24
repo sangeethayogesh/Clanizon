@@ -63,6 +63,7 @@ const AddCompany = (props) => {
         message.success('Company Added!')
         setIsLoading(false)
         form.resetFields()
+        
       })
       .catch((err) => {
         message.error('Failed to Add Company')
@@ -161,7 +162,7 @@ const AddCompany = (props) => {
                 color: '#150e4f'
               }}
             >
-              Create New Lead
+              Create New Universe
             </h5>
             <Row gutter={[16, 16]}>
               <Col span={24}>
