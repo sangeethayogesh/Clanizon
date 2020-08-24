@@ -48,7 +48,8 @@ class CompanyContact extends React.Component {
             mode="batch"
             allowAdding={true}
             allowUpdating={true}
-            allowDeleting={true}>
+            allowDeleting={true}
+            useIcons={true}>
           </Editing>
           <Column dataField="userFname" caption="Name" width={125}/>         
           <Column dataField="userMobile" caption="Mobile" />

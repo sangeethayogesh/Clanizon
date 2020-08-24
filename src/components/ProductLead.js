@@ -73,7 +73,8 @@ class ProductLead extends React.Component {
             mode="row"
             allowAdding={true}
             allowUpdating={true}
-            allowDeleting={true}>
+            allowDeleting={true}
+            useIcons={true}>
           </Editing>
           <Column dataField="businessId" caption="Business" width={125}  >
             <Lookup dataSource={this.props.refdata.businesstype} valueExpr="key" displayExpr="value" />
@@ -91,10 +92,10 @@ class ProductLead extends React.Component {
             <TotalItem
               column="businessid"
               summaryType="count" />
-               <TotalItem
+               {/* <TotalItem
               column="qty"
               summaryType="sum" 
-             />
+             /> */}
             <TotalItem
               column="leadItemPrice"
               summaryType="sum"
