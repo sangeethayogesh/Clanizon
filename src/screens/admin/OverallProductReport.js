@@ -10,6 +10,8 @@ import '../../styles/overall-product-report.css'
 import { TimeLineView } from '../../components/TimeLineView'
 import { UserInfoView } from '../../components/UserInfoView'
 import rest from 'services/http'
+import constants from '../../constants'
+
 const OverallProductReport = (props) => {
   const [visibleDetailedReport, setVisibleDetailedReport] = useState(false)
   const [visibleAddAgent, setVisibleAddAgent] = useState(true)
@@ -41,7 +43,7 @@ const OverallProductReport = (props) => {
   }
   const getAllLeads = () => {
     rest
-      .get('http://35.154.38.203:8083/api/leads/getAllLeads')
+      .get(constants.URL.GET_All_LEAD)
       .then((response) => {
         processData(response.data)
       })

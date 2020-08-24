@@ -29,7 +29,8 @@ const constants = {
     GET_COMPANY_DETAIl:'http://13.233.158.187:8085/api/user/getcomapanydetail',
     GET_PRODUCT:'http://13.233.158.187:8085/api/asset/listproductbyBusiness',
     GET_ALL_PRODUCT:'http://13.233.158.187:8085/api/asset/listallproduct',
-    GET_LEAD_DETAIL:'http://13.233.158.187:8085/api/leads/getleaddetail'
+    GET_LEAD_DETAIL:'http://13.233.158.187:8085/api/leads/getleaddetail',
+    GET_All_LEAD : 'http://13.233.158.187:8085/api/leads/getAllLeads'
   },
   DATA: {
     admin_messages: [
