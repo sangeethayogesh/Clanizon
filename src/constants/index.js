@@ -1,36 +1,37 @@
 /* eslint-disable no-unused-vars */
-const BASE_URL = 'localhost:8080/api/'
+
 const NAME_SPACE = 'api/'
+const BASE_URL='https://api.realkeyip.in'
 const today = new Date().toISOString().split('T')[0]
 const constants = {
   URL: {
-    GET_ADMIN_MESSAGES: 'http://13.233.158.187:8085/api/user/usermessages',
-    ADD_NEW_MESSAGE: 'http://13.233.158.187:8085/api/user/createmessage',
+    GET_ADMIN_MESSAGES: BASE_URL+'/api/user/usermessages',
+    ADD_NEW_MESSAGE: BASE_URL+'/api/user/createmessage',
     GET_TODAY_LEADS:
-      'http://13.233.158.187:8085/api/leads/leadbyagentanddate?date=' + today,
-    GET_ALL_AGENTS: 'http://13.233.158.187:8085//api/user/userbyrole?roleId=2',
-    ADD_NEW_AGENT: 'http://13.233.158.187:8085//api/user/createuser',
-    ADD_NEW_LEAD: 'http://13.233.158.187:8085/api/leads/createlead',
-    GET_LEAD_STATUS_COUNT: 'http://13.233.158.187:8085/api/leads/leadbystatus',
-    ADD_NEW_AUDIT: 'http://13.233.158.187:8085/api/leads/leadaudit',
-    GET_LEAD_BY_AGENT: 'http://13.233.158.187:8085/api/leads/leadbyagent',
-    LOGIN: 'http://13.233.158.187:8085/api/user/login',
-    GET_ASSET_GROUPS: 'http://13.233.158.187:8085/api/asset/listAssetGroup',
-    ADD_IMAGE_TO_ASSET_GROUP:'http://13.233.158.187:8085/api/documents/adddocument',
-    LIST_GROUP_IMAGE:'http://13.233.158.187:8085/api/documents/listdocumentbygroup?groupId=',
-    ADD_NEW_GROUP: 'http://13.233.158.187:8085/api/asset/addgroup',
+      BASE_URL+'/api/leads/leadbyagentanddate?date=' + today,
+    GET_ALL_AGENTS: BASE_URL+'//api/user/userbyrole?roleId=2',
+    ADD_NEW_AGENT: BASE_URL+'//api/user/createuser',
+    ADD_NEW_LEAD: BASE_URL+'/api/leads/createlead',
+    GET_LEAD_STATUS_COUNT: BASE_URL+'/api/leads/leadbystatus',
+    ADD_NEW_AUDIT: BASE_URL+'/api/leads/leadaudit',
+    GET_LEAD_BY_AGENT: BASE_URL+'/api/leads/leadbyagent',
+    LOGIN: BASE_URL+'/api/user/login',
+    GET_ASSET_GROUPS: BASE_URL+'/api/asset/listAssetGroup',
+    ADD_IMAGE_TO_ASSET_GROUP:BASE_URL+'/api/documents/adddocument',
+    LIST_GROUP_IMAGE:BASE_URL+'/api/documents/listdocumentbygroup?groupId=',
+    ADD_NEW_GROUP: BASE_URL+'/api/asset/addgroup',
     GET_ASSET_BY_GROUP_ID:
-      'http://13.233.158.187:8085/api/asset/listAssetByGroupId',
-    ADD_ASSET: 'http://13.233.158.187:8085/api/asset/addAsset',
-    ADD_NEW_COMPANY: 'http://13.233.158.187:8085/api/user/createcompany',
-    GET_ALL_COMPANY:'http://13.233.158.187:8085/api/user/listcompany',
-    GET_REF_DATA:'http://13.233.158.187:8085/api/user/referencedata',
-    ADD_PRODUCT:'http://13.233.158.187:8085/api/asset/addAsset',
-    GET_COMPANY_DETAIl:'http://13.233.158.187:8085/api/user/getcomapanydetail',
-    GET_PRODUCT:'http://13.233.158.187:8085/api/asset/listproductbyBusiness',
-    GET_ALL_PRODUCT:'http://13.233.158.187:8085/api/asset/listallproduct',
-    GET_LEAD_DETAIL:'http://13.233.158.187:8085/api/leads/getleaddetail',
-    GET_All_LEAD : 'http://13.233.158.187:8085/api/leads/getAllLeads'
+      BASE_URL+'/api/asset/listAssetByGroupId',
+    ADD_ASSET: BASE_URL+'/api/asset/addAsset',
+    ADD_NEW_COMPANY: BASE_URL+'/api/user/createcompany',
+    GET_ALL_COMPANY:BASE_URL+'/api/user/listcompany',
+    GET_REF_DATA:BASE_URL+'/api/user/referencedata',
+    ADD_PRODUCT:BASE_URL+'/api/asset/addAsset',
+    GET_COMPANY_DETAIl:BASE_URL+'/api/user/getcomapanydetail',
+    GET_PRODUCT:BASE_URL+'/api/asset/listproductbyBusiness',
+    GET_ALL_PRODUCT:BASE_URL+'/api/asset/listallproduct',
+    GET_LEAD_DETAIL:BASE_URL+'/api/leads/getleaddetail',
+    GET_All_LEAD : BASE_URL+'/api/leads/getAllLeads'
   },
   DATA: {
     admin_messages: [

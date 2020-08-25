@@ -156,8 +156,8 @@ const OverallProductReport = (props) => {
                     fontFamily: 'Lato'
                   }}
                 >
-                  {detailed
-                    ? detailed.leadCustomer.userFname.slice(0, 2)
+                  {(detailed && detailed.companyName)
+                    ? detailed.companyName.slice(0, 2)
                     : 'Is'}
                 </Avatar>
               </Descriptions.Item>

@@ -21,7 +21,7 @@ const refDataModel = {
         callback()
       })
       .catch((err) => {
-        message.error('Company loading failed')
+        
         console.error(err)
       })
   })

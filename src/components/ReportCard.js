@@ -20,7 +20,7 @@ const ReportCard = (props) => {
                   fontFamily: 'Lato'
                 }}
               >
-                {lead.companyName.slice(0, 2)}
+                {lead.companyName?lead.companyName.slice(0, 2):'IS'}
               </Avatar>
             </Col>
             <Col>

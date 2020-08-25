@@ -90,9 +90,9 @@ const AddLead = (props) => {
             companyName=company.companyName;
         }
       })
-    
+    console.log(currentUser);
     const request = {
-      leadAgentMobile:values.agentMobile,
+      leadAgentMobile:(values.agentMobile!=null && values.agentMobile.length>0)?values.agentMobile:currentUser.userMobile,
       leadSource: 'AD',      
       leadStatus: 2,
       companyName:companyName,
@@ -100,9 +100,7 @@ const AddLead = (props) => {
       companyid:values.companyid,
       companyContact:values.userMobile,
       emailId:values.userEmailid,
-      "orderValue":100,
-       "partPayment":50,
-      "fullPayment":12,
+      "orderValue":getOrderValue(leadItem),
       leadCreateDate: new Date(),
       nextScheduleDatetime: tomorrow,
       leadItem: leadItem
@@ -125,6 +123,14 @@ const AddLead = (props) => {
 
   function callback(key) {
     console.log(key)
+  }
+
+  function getOrderValue(leadItem){
+    var value=0;
+    leadItem.map((item) => {
+      value=value+item.leadItemPrice
+    })
+    return value;
   }
 
   const onDataChange = (value) => {
@@ -330,7 +336,7 @@ const AddLead = (props) => {
                         </Col>
                       </Row>
                     </Panel>
-                    <Panel header="Contact Information" key="1">
+                    <Panel header="Contact Information" key="2">
                       <Row gutter={[8, 0]}>
                         <Col span="8">
                         <Form.Item
