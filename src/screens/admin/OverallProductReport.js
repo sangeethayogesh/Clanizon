@@ -9,6 +9,7 @@ import HeaderBar from '../../components/HeaderBar'
 import '../../styles/overall-product-report.css'
 import { TimeLineView } from '../../components/TimeLineView'
 import { UserInfoView } from '../../components/UserInfoView'
+import { useStoreState } from 'easy-peasy'
 import rest from 'services/http'
 import constants from '../../constants'
 
@@ -17,6 +18,7 @@ const OverallProductReport = (props) => {
   const [visibleAddAgent, setVisibleAddAgent] = useState(true)
   const [list, setList] = useState(null)
   const [detailed, setDetailed] = useState(null)
+  const currentUser = useStoreState((state) => state.auth.user)
   function handleCancel(params) {
     setVisibleDetailedReport(false)
   }
@@ -41,9 +43,9 @@ const OverallProductReport = (props) => {
     })
     console.log(list)
   }
-  const getAllLeads = () => {
+  const getAllLeads = (currentUser) => {
     rest
-      .get(constants.URL.GET_All_LEAD)
+      .get(constants.URL.GET_All_LEAD_BYADMIN+ '?userMobile=' + currentUser)
       .then((response) => {
         processData(response.data)
       })
@@ -53,7 +55,7 @@ const OverallProductReport = (props) => {
       })
   }
   useEffect(() => {
-    getAllLeads()
+    getAllLeads(currentUser.userMobile)
   }, [])
   return (
     <HeaderBar>

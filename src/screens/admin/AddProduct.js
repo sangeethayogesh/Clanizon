@@ -54,6 +54,7 @@ const AddProduct = (props) => {
   const [properties, setProperties] = useState(null)
   const onFinish = (values) => {
        setIsLoading(true)
+       values.createdBy=currentUser.userMobile
     rest
       .post(constants.URL.ADD_PRODUCT, values)
       .then((res) => {

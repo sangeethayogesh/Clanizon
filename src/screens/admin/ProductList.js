@@ -5,10 +5,12 @@ import { Row, Button, Col, Select } from 'antd'
 import { ProductFlatListTable } from '../../components/ProductFlatListTable'
 import { useStoreActions, useStoreState } from 'easy-peasy'
 import { useHistory } from 'react-router-dom'
+
 const { Option } = Select
 const ProductList = (props) => {
   const history = useHistory()
   const [selectedId, setSelectedId] = useState(0)
+  
   const [loading, setLoading] = useState(false)
   const getAssetGroups = useStoreActions(
     (actions) => actions.assets.getAssetGroups

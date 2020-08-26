@@ -29,6 +29,9 @@ const UserHome = () => {
   const currentUser = useStoreState((state) => state.auth.user)
   const getAllAgents = useStoreActions((actions) => actions.agents.getAllAgents)
   const agentList = useStoreState((state) => state.agents.list)
+
+  const getAllAgentByAdmin = useStoreActions((actions) => actions.agents.getAllAgentByAdmin)
+  const agentListAdmin = useStoreState((state) => state.agents.agentlistAdmin)
   const [visibleAddAgent, setVisibleAddAgent] = useState(false)
   const [visibleAddNewPlot, setVisibleAddNewPlot] = useState(false)
   const [loading, setLoading] = useState(false)
@@ -38,11 +41,12 @@ const UserHome = () => {
   const leadStatusCount = useStoreState((state) => state.leads.statusCount)
   useEffect(() => {
     setLoading(true)
+    getAllAgentByAdmin(currentUser.userMobile)
     getAllAgents(() => {
       setLoading(false)
     })
     getLeadStatusCount(
-      constants.URL.GET_LEAD_STATUS_COUNT
+      constants.URL.GET_LEAD_STATUS_COUNT + '?mobile=' + currentUser.userMobile
     )
   }, [])
   const toggleAddNewPlot = () => {
@@ -404,7 +408,7 @@ const UserHome = () => {
                   <div className="admin-page-column-left">
                     <Table size='small'
                       loading={loading}
-                      dataSource={agentList}
+                      dataSource={agentListAdmin}
                       columns={columns}
                     />
                   </div>

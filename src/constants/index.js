@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 
 const NAME_SPACE = 'api/'
+//const BASE_URL='http://localhost:8085'
 const BASE_URL='https://api.realkeyip.in'
 const today = new Date().toISOString().split('T')[0]
 const constants = {
@@ -10,9 +11,10 @@ const constants = {
     GET_TODAY_LEADS:
       BASE_URL+'/api/leads/leadbyagentanddate?date=' + today,
     GET_ALL_AGENTS: BASE_URL+'//api/user/userbyrole?roleId=2',
+    GET_ALL_AGENT_BYADMIN:BASE_URL+'//api/user/userbyroleadmin?roleId=2',
     ADD_NEW_AGENT: BASE_URL+'//api/user/createuser',
     ADD_NEW_LEAD: BASE_URL+'/api/leads/createlead',
-    GET_LEAD_STATUS_COUNT: BASE_URL+'/api/leads/leadbystatus',
+    GET_LEAD_STATUS_COUNT: BASE_URL+'/api/leads/leadbyadminstatus',
     ADD_NEW_AUDIT: BASE_URL+'/api/leads/leadaudit',
     GET_LEAD_BY_AGENT: BASE_URL+'/api/leads/leadbyagent',
     LOGIN: BASE_URL+'/api/user/login',
@@ -30,8 +32,10 @@ const constants = {
     GET_COMPANY_DETAIl:BASE_URL+'/api/user/getcomapanydetail',
     GET_PRODUCT:BASE_URL+'/api/asset/listproductbyBusiness',
     GET_ALL_PRODUCT:BASE_URL+'/api/asset/listallproduct',
+    GET_USER_PRODUCT:BASE_URL+'/api/asset/listproductbyadmin',
     GET_LEAD_DETAIL:BASE_URL+'/api/leads/getleaddetail',
-    GET_All_LEAD : BASE_URL+'/api/leads/getAllLeads'
+    GET_All_LEAD : BASE_URL+'/api/leads/getAllLeads',
+    GET_All_LEAD_BYADMIN : BASE_URL+'/api/leads/getleadByAdmin'
   },
   DATA: {
     admin_messages: [

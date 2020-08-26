@@ -56,6 +56,7 @@ const AddCompany = (props) => {
   const onFinish = (values) => {
     
     values.contactInformation=userList;
+    values.createdBy=currentUser.userMobile
     rest
       .post(constants.URL.ADD_NEW_COMPANY, values)
       .then((res) => {

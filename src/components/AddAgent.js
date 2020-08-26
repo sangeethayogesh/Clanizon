@@ -4,7 +4,7 @@ import { Form, Input, Button, Select, message } from 'antd'
 import '../styles/common.css'
 import '../styles/add-agent.css'
 import constants from '../constants'
-import { useStoreActions } from 'easy-peasy'
+import { useStoreActions, useStoreState } from 'easy-peasy'
 import rest from 'services/http'
 const { Option } = Select
 const layout = {
@@ -25,12 +25,14 @@ const tailLayout = {
 const AddAgent = (props) => {
   const [form] = Form.useForm()
   const [isLoading, setIsLoading] = useState(false)
+  const currentUser = useStoreState((state) => state.auth.user)
   const addNewAgent = useStoreActions((actions) => actions.agents.addNewAgent)
 
   const onFinish = (values) => {
     console.log('Success:', values)
     const data = values
     data.agent.userPassword = data.agent.userMobile
+    data.agent.createdBy = currentUser.userMobile
     data.agent.userMobileAlt = data.agent.userMobileAlt
       ? data.agent.userMobileAlt
       : '0123456789'
