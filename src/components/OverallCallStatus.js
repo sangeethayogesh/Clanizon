@@ -33,31 +33,34 @@ const OverallCallStatus = (props) => {
 const refdata = useStoreState((state) => state.refData.referencedata)
 const getAllProduct = useStoreActions((actions) => actions.product.getAllProduct)
 var leadItem=[];
+var leadItemnew=[];
 if(props.leadDetail && props.leadDetail.leadItem){
   leadItem=props.leadDetail.leadItem;
 }
 const onDataChange = (value) => {
-  console.log(value);
+  leadItemnew=value;
   
 }
+
+
+form.setFieldsValue({
+  leadStatValue: props.leadDetail?props.leadDetail.leadStatus:2,
+  advance: (props.leadDetail && props.leadDetail.leadAudit)?props.leadDetail.leadAudit[0].advance:'',
+  paymentParts: (props.leadDetail && props.leadDetail.leadAudit)?props.leadDetail.leadAudit[0].paymentParts:'',
+
+})
 const productList = useStoreState((state) => state.product.productList)
   function handleCollapse() {}
   function onCallStatusSave(values) {
-    var leadAssetList = []
-    for (var i = 0; i < values.leadAsset.length; i++) {
-      var leaditem = {}
-      leaditem.leadItemAssetId = values.leadAsset[i]
-      leadAssetList.push(leaditem)
-    }
+   
     var data = { ...values }
-    data.leadAuditCreatedUser = {
-      userMobile: props.currentUser.userMobile
-    }
+    data.leadAuditCreatedUser = props.currentUser.userMobile
     data.leadAuditScheduleDatetime = data.leadAuditScheduleDatetime
       ? data.leadAuditScheduleDatetime.$d
       : undefined
     data.leadAuditLeadId = props.leadId
-    data.leadItem = leadAssetList
+    data.leadStatus=data.leadStatValue
+    data.leadItem = leadItemnew?leadItemnew:leadItem
     data.leadAuditCreatedDatetime = new Date()
     setIsLoading(true)
     rest
@@ -113,8 +116,10 @@ const productList = useStoreState((state) => state.product.productList)
           {...tailLayout}
           form={form}
           initialValues={{
-            leadStatus: props.status + '',
-            leadAsset: props.leadAsset
+            leadStatValue: props.leadDetail?props.leadDetail.leadStatus:2,
+            advance: (props.leadDetail && props.leadDetail.leadAudit)?props.leadDetail.leadAudit[0].advance:'',
+            paymentParts: (props.leadDetail && props.leadDetail.leadAudit)?props.leadDetail.leadAudit[0].paymentParts:'',
+
           }}
           onFinish={onCallStatusSave}
           onFinishFailed={onFinishFailed}
@@ -134,7 +139,7 @@ const productList = useStoreState((state) => state.product.productList)
                   <Form.Item
                     colon={false}
                     label="Activityies"
-                    name={['leadAuditType', 'auditTypeId']}
+                    name="leadAudit1ype"
                     rules={[
                       {
                         required: true,
@@ -157,7 +162,8 @@ const productList = useStoreState((state) => state.product.productList)
                   <Form.Item
                     colon={false}
                     label="Lead Status"
-                    name="leadStatus"
+                    name="leadStatValue"
+                  
                     defaultActiveKey={[props.status]}
                   >
                     <Select placeholder="Select Lead Status">
@@ -177,17 +183,17 @@ const productList = useStoreState((state) => state.product.productList)
                 <Col span="8">
                   <Form.Item
                     colon={false}
-                    label="Activity purpose"
-                    name={['leadAuditStatus', 'auditStatusId']}
+                    label="Activity Status"
+                    name="leadAuditStatus"
                     rules={[
                       {
                         required: true,
-                        message: 'Please enter the Activity purpose'
+                        message: 'Please enter the Activity Status'
                       }
                     ]}
                   >
-                    <Select placeholder="Activity purpose">
-                      {refdata && refdata.leadAuditStatus.map((status, index) => {
+                    <Select placeholder="Activity Status">
+                      {refdata && refdata.leadAuditStatus && refdata.leadAuditStatus.map((status, index) => {
                         return (
                           <Option key={status.key}>
                             {status.value}
@@ -242,56 +248,34 @@ const productList = useStoreState((state) => state.product.productList)
               </Panel>
               <Divider />
               <Panel header="Payment Terms" key="2">
-              <Row gutter={[8, 0]}>
-          
+              <Row gutter={[8, 0]}>               
                 <Col span="8">
                   <Form.Item
                     colon={false}
-                    label="Payment terms"
-                    name={['paymentType', 'paymentTypeId']}
-                    // rules={[
-                    //   {
-                    //     required: true,
-                    //     message: 'Please enter the Payment Terms"'
-                    //   }
-                    // ]}
+                    label="Advance Amount"
+                    name="advance"                
                   >
-                    <Select placeholder="Select Payment Terms">
-                      <Option value="1">Advance</Option>
-                      <Option value="2">Part Payment</Option>
-                      <Option value="3">Full payment</Option>
-                    </Select>
+                    <Input placeholder="Advance Payment" />
+                  </Form.Item>
+                </Col>
+
+                <Col span="8">
+                  <Form.Item
+                    label="Remaining Amount"
+                    name="remaining"
+                 
+                  >
+                    <Input placeholder="Remaining Amount" />
                   </Form.Item>
                 </Col>
 
                 <Col span="8">
                   <Form.Item
                     colon={false}
-                    label="Amount"
-                    name={['amount', 'paymentAmount']}
-                    // rules={[
-                    //   {
-                    //     required: true,
-                    //     message: 'Please enter the PaymentAmount'
-                    //   }
-                    // ]}
+                    label="Payment Parts"
+                    name="paymentParts"                 
                   >
-                    <Input placeholder="Area Location" />
-                  </Form.Item>
-                </Col>
-
-                <Col span="8">
-                  <Form.Item
-                    label="Schedule Date"
-                    name="paymentScheduleDatetime"
-                    // rules={[
-                    //   {
-                    //     required: true,
-                    //     message: 'Please enter Schedule Date'
-                    //   }
-                    // ]}
-                  >
-                    <DatePicker format="YYYY-MM-DD"></DatePicker>
+                    <Input placeholder="Enter payment terms" />
                   </Form.Item>
                 </Col>
 

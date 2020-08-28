@@ -12,6 +12,8 @@ import { OverAll } from './screens/agent/OverAll'
 import AddLead from 'screens/agent/AddLead'
 import AddProduct from 'screens/admin/AddProduct'
 import { ProductList } from 'screens/admin/ProductList'
+import 'devextreme/dist/css/dx.common.css';
+import 'devextreme/dist/css/dx.light.css';
 import { FinancialList } from 'screens/admin/FinancialList'
 import AddFinancialMetrics from 'screens/admin/AddFinancialMetrics'
 import { LeadList } from 'screens/agent/LeadList'
@@ -20,6 +22,7 @@ import PrivateRoute from 'screens/auth/PrivateRoute'
 import { Property } from 'screens/admin/Property'
 import { AreaList } from 'screens/agent/AreaList'
 import AddCompany from './screens/agent/AddCompany'
+import MaterialTableDemo from './screens/agent/Agentmaterial'
 // import { Server, Model } from 'miragejs'
 
 // const leaddata = []
@@ -132,7 +135,7 @@ function AppRouter() {
         userRole="2"
       ></PrivateRoute>
       <PrivateRoute
-        component={OverallProductReport}
+        component={MaterialTableDemo}
         path="/agent/overall-product-report"
         exact
         userRole="2"

@@ -19,8 +19,7 @@ const OverAll = (props) => {
   const leadDetail = useStoreState((store) => store.leads.leadDetail)
   const [loading, setLoading] = useState(false)
   const data = {
-    url:
-      constants.URL.GET_LEAD_DETAIL + '?leadId=' + lead.leadId,
+    url:constants.URL.GET_LEAD_DETAIL + '?leadId=' + lead.leadId,
     callback: () => {
       setLoading(false)
     }

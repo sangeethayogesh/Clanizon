@@ -155,30 +155,7 @@ const UserHome = () => {
         <span className="table-email">10</span>
       )
     },
-    // {
-    //   title: (
-    //     <PlusSquareFilled
-    //       className="table-icon"
-    //       style={{
-    //         fontSize: '20px'
-    //       }}
-    //       onClick={toggleAddAgent}
-    //     />
-    //   ),
-    //   key: 'city',
-    //   render: (agent) => agent.userCity
-    // },
-    // {
-    //   title: (
-    //     <FunnelPlotOutlined
-    //       style={{
-    //         fontSize: '20px'
-    //       }}
-    //     />
-    //   ),
-    //   key: 'role',
-    //   render: (agent) => agent.userOccupation
-    // }
+  
   ]
   // const addNewPlot = () => {
   //   setNewPlot(!newPlot)

@@ -149,7 +149,7 @@ const AddAgent = (props) => {
           </Select>
         </Form.Item>
 
-        <Form.Item name={['agent', 'userTarget']} label="Monthly Target">
+        <Form.Item name={['agent', 'targetLead']} label="Monthly Target">
           <Input placeholder="Monthly Buying Platform Target " />
         </Form.Item>
 

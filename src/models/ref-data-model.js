@@ -18,7 +18,7 @@ const refDataModel = {
       .get(constants.URL.GET_REF_DATA)
       .then((res) => {
         actions.setRefData(res.data)
-        callback()
+       
       })
       .catch((err) => {
         

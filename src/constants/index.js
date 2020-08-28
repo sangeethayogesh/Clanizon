@@ -35,7 +35,9 @@ const constants = {
     GET_USER_PRODUCT:BASE_URL+'/api/asset/listproductbyadmin',
     GET_LEAD_DETAIL:BASE_URL+'/api/leads/getleaddetail',
     GET_All_LEAD : BASE_URL+'/api/leads/getAllLeads',
-    GET_All_LEAD_BYADMIN : BASE_URL+'/api/leads/getleadByAdmin'
+    GET_All_LEAD_BYADMIN : BASE_URL+'/api/leads/getleadByAdmin',
+    ADD_FINANCIAL_METRICS:BASE_URL+'/api/user/addmetrics',
+    GET_METRICS:BASE_URL+'/api/user/metricsbyadmin'
   },
   DATA: {
     admin_messages: [

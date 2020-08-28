@@ -45,51 +45,47 @@ const AddFinancialMetrics = (props) => {
   const addLead = useStoreActions((actions) => actions.leads.addLead)
   const getAllAgents = useStoreActions((actions) => actions.agents.getAllAgents)
   const agentList = useStoreState((state) => state.agents.list)
+ 
   const currentUser = useStoreState((state) => state.auth.user)
   const [loading, setLoading] = useState(false)
   const [groups, setGroups] = useState(null)
+  const  [contactlist, setContactlist] = useState(null)
+
+  const companyList = useStoreState((state) => state.company.companyList)
+
+  const getAllProduct = useStoreActions((actions) => actions.product.getAllProduct)
+
+  const productList = useStoreState((state) => state.product.productList)
+  const getAllCompany = useStoreActions((actions) => actions.company.getAllCompany)
+
+  const refdata = useStoreState((state) => state.refData.referencedata)
   useEffect(() => {
     setLoading(true)
     getAllAgents(() => {
       setLoading(false)
     })
+
+ 
+    getAllCompany(() => {
+      setLoading(false)
+     
+    })
+    getAllProduct(() => {
+      setLoading(false)     
+    })
   }, [])
   const [properties, setProperties] = useState(null)
   const onFinish = (values) => {
-    const data = values
-    data.lead.userOccupation = '-'
-    data.lead.userPassword = data.lead.userMobile
-    data.lead.userMobileAlt = data.lead.userMobile
-    data.lead.preferredCallStart = values.best_call_time
-      ? values.best_call_time[0].$d.toTimeString().split(' ')[0]
-      : null
-    data.lead.preferredCallEnd = values.best_call_time
-      ? values.best_call_time[1].$d.toTimeString().split(' ')[0]
-      : null
-
-    var leadList = []
-    for (var i = 0; i < data.leadItemAssetId.length; i++) {
-      var leaditem = {}
-      leaditem.leadItemAssetId = data.leadItemAssetId[i]
-      leadList.push(leaditem)
-    }
-    const request = {
-      leadAgentMobile: data.agentMobile,
-      leadSource: data.leadSource ? data.leadSource : '-',
-      leadCustomer: data.lead,
-      leadStatus: 1,
-      leadInterest: data.leadInterest,
-      leadCreateDate: new Date(),
-      nextScheduleDatetime: tomorrow,
-      leadItem: leadList
-    }
-    console.log('Success:', request)
+    const request = values
+    
+    request.createdBy=currentUser.userMobile
+    
     setIsLoading(true)
     rest
-      .post(constants.URL.ADD_NEW_LEAD, request)
+      .post(constants.URL.ADD_FINANCIAL_METRICS, request)
       .then((res) => {
         addLead(res.data)
-        message.success('Lead Added!')
+        message.success('Metrics Added!')
         setIsLoading(false)
         form.resetFields()
       })
@@ -120,7 +116,37 @@ const AddFinancialMetrics = (props) => {
         setIsLoading(false)
       })
   }
+  const handleContactChange= (value) =>{
+    contactlist.map((contact) => {
+  if(contact.userMobile==value){
+    form.setFieldsValue(contact);
+  }
 
+    })
+  }
+
+  const handleCompanyChange = (value) =>{
+    setIsLoading(true)
+ 
+    rest
+      .get(constants.URL.GET_COMPANY_DETAIl + '?companyid=' + value)
+      .then((res) => {
+        console.log(res);
+        setIsLoading(false)
+        setContactlist(res.data.contactInformation);
+        form.setFieldsValue({
+          bankName:res.data.bankName,
+          branch:res.data.branch,
+          country:res.data.country,
+          state:res.data.state,
+          city:res.data.city
+        });
+      })
+      .catch((err) => {
+        console.error(err)
+        setIsLoading(false)
+      })
+  }
   const onChangeArea = (id) => {
     setIsLoading(true)
     rest
@@ -208,14 +234,19 @@ const AddFinancialMetrics = (props) => {
                       <Row gutter={[8, 0]}>
                         <Col span="8">
                           <Form.Item
-                            label="Product_Business"
+                            label="Product Business"
                             colon={false}
+                            name="productBusiness"
                           >
-                            <Select placeholder="Product_Business">
-                              <Option>UPS</Option>
-                              <Option>Connectivity</Option>
-                              <Option>Racks</Option>
-                              <Option>Industrial & service</Option>
+                            <Select placeholder="Product Business">
+                            {refdata &&refdata.businesstype &&
+                                refdata.businesstype.map((business) => {
+                                  return (
+                                    <Option key={business.key}>
+                                      {business.value}
+                                    </Option>
+                                  )
+                                })}
                             </Select>
 
                           </Form.Item>
@@ -223,13 +254,18 @@ const AddFinancialMetrics = (props) => {
                         <Col span="8">
                           <Form.Item
                             colon={false}
-                            label="Product_Code"
+                            label="Product Code"
+                            name="productId"
                           >
-                            <Select placeholder="Product_Business">
-                              <Option>Code 1</Option>
-                              <Option>Code 2</Option>
-                              <Option>Code 3</Option>
-                              <Option>Code 4</Option>
+                            <Select placeholder="Product Code">
+                            {productList &&
+                               productList.map((product) => {
+                                  return (
+                                    <Option key={product.productId}>
+                                      {product.productModel}
+                                    </Option>
+                                  )
+                                })}
                             </Select>
                           </Form.Item>
                         </Col>
@@ -237,12 +273,19 @@ const AddFinancialMetrics = (props) => {
                           <Form.Item
                             colon={false}
                             label="Sold By"
+                            name="soldBy"
                           >
-                            <Select placeholder="Product_Business">
-                              <Option>Salesman 1</Option>
-                              <Option>Salesman 2</Option>
-                              <Option>Salesman 3</Option>
-                              <Option>Salesman 4</Option>
+                            <Select placeholder="Select an Agent">
+                            {agentList &&
+                                agentList.map((agent) => {
+                                  return (
+                                    <Option key={agent.userMobile}>
+                                      {agent.userFname}
+                                    </Option>
+                                  )
+                                })}
+
+                                
                             </Select>
 
                           </Form.Item>
@@ -250,47 +293,68 @@ const AddFinancialMetrics = (props) => {
                         <Col span="8">
                           <Form.Item
                             colon={false}
-                            label="Quality"
-
+                            label="Quantity"
+                             name="qty"
                           >
-                            <Input placeholder="Quality" />
+                            <Input placeholder="Quantity" />
                           </Form.Item>
                         </Col>
                         <Col span="8">
                           <Form.Item
                             label="Buyer Company"
                             colon={false}
+                            name="buyerCompany"
                           >
-                            <Input placeholder="Company Name" />
-                          </Form.Item>
-                        </Col>
-                        <Col span="8">
-                          <Form.Item
-                            colon={false}
-                            label="User"
-                          >
-                            <Input placeholder="User" />
-                          </Form.Item>
-                        </Col>
+                            <Select placeholder="Select Company Name"
+                            mode="single"
+                            placeholder="Select a Company"
+                            onChange={handleCompanyChange}
+                            
+                            >
+                            {companyList &&
+                                companyList.map((company) => {
+                                  return (
+                                    <Option key={company.companyName}>
+                                      {company.companyName}
+                                    </Option>
+                                  )
+                                })}  
+                            </Select>
 
+                          </Form.Item>
+                        </Col>
                         <Col span="8">
                           <Form.Item
-                            label="User Mobile Number"
                             colon={false}
-                            rules={[
-                              {
-                                pattern: /^\d{10}$/,
-                                message: 'Enter a valid contact number'
-                              }
-                            ]}
+                            label="Contact"
+                            name="userName"
                           >
-                            <Input placeholder="User Mobile" />
-                          </Form.Item>
+                           
+                      
+
+                        <Select
+                              mode="single"
+                              placeholder="Select a Contact"
+                              onChange={handleContactChange}
+                            >   
+                            {contactlist &&
+                                contactlist.map((contact) => {
+                                  return (
+                                    <Option key={contact.userMobile}>
+                                      {contact.userFname}
+                                    </Option>
+                                  )
+                                })}                          
+                                
+                                 
+                            </Select>
+                            </Form.Item>
                         </Col>
                         <Col span="8">
                           <Form.Item
                             colon={false}
                             label="Amount"
+                            name="amount"
                           >
                             <Input placeholder="Amount" />
                           </Form.Item>
@@ -299,19 +363,12 @@ const AddFinancialMetrics = (props) => {
                           <Form.Item
                             colon={false}
                             label="Date"
+                           name="date"
                           >
-                            <DatePicker defaultValue={moment('2015/01/01', dateFormat)} format={dateFormat} style={{ width: 420, height: 32 }}/>
+                            <DatePicker defaultValue={moment('2020/09/09', dateFormat)} format={dateFormat} style={{ width: 420, height: 32 }}/>
                           </Form.Item>
                         </Col>
 
-                        <Col span="8">
-                          <Form.Item
-                            colon={false}
-                            label="Sold By"
-                          >
-                            <Input placeholder="Sold By" />
-                          </Form.Item>
-                        </Col>
 
                       </Row>
                     </Panel>

@@ -255,7 +255,7 @@ const AddLead = (props) => {
                           <Form.Item
                             label="Company"
                             colon={false}
-                            name="companyid"
+                            name="buyerCompany"
                           >
                             <Select
                               mode="single"
@@ -426,6 +426,7 @@ const AddLead = (props) => {
                               {agentList &&
                                 agentList.map((agent) => {
                                   return (
+                                    
                                     <Option key={agent.userMobile}>
                                       {agent.userFname}
                                     </Option>

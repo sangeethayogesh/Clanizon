@@ -7,6 +7,7 @@ import assetModel from './asset-model'
 import companyModel from './company-model'
 import refDataModel from './ref-data-model'
 import productModel from './product-model'
+import metricsModel from './metric-model'
 
 
 const models = {
@@ -18,7 +19,8 @@ const models = {
   assets: assetModel,
   company:companyModel,
   refData:refDataModel,
-  product:productModel
+  product:productModel,
+  metrics:metricsModel
 }
 
 export default models

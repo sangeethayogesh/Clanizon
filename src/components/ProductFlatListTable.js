@@ -5,11 +5,6 @@ import { Table } from 'antd'
 import { useStoreState, useStoreActions } from 'easy-peasy'
 import constants from '../constants'
 const priceformatter = require('priceformatter')
-
-
-
-
-
 const ProductFlatListTable = (props) => {
   const currentUser = useStoreState((state) => state.auth.user)
   const productList = useStoreState((state) => state.product.productList)
@@ -33,18 +28,7 @@ const ProductFlatListTable = (props) => {
       // eslint-disable-next-line react/display-name
   
     },
-    // {
-    //   title: 'Product Code',
-    //   width: 150,
-    //   render: (user) => (
-    //     <span style={{ color: '#000000a6', fontWeight: 'bold' }}>
-    //       {user.productCode}{' '}          
-    //     </span>
-    //   )
-      
-    //   // eslint-disable-next-line react/display-name
-  
-    // },
+ 
     {
       title: 'Product Model No',
       width: 150,

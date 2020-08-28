@@ -32,7 +32,6 @@ const FinancialList = (props) => {
   }, [])
 
   const datastoreFinancial = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Aug'],
     datasets: [
       {
         type:'bar',
