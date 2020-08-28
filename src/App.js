@@ -135,7 +135,7 @@ function AppRouter() {
         userRole="2"
       ></PrivateRoute>
       <PrivateRoute
-        component={MaterialTableDemo}
+        component={OverallProductReport}
         path="/agent/overall-product-report"
         exact
         userRole="2"
