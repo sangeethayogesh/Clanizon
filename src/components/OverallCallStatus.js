@@ -145,7 +145,7 @@ const productList = useStoreState((state) => state.product.productList)
                     rules={[
                       {
                         required: true,
-                        message: 'Please enter the Activity"'
+                        message: 'Please enter the Activity'
                       }
                     ]}
                   >
