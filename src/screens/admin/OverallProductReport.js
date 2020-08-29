@@ -68,8 +68,8 @@ const OverallProductReport = (props) => {
             onClick={showAddAgent}
           ></CategoryTile>
           {list &&
-            list.created &&
-            list.created.map((lead, idx) => {
+            list.prospecting &&
+            list.prospecting.map((lead, idx) => {
               return (
                 <ReportCard
                   lead={lead}
@@ -88,8 +88,8 @@ const OverallProductReport = (props) => {
             gradient={['#efd67c', '#f76b1c']}
           ></CategoryTile>
           {list &&
-            list.prospecting &&
-            list.prospecting.map((lead, idx) => {
+            list.closer &&
+            list.closer.map((lead, idx) => {
               return (
                 <ReportCard
                   lead={lead}
@@ -107,8 +107,8 @@ const OverallProductReport = (props) => {
             gradient={['#b9e270', '#60904d']}
           ></CategoryTile>
           {list &&
-            list.closer &&
-            list.closer.map((lead, idx) => {
+            list.converted &&
+            list.converted.map((lead, idx) => {
               return (
                 <ReportCard
                   lead={lead}
