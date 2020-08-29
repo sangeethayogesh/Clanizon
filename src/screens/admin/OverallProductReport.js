@@ -44,8 +44,14 @@ const OverallProductReport = (props) => {
     console.log(list)
   }
   const getAllLeads = (currentUser) => {
+    var url='';
+    if(currentUser && currentUser.userRole && currentUser.userRole==1){
+      url=constants.URL.GET_All_LEAD_BYADMIN+ '?userMobile=' + currentUser;
+    }else{
+      url=constants.URL.GET_LEAD_BY_AGENT+ '?mobile=' + currentUser;
+    }
     rest
-      .get(constants.URL.GET_All_LEAD_BYADMIN+ '?userMobile=' + currentUser)
+      .get(url)
       .then((response) => {
         processData(response.data)
       })
