@@ -64,7 +64,7 @@ const AddCompany = (props) => {
         message.success('Company Added!')
         setIsLoading(false)
         form.resetFields()
-        
+        history.goBack()        
       })
       .catch((err) => {
         message.error('Failed to Add Company')

@@ -45,8 +45,8 @@ const onDataChange = (value) => {
 
 form.setFieldsValue({
   leadStatValue: props.leadDetail?props.leadDetail.leadStatus:2,
-  advance: (props.leadDetail && props.leadDetail.leadAudit)?props.leadDetail.leadAudit[0].advance:'',
-  paymentParts: (props.leadDetail && props.leadDetail.leadAudit)?props.leadDetail.leadAudit[0].paymentParts:'',
+  advance: (props.leadDetail && props.leadDetail.leadAudit)?(props.leadDetail.leadAudit[0]?props.leadDetail.leadAudit[0].advance : ''):'',
+  paymentParts: (props.leadDetail && props.leadDetail.leadAudit)?(props.leadDetail.leadAudit[0]?props.leadDetail.leadAudit[0].paymentParts:''):'',
 
 })
 const productList = useStoreState((state) => state.product.productList)
@@ -117,8 +117,10 @@ const productList = useStoreState((state) => state.product.productList)
           form={form}
           initialValues={{
             leadStatValue: props.leadDetail?props.leadDetail.leadStatus:2,
-            advance: (props.leadDetail && props.leadDetail.leadAudit)?props.leadDetail.leadAudit[0].advance:'',
-            paymentParts: (props.leadDetail && props.leadDetail.leadAudit)?props.leadDetail.leadAudit[0].paymentParts:'',
+            // advance: (props.leadDetail && props.leadDetail.leadAudit)?props.leadDetail.leadAudit[0].advance:'',
+            // paymentParts: (props.leadDetail && props.leadDetail.leadAudit)?props.leadDetail.leadAudit[0].paymentParts:'',
+            advance: (props.leadDetail && props.leadDetail.leadAudit)?(props.leadDetail.leadAudit[0]?props.leadDetail.leadAudit[0].advance : ''):'',
+            paymentParts: (props.leadDetail && props.leadDetail.leadAudit)?(props.leadDetail.leadAudit[0]?props.leadDetail.leadAudit[0].paymentParts:''):'',
 
           }}
           onFinish={onCallStatusSave}
