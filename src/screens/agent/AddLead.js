@@ -47,7 +47,7 @@ const AddLead = (props) => {
   const getUserCompany = useStoreActions((actions) => actions.company.getUserCompany)
   const agentList = useStoreState((state) => state.agents.agentlistAdmin)
   const getUserProduct = useStoreActions((actions) => actions.product.getUserProduct)
-  const userProdList = useStoreState((state) => state.product.productList)
+  const userProdList = useStoreState((state) => state.product.userproductList)
   const companyList = useStoreState((state) => state.company.userCompany)
   const refdata = useStoreState((state) => state.refData.referencedata)
   const currentUser = useStoreState((state) => state.auth.user)
@@ -72,9 +72,13 @@ const AddLead = (props) => {
   }, [])
   const [properties, setProperties] = useState(null)
   const  [contactlist, setContactlist] = useState(null)
+
+  var companyid;
+
   const onFinish = (values) => {
     const data = values
-	 var  companyName
+   var  companyName
+  
     data.lead.userOccupation = '-'
     data.lead.userPassword = data.lead.userMobile
     data.lead.userMobileAlt = data.lead.userMobile
@@ -86,13 +90,18 @@ const AddLead = (props) => {
       : null
 
 
-     
-	  
       companyList.map((company) => {
         if(company.companyid == values.companyid){
             companyName=company.companyName;
         }
       })
+
+      
+
+     console.log("$%%%%%%%%%%%%%%%%%  "+  values.companyid)
+     console.log("$%%%%%%%%%%%%%%%%%  ddddd "+  companyid)
+     console.log("$%%%%%%%%%%%%%%%%%  companyName "+  companyName)
+     
     console.log(currentUser);
     const request = {
       leadAgentMobile:(values.agentMobile!=null && values.agentMobile.length>0)?values.agentMobile:currentUser.userMobile,
@@ -154,9 +163,15 @@ const AddLead = (props) => {
     
   }
 
+
   const handleCompanyChange = (value) =>{
     setIsLoading(true)
     console.log(value);
+    
+    companyid = value;
+
+    console.log("ffffffffffffffffffffff companyid" +companyid);
+
     rest
       .get(constants.URL.GET_COMPANY_DETAIl + '?companyid=' + value)
       .then((res) => {
@@ -167,6 +182,7 @@ const AddLead = (props) => {
           bankName:res.data.bankName,
           branch:res.data.branch,
           country:res.data.country,
+          companyAddress: res.data.companyAddress,
           state:res.data.state,
           city:res.data.city
         });
@@ -259,7 +275,7 @@ const AddLead = (props) => {
                           <Form.Item
                             label="Company"
                             colon={false}
-                            name="buyerCompany"
+                            name="companyid"
                           >
                             <Select
                               mode="single"
@@ -304,7 +320,7 @@ const AddLead = (props) => {
                           <Form.Item
                             label="Address"
                             colon={false}
-                            name="address"
+                            name="companyAddress"
                           >
                             <Input.TextArea placeholder="Address" />
                           </Form.Item>
@@ -424,7 +440,7 @@ const AddLead = (props) => {
                           >
                             <Select
                               mode="single"
-                              placeholder="Assign an Agent"
+                              placeholder="Assign an Agent  ( * Self assigned if not selected )"
                              
                             >
                               {agentList &&
