@@ -59,11 +59,12 @@ const AgentHome = (props) => {
   }  
   useEffect(() => {
     // Update the document title using the browser API
+    const leadStat=(currentUser & currentUser.userRole==1)? constants.URL.GET_LEAD_STATUS_COUNT + '?mobile=' + currentUser.userMobile:constants.URL.GET_LEAD_STATUS_AGENT + '?mobile=' + currentUser.userMobile
    getAdminMessages(() => {
      console.log('admin Msg Received')
      })
     getLeadStatusCount(
-      constants.URL.GET_LEAD_STATUS_COUNT + '?mobile=' + currentUser.userMobile
+      leadStat
     )
   }, [])
   console.log(adminMessages);

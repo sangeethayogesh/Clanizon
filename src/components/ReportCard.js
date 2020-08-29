@@ -37,7 +37,7 @@ const ReportCard = (props) => {
             </Col>
             <Col justify="space-between">
               <Button type="link" className="badge-label badge-label-success">
-                {lead.leadOutcome ? lead.leadOutcome : 'no status'}
+                {'no status'}
               </Button>
             </Col>
           </Row>

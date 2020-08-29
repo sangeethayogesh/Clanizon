@@ -11,6 +11,7 @@ const constants = {
     GET_TODAY_LEADS:
       BASE_URL+'/api/leads/leadbyagentanddate?date=' + today,
     GET_ALL_AGENTS: BASE_URL+'//api/user/userbyrole?roleId=2',
+    GET_LEAD_STATUS_AGENT:BASE_URL+'/api/leads/leadbyagentstatus',
     GET_ALL_AGENT_BYADMIN:BASE_URL+'//api/user/userbyroleadmin?roleId=2',
     ADD_NEW_AGENT: BASE_URL+'//api/user/createuser',
     ADD_NEW_LEAD: BASE_URL+'/api/leads/createlead',
