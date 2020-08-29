@@ -63,7 +63,7 @@ form.setFieldsValue({
   paymentParts: (props.leadDetail && props.leadDetail.leadAudit)?(props.leadDetail.leadAudit[0]?props.leadDetail.leadAudit[0].paymentParts:''):'',
 
 })
-const productList = useStoreState((state) => state.product.productList)
+const productList = useStoreState((state) => state.product.userproductList)
   function handleCollapse() {}
   function onCallStatusSave(values) {
    
