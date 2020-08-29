@@ -152,7 +152,7 @@ const UserHome = () => {
       title: 'Monthly Target',
       key: 'monthlytarget',
       render: (agent) => (
-        <span className="table-email">10</span>
+        <span className="table-email">{agent.targetLead}</span>
       )
     },
   
