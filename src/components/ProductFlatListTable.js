@@ -28,7 +28,7 @@ const ProductFlatListTable = (props) => {
       width: 150,
       render: (user) => (
         <span style={{ color: '#000000a6', fontWeight: 'bold' }}>
-          {constants.getBusinessType(user.businessid)}   
+          {constants.getBusinessType(user.businessId)}   
         </span>
       )
       

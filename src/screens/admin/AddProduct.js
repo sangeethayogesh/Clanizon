@@ -181,7 +181,7 @@ const AddProduct = (props) => {
                           <Form.Item
                             label="Product Business"
                             colon={false}
-                            name="businessid"
+                            name="businessId"
                           >
                             <Select placeholder="Select Product Business">
                             {refdata &&refdata.businesstype &&
