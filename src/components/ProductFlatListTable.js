@@ -13,7 +13,7 @@ const ProductFlatListTable = (props) => {
   const userproductList = useStoreState((state) => state.product.userproductList)
   useEffect(() => {
     
-    getUserProduct(currentUser.userMobile)
+    getUserProduct(currentUser.createdBy)
   }, [])
   const columns = [
        {

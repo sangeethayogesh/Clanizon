@@ -1,6 +1,6 @@
 /* eslint-disable no-useless-computed-key */
 /* eslint-disable space-before-function-paren */
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ProductLead from 'components/ProductLead'
 import { useStoreActions } from 'easy-peasy'
 import {
@@ -28,10 +28,11 @@ const { Panel } = Collapse
 const OverallCallStatus = (props) => {
 
   const [form] = Form.useForm()
+  const currentUser = useStoreState((state) => state.auth.user)
   const history = useHistory()
   const [isLoading, setIsLoading] = useState(false)
 const refdata = useStoreState((state) => state.refData.referencedata)
-const getAllProduct = useStoreActions((actions) => actions.product.getAllProduct)
+const getUserProduct = useStoreActions((actions) => actions.product.getUserProduct)
 var leadItem=[];
 var leadItemnew=[];
 if(props.leadDetail && props.leadDetail.leadItem){
@@ -41,6 +42,10 @@ const onDataChange = (value) => {
   leadItemnew=value;
   
 }
+useEffect(() => {
+    
+  getUserProduct(currentUser.createdBy)
+}, [])
 
 
 form.setFieldsValue({
