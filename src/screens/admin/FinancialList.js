@@ -14,22 +14,17 @@ const FinancialList = (props) => {
   const history = useHistory()
   const [selectedId, setSelectedId] = useState(0)
   const [loading, setLoading] = useState(false)
-  const getAssetGroups = useStoreActions(
-    (actions) => actions.assets.getAssetGroups
-  )
-  const assetGroups = useStoreState((state) => state.assets.assetGroups)
+  const getMetrics = useStoreActions((actions) => actions.metrics.getMetrics)
+  const currentUser = useStoreState((state) => state.auth.user)
+  const userproductList = useStoreState((state) => state.metrics.userproductList)
+
+
+  
 
   function handleChange (id) {
     setSelectedId(id)
   }
-  useEffect(() => {
-    // Update the document title using the browser API
-    console.log('::LIST Assets Called::')
-    setLoading(true)
-    getAssetGroups(() => {
-      setLoading(false)
-    })
-  }, [])
+  
 
   const datastoreFinancial = {
     datasets: [

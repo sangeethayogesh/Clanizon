@@ -4,14 +4,8 @@ import constants from '../constants'
 import { message } from 'antd'
 
 const productModel = {
-  productList: null,
-
-  setProduct: action((state, payload) => {
-    state.productList = payload
-  }),
-  unsetProduct: action((state, payload) => {
-    state.productList = null
-  }),
+  userproductList:null,
+  
   setUserProduct: action((state, payload) => {
     state.userproductList = payload
   }),
@@ -24,7 +18,7 @@ const productModel = {
       .get(constants.URL.GET_ALL_PRODUCT)
       .then((res) => {
         actions.setProduct(res.data)
-        localStorage.productList=JSON.stringify(res.data);
+       
         callback()
       })
       .catch((err) => {
@@ -35,19 +29,21 @@ const productModel = {
   getUserProduct: thunk(async (actions, data) => {
     actions.setUserProduct([])
     rest
-      .get(constants.URL.GET_USER_PRODUCT +'?mobile=' + data)
+      .get(constants.URL.GET_USER_PRODUCT +data.params)
       .then((res) => {
         actions.setUserProduct(res.data)
-        localStorage.productList=JSON.stringify(res.data);
-        
+        localStorage.productList=JSON.stringify(res.data);   
+        if(data.callback)     {
+          data.callback()
+        }
       })
       .catch((err) => {
-        message.error('Product loading failed')
+        message.error('user Product loading failed')
         console.error(err)
       })
   }),
   addNewProduct: action((state, payload) => {
-    state.productList.push(payload)
+    state.userproductList.push(payload)
   })
   // count: computed(state => state.productIds.length),
 }

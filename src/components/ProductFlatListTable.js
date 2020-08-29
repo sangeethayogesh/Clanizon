@@ -11,10 +11,17 @@ const ProductFlatListTable = (props) => {
   // const getAllProduct = useStoreActions((actions) => actions.product.getAllProduct)
   const getUserProduct = useStoreActions((actions) => actions.product.getUserProduct)
   const userproductList = useStoreState((state) => state.product.userproductList)
+  const data = {
+    params:
+      '?mobile=' + currentUser.createdBy,
+    callback: () => {
+      setLoading(false)
+    }
+  }
   useEffect(() => {
-    
-    getUserProduct(currentUser.createdBy)
-  }, [])
+    setLoading(true)
+    getUserProduct(data)
+  },[])
   const columns = [
        {
       title: 'Business',

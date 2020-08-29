@@ -28,7 +28,6 @@ const UserHome = () => {
   const history = useHistory()
   const currentUser = useStoreState((state) => state.auth.user)
   const getAllAgents = useStoreActions((actions) => actions.agents.getAllAgents)
-  const agentList = useStoreState((state) => state.agents.list)
 
   const getAllAgentByAdmin = useStoreActions((actions) => actions.agents.getAllAgentByAdmin)
   const agentListAdmin = useStoreState((state) => state.agents.agentlistAdmin)
@@ -40,11 +39,8 @@ const UserHome = () => {
   )
   const leadStatusCount = useStoreState((state) => state.leads.statusCount)
   useEffect(() => {
-    setLoading(true)
-    getAllAgentByAdmin(currentUser.userMobile)
-    getAllAgents(() => {
-      setLoading(false)
-    })
+    getAllAgentByAdmin(currentUser.createdBy)
+   
     getLeadStatusCount(
       constants.URL.GET_LEAD_STATUS_COUNT + '?mobile=' + currentUser.userMobile
     )

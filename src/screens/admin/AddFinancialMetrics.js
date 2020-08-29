@@ -43,36 +43,36 @@ const AddFinancialMetrics = (props) => {
   const [form] = Form.useForm()
   const [isLoading, setIsLoading] = useState(false)
   const addLead = useStoreActions((actions) => actions.leads.addLead)
-  const getAllAgents = useStoreActions((actions) => actions.agents.getAllAgents)
-  const agentList = useStoreState((state) => state.agents.list)
+
+
  
   const currentUser = useStoreState((state) => state.auth.user)
   const [loading, setLoading] = useState(false)
   const [groups, setGroups] = useState(null)
   const  [contactlist, setContactlist] = useState(null)
 
-  const companyList = useStoreState((state) => state.company.companyList)
-
-  const getAllProduct = useStoreActions((actions) => actions.product.getAllProduct)
-
-  const productList = useStoreState((state) => state.product.productList)
-  const getAllCompany = useStoreActions((actions) => actions.company.getAllCompany)
+  const getAllAgentByAdmin = useStoreActions((actions) => actions.agents.getAllAgentByAdmin)
+  const getUserCompany = useStoreActions((actions) => actions.company.getUserCompany)
+  const getUserProduct = useStoreActions((actions) => actions.product.getUserProduct)
+ 
+  const agentList = useStoreState((state) => state.agents.agentlistAdmin)
+  const userProdList = useStoreState((state) => state.product.productList)
+  const companyList = useStoreState((state) => state.company.userCompany)
 
   const refdata = useStoreState((state) => state.refData.referencedata)
+  const data = {
+    params:
+      '?mobile=' + currentUser.createdBy,
+    callback: () => {
+      setLoading(false)
+    }
+  }
+
   useEffect(() => {
     setLoading(true)
-    getAllAgents(() => {
-      setLoading(false)
-    })
-
- 
-    getAllCompany(() => {
-      setLoading(false)
-     
-    })
-    getAllProduct(() => {
-      setLoading(false)     
-    })
+    getAllAgentByAdmin(currentUser.createdBy)
+    getUserCompany(data)
+    getUserProduct(data)
   }, [])
   const [properties, setProperties] = useState(null)
   const onFinish = (values) => {
@@ -104,19 +104,7 @@ const AddFinancialMetrics = (props) => {
     console.log('Failed:', errorInfo)
     message.warning('Please fill mandatory fields')
   }
-  const getGroups = () => {
-    setIsLoading(true)
-    rest
-      .get(constants.URL.GET_ASSET_GROUPS)
-      .then((res) => {
-        setGroups(res.data)
-        setIsLoading(false)
-      })
-      .catch((err) => {
-        console.error(err)
-        setIsLoading(false)
-      })
-  }
+  
   const handleContactChange= (value) =>{
     contactlist.map((contact) => {
   if(contact.userMobile==value){
@@ -148,22 +136,8 @@ const AddFinancialMetrics = (props) => {
         setIsLoading(false)
       })
   }
-  const onChangeArea = (id) => {
-    setIsLoading(true)
-    rest
-      .get(constants.URL.GET_ASSET_BY_GROUP_ID + '?groupId=' + id)
-      .then((res) => {
-        setProperties(res.data)
-        setIsLoading(false)
-      })
-      .catch((err) => {
-        console.error(err)
-        setIsLoading(false)
-      })
-  }
-  useEffect(() => {
-    getGroups()
-  }, [])
+ 
+ 
   return (
     <div>
       <HeaderBar drawer={false}>
@@ -259,8 +233,8 @@ const AddFinancialMetrics = (props) => {
                             name="productId"
                           >
                             <Select placeholder="Product Code">
-                            {productList &&
-                               productList.map((product) => {
+                            {userProdList &&
+                               userProdList.map((product) => {
                                   return (
                                     <Option key={product.productId}>
                                       {product.productModel}

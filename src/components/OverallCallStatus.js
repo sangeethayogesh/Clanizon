@@ -31,6 +31,8 @@ const OverallCallStatus = (props) => {
   const currentUser = useStoreState((state) => state.auth.user)
   const history = useHistory()
   const [isLoading, setIsLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
+
 const refdata = useStoreState((state) => state.refData.referencedata)
 const getUserProduct = useStoreActions((actions) => actions.product.getUserProduct)
 var leadItem=[];
@@ -42,11 +44,18 @@ const onDataChange = (value) => {
   leadItemnew=value;
   
 }
-useEffect(() => {
-    
-  getUserProduct(currentUser.createdBy)
-}, [])
 
+const data = {
+  params:
+    '&mobile=' + currentUser.createdBy,
+  callback: () => {
+    setLoading(false)
+  }
+}
+useEffect(() => {
+  setLoading(true)
+  getUserProduct(data)
+})
 
 form.setFieldsValue({
   leadStatValue: props.leadDetail?props.leadDetail.leadStatus:2,

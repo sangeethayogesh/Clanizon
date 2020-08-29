@@ -43,29 +43,32 @@ const AddLead = (props) => {
   const addLead = useStoreActions((actions) => actions.leads.addLead)
   
   const getAllAgents = useStoreActions((actions) => actions.agents.getAllAgents)
-  const getAllCompany = useStoreActions((actions) => actions.company.getAllCompany)
-  const agentList = useStoreState((state) => state.agents.list)
-  const getAllProduct = useStoreActions((actions) => actions.product.getAllProduct)
-  const productList = useStoreState((state) => state.product.productList)
-  const companyList = useStoreState((state) => state.company.companyList)
+  const getAllAgentByAdmin = useStoreActions((actions) => actions.agents.getAllAgentByAdmin)
+  const getUserCompany = useStoreActions((actions) => actions.company.getUserCompany)
+  const agentList = useStoreState((state) => state.agents.agentlistAdmin)
+  const getUserProduct = useStoreActions((actions) => actions.product.getUserProduct)
+  const userProdList = useStoreState((state) => state.product.productList)
+  const companyList = useStoreState((state) => state.company.userCompany)
   const refdata = useStoreState((state) => state.refData.referencedata)
   const currentUser = useStoreState((state) => state.auth.user)
   const [loading, setLoading] = useState(false)
+  const getTodayLeads = useStoreActions(
+    (actions) => actions.leads.getTodayLeads
+  )
   var leadItem;
+  const data = {
+    params:
+      '?mobile=' + currentUser.createdBy,
+    callback: () => {
+      setLoading(false)
+    }
+  }
   
   useEffect(() => {
     setLoading(true)
-    getAllAgents(() => {
-      setLoading(false)
-    })
-    getAllCompany(() => {
-      setLoading(false)
-     
-    })
-    getAllProduct(() => {
-      setLoading(false)
-     
-    })
+    getAllAgentByAdmin(currentUser.createdBy)
+    getUserCompany(data)
+    getUserProduct(data)
   }, [])
   const [properties, setProperties] = useState(null)
   const  [contactlist, setContactlist] = useState(null)
@@ -441,7 +444,7 @@ const AddLead = (props) => {
                     
                     <Panel header="Proposal Information" key="3">
                     <ProductLead 
-                    productList={productList}
+                    productList={userProdList}
                     refdata={refdata}
                     allowEdit={true}
                     leadItem={[]}

@@ -47,7 +47,7 @@ const agentModel = {
   }),
   
   addNewAgent: action((state, payload) => {
-    state.list.push(payload)
+    state.agentlistAdmin.push(payload)
   })
   // count: computed(state => state.productIds.length),
 }

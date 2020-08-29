@@ -2,7 +2,7 @@
 
 const NAME_SPACE = 'api/'
 //const BASE_URL='http://localhost:8085'
-const BASE_URL='https://api.realkeyip.in'
+const BASE_URL='https://api.realkeyip.in/'
 const today = new Date().toISOString().split('T')[0]
 const constants = {
   URL: {
@@ -37,7 +37,8 @@ const constants = {
     GET_All_LEAD : BASE_URL+'/api/leads/getAllLeads',
     GET_All_LEAD_BYADMIN : BASE_URL+'/api/leads/getleadByAdmin',
     ADD_FINANCIAL_METRICS:BASE_URL+'/api/user/addmetrics',
-    GET_METRICS:BASE_URL+'/api/user/metricsbyadmin'
+    GET_METRICS:BASE_URL+'/api/user/metricsbyadmin',
+    GET_USER_COMPANY:BASE_URL+'/api/user/listcompanybyuser'
   },
   DATA: {
     admin_messages: [

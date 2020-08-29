@@ -16,9 +16,10 @@ const metricsModel = {
   getMetrics: thunk(async (actions,data) => {
     actions.setMetric([])
     rest
-      .get(constants.URL.GET_METRICS+data.param)
+      .get(constants.URL.GET_METRICS+data.params)
       .then((res) => {
         actions.setMetric(res.data)  
+        
         data.callback()      
       })
       .catch((err) => {

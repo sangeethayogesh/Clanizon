@@ -9,15 +9,15 @@ const columns = [
   {
     title: 'Product Business',
     width: 120,
-    render: (user) => (
+    render: (data) => (
       <span style={{ color: '#000000a6', fontWeight: 'bold' }}>
-        {constants.getBusinessType(user.businessid)}   
+        {constants.getBusinessType(data.productBusiness)}   
       </span>
     )
 
   },
   {
-    title: 'Product_Code',
+    title: 'Product Code',
     width: 120
 
   },
@@ -29,34 +29,65 @@ const columns = [
   },
   {
     title: 'Buyer Company',
-    width: 120
+    width: 120,
+    render: (data) => (
+      <span style={{ color: '#000000a6', fontWeight: 'bold' }}>
+        {data.buyerCompany}   
+      </span>
+    )
+    
 
   },
   {
     title: 'User Name',
-    width: 120
+    width: 120,
+    render: (data) => (
+      <span style={{ color: '#000000a6', fontWeight: 'bold' }}>
+        {data.userName}   
+      </span>
+    )     
+    
     // eslint-disable-next-line react/display-name
   },
 
   {
     title: 'User Mobile Number',
-    width: 120
-
+    width: 120,
+    render: (data) => (
+      <span style={{ color: '#000000a6', fontWeight: 'bold' }}>
+        {data.userMobile}   
+      </span>
+    )     
   },
   {
     title: 'Amount',
-    width: 120
-
+    width: 120,
+    render: (data) => (
+      <span style={{ color: '#000000a6', fontWeight: 'bold' }}>
+        {data.amount}   
+      </span>
+    )    
   },
   {
     title: 'Date',
-    width: 120
+    width: 120,
+    render: (data) => (
+      <span style={{ color: '#000000a6', fontWeight: 'bold' }}>
+        {data.date}   
+      </span>
+    )
+   
 
   },
   {
     title: 'Sold By',
-    width: 120
-
+    width: 120,
+    render: (data) => (
+      <span style={{ color: '#000000a6', fontWeight: 'bold' }}>
+        {constants.getBusinessType(data.soldBy
+       )}   
+      </span>
+    )
   }
 
   //   {
@@ -88,20 +119,19 @@ const FinancialFlatListTable = (props) => {
   const assetDetails = useStoreState((state) => state.assets.assetDetails)
   const getMetrics = useStoreActions((actions) => actions.metrics.getMetrics)
   const currentUser = useStoreState((state) => state.auth.user)
-  const metric = useStoreState((state) => state.metrics.metricslist)
+  const metric = useStoreState((state) => state.metrics.metriclist)
   console.log(currentUser);
-  useEffect(() => {
-    const data = {
-      param: "?mobile="+currentUser.userMobile,
-      callback: () => {
-        setLoading(false)
-      }
+  const data = {
+    params:
+      '?mobile=' + currentUser.createdBy,
+    callback: () => {
+      setLoading(false)
     }
-    // Update the document title using the browser API
-    setLoading(true)
-   // getMetrics(data)
   }
-  )
+  useEffect(() => {
+    setLoading(true)
+    getMetrics(data)
+  },[])
  
   return (
     <div>
