@@ -47,7 +47,7 @@ const onDataChange = (value) => {
 
 const data = {
   params:
-    '&mobile=' + currentUser.createdBy,
+    '?mobile=' + currentUser.createdBy,
   callback: () => {
     setLoading(false)
   }
@@ -55,7 +55,7 @@ const data = {
 useEffect(() => {
   setLoading(true)
   getUserProduct(data)
-})
+},[])
 
 form.setFieldsValue({
   leadStatValue: props.leadDetail?props.leadDetail.leadStatus:2,
