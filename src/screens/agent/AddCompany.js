@@ -219,7 +219,7 @@ const AddCompany = (props) => {
                           <Form.Item
                             label="Address"
                             colon={false}
-                            name="address"
+                            name="companyAddress"
                           >
                             <Input.TextArea placeholder="Address" />
                           </Form.Item>
