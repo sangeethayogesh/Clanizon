@@ -88,6 +88,7 @@ const AddFinancialMetrics = (props) => {
         message.success('Metrics Added!')
         setIsLoading(false)
         form.resetFields()
+        history.goBack()
       })
       .catch((err) => {
         message.error('Failed!')

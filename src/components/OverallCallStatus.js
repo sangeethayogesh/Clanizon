@@ -50,8 +50,8 @@ useEffect(() => {
 
 form.setFieldsValue({
   leadStatValue: props.leadDetail?props.leadDetail.leadStatus:2,
-  advance: (props.leadDetail && props.leadDetail.leadAudit)?props.leadDetail.leadAudit[0].advance:'',
-  paymentParts: (props.leadDetail && props.leadDetail.leadAudit)?props.leadDetail.leadAudit[0].paymentParts:'',
+  advance: (props.leadDetail && props.leadDetail.leadAudit)?(props.leadDetail.leadAudit[0]?props.leadDetail.leadAudit[0].advance : ''):'',
+  paymentParts: (props.leadDetail && props.leadDetail.leadAudit)?(props.leadDetail.leadAudit[0]?props.leadDetail.leadAudit[0].paymentParts:''):'',
 
 })
 const productList = useStoreState((state) => state.product.productList)
@@ -122,8 +122,10 @@ const productList = useStoreState((state) => state.product.productList)
           form={form}
           initialValues={{
             leadStatValue: props.leadDetail?props.leadDetail.leadStatus:2,
-            advance: (props.leadDetail && props.leadDetail.leadAudit)?props.leadDetail.leadAudit[0].advance:'',
-            paymentParts: (props.leadDetail && props.leadDetail.leadAudit)?props.leadDetail.leadAudit[0].paymentParts:'',
+            // advance: (props.leadDetail && props.leadDetail.leadAudit)?props.leadDetail.leadAudit[0].advance:'',
+            // paymentParts: (props.leadDetail && props.leadDetail.leadAudit)?props.leadDetail.leadAudit[0].paymentParts:'',
+            advance: (props.leadDetail && props.leadDetail.leadAudit)?(props.leadDetail.leadAudit[0]?props.leadDetail.leadAudit[0].advance : ''):'',
+            paymentParts: (props.leadDetail && props.leadDetail.leadAudit)?(props.leadDetail.leadAudit[0]?props.leadDetail.leadAudit[0].paymentParts:''):'',
 
           }}
           onFinish={onCallStatusSave}
@@ -148,7 +150,7 @@ const productList = useStoreState((state) => state.product.productList)
                     rules={[
                       {
                         required: true,
-                        message: 'Please enter the Activity"'
+                        message: 'Please enter the Activity'
                       }
                     ]}
                   >

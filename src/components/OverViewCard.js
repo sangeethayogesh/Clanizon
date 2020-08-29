@@ -10,12 +10,12 @@ const OverViewCard = (props) => {
   return (
     <Card className="overall-tile" style={{ backgroundColor: props.color }}>
       <Row>
-        <Col span="4">
+        <Col span="6">
           <div className="o-initial-box">
             <Text className="o-initial-text">{props.title[0]}</Text>
           </div>
         </Col>
-        <Col span="10" offset={2}>
+        <Col offset={2}>
           <Row>
             <Text className="o-count">{props.count}</Text>
           </Row>

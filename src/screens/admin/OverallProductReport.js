@@ -63,13 +63,13 @@ const OverallProductReport = (props) => {
         <Col span="6" sm={(6, 6)} xs={24}>
           <CategoryTile
             title="Market Platform"
-            count={(list && list.created && list.created.length) || 0}
+            count={(list && list.prospecting && list.prospecting.length) || 0}
             gradient={['#c185fa', '#6a3ec3']}
             onClick={showAddAgent}
           ></CategoryTile>
           {list &&
-            list.created &&
-            list.created.map((lead, idx) => {
+            list.prospecting &&
+            list.prospecting.map((lead, idx) => {
               return (
                 <ReportCard
                   lead={lead}
@@ -84,27 +84,8 @@ const OverallProductReport = (props) => {
         <Col span="6" sm={6} xs={24}>
           <CategoryTile
             title="Working Platform"
-            count={(list && list.prospecting && list.prospecting.length) || 0}
-            gradient={['#efd67c', '#f76b1c']}
-          ></CategoryTile>
-          {list &&
-            list.prospecting &&
-            list.prospecting.map((lead, idx) => {
-              return (
-                <ReportCard
-                  lead={lead}
-                  key={idx}
-                  onClick={() => showModel(lead)}
-                ></ReportCard>
-              )
-            })}
-          <LoadMore onLoadMore={() => {}}></LoadMore>
-        </Col>
-        <Col span="6" sm={6} xs={24}>
-          <CategoryTile
-            title="Buying Platform"
             count={(list && list.closer && list.closer.length) || 0}
-            gradient={['#b9e270', '#60904d']}
+            gradient={['#efd67c', '#f76b1c']}
           ></CategoryTile>
           {list &&
             list.closer &&
@@ -120,6 +101,25 @@ const OverallProductReport = (props) => {
           <LoadMore onLoadMore={() => {}}></LoadMore>
         </Col>
         <Col span="6" sm={6} xs={24}>
+          <CategoryTile
+            title="Buying Platform"
+            count={(list && list.converted && list.converted.length) || 0}
+            gradient={['#b9e270', '#60904d']}
+          ></CategoryTile>
+          {list &&
+            list.converted &&
+            list.converted.map((lead, idx) => {
+              return (
+                <ReportCard
+                  lead={lead}
+                  key={idx}
+                  onClick={() => showModel(lead)}
+                ></ReportCard>
+              )
+            })}
+          <LoadMore onLoadMore={() => {}}></LoadMore>
+        </Col>
+        {/* <Col span="6" sm={6} xs={24}>
           <CategoryTile
             title="Closure"
             count={(list && list.converted && list.converted.length) || 0}
@@ -137,7 +137,7 @@ const OverallProductReport = (props) => {
               )
             })}
           <LoadMore onLoadMore={() => {}}></LoadMore>
-        </Col>
+        </Col> */}
       </Row>
       <Modal
         visible={visibleDetailedReport}

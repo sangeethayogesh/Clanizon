@@ -113,6 +113,7 @@ const AddLead = (props) => {
         message.success('Lead Added!')
         setIsLoading(false)
         form.resetFields()
+        history.goBack()
       })
       .catch((err) => {
         message.error('Failed!')

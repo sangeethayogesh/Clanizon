@@ -7,8 +7,8 @@ import constants from '../constants'
 const priceformatter = require('priceformatter')
 const ProductFlatListTable = (props) => {
   const currentUser = useStoreState((state) => state.auth.user)
-  const productList = useStoreState((state) => state.product.productList)
-  const getAllProduct = useStoreActions((actions) => actions.product.getAllProduct)
+  // const productList = useStoreState((state) => state.product.productList)
+  // const getAllProduct = useStoreActions((actions) => actions.product.getAllProduct)
   const getUserProduct = useStoreActions((actions) => actions.product.getUserProduct)
   const userproductList = useStoreState((state) => state.product.userproductList)
   useEffect(() => {

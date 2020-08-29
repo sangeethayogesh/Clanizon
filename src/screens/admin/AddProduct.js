@@ -62,6 +62,7 @@ const AddProduct = (props) => {
         message.success('Product Added!')
         setIsLoading(false)
         form.resetFields()
+        history.goBack()
       })
       .catch((err) => {
         message.error('Product Add Failed!')
