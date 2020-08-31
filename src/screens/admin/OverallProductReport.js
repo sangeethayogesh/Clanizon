@@ -43,12 +43,12 @@ const OverallProductReport = (props) => {
     })
     console.log(list)
   }
-  const getAllLeads = (currentUser) => {
+  const getAllLeads = (currentUser1) => {
     var url='';
     if(currentUser && currentUser.userRole && currentUser.userRole==1){
-      url=constants.URL.GET_All_LEAD_BYADMIN+ '?userMobile=' + currentUser;
+      url=constants.URL.GET_All_LEAD_BYADMIN+ '?userMobile=' + currentUser1;
     }else{
-      url=constants.URL.GET_LEAD_BY_AGENT+ '?mobile=' + currentUser;
+      url=constants.URL.GET_LEAD_BY_AGENT+ '?mobile=' + currentUser1;
     }
     rest
       .get(url)
