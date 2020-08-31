@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, {useState, useEffect } from 'react'
 import { Carousel, Row, Col,Button } from 'antd'
 import { useHistory } from 'react-router-dom'
 
@@ -14,6 +14,7 @@ import constants from '../../constants'
 
 const AgentHome = (props) => {
   const history = useHistory()
+  const [loading, setLoading] = useState(false)
   const currentUser = useStoreState((state) => state.auth.user)
   const getAdminMessages = useStoreActions(
    (actions) => actions.broadCastMeassages.getMessages
@@ -21,6 +22,9 @@ const AgentHome = (props) => {
   const adminMessages = useStoreState(
     (state) => state.broadCastMeassages.messages
   )
+  
+  const getPerformanceByAgent = useStoreActions((actions) => actions.perfData.getPerformanceByAgent)
+  const perfList = useStoreState((state) => state.perfData.agentperflist)
 
   const getLeadStatusCount = useStoreActions(
     (actions) => actions.leads.getLeadStatusCount
@@ -29,17 +33,41 @@ const AgentHome = (props) => {
   const leadStatusCount = useStoreState((state) => state.leads.statusCount)
 
   const state = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Aug'],
+    labels: perfList?perfList.Label:[],
     datasets: [
       {
-        type:'bar',
-        backgroundColor: '#7e31ed',
-        // borderColor: 'rgba(0,0,0,1)',
-        label: 'Achieved',
-        data: [18, 14, 17, 19, 21, 14, 12, 15],
+        
+        backgroundColor: '#7571c7',
+        label: 'Universe',
+        data: perfList?perfList.UPL:[],
         barThickness: 20,
         borderWidth: 2
       },
+      {
+        
+        backgroundColor: '#4cc311',
+        // borderColor: 'rgba(0,0,0,1)',
+        label: 'Marketing Platform',
+        data: perfList?perfList.MPL:[],
+        barThickness: 20,
+        borderWidth: 2
+      },
+      {
+        
+        backgroundColor: '#1890ff',
+        label: 'Working Platform',
+        data: perfList?perfList.WPL:[],
+        barThickness: 20,
+        borderWidth: 2
+      },
+      {
+       
+        backgroundColor: '#ff707c',
+        label: 'Buying Platform',
+        data: perfList?perfList.BPL:[],
+        barThickness: 20,
+        borderWidth: 2
+      }, 
       {
         type:'line',
         borderColor: '#EC932F',
@@ -53,10 +81,23 @@ const AgentHome = (props) => {
         label: 'Monthly Target',
         barThickness: 20,
         borderWidth: 2,
-        data: [20, 20, 20, 20, 20, 20, 20, 20]
+        data: perfList?perfList.TL:[],
       }
     ]
-  }  
+  }
+
+  const data = {
+    params:
+      '?agentMobile=' + currentUser.userMobile,
+    callback: () => {
+      setLoading(false)
+    }
+  }
+  
+  useEffect(() => {
+    setLoading(true)
+    getPerformanceByAgent(data)
+  }, [])
   useEffect(() => {
     // Update the document title using the browser API
     const leadStat=(currentUser & currentUser.userRole==1)? constants.URL.GET_LEAD_STATUS_COUNT + '?mobile=' + currentUser.userMobile:constants.URL.GET_LEAD_STATUS_AGENT + '?mobile=' + currentUser.userMobile
@@ -175,7 +216,19 @@ const AgentHome = (props) => {
           <div className="admin-page-column-right">
             <Bar
               data={state}
-              options={{
+              options={{scales:{
+                yAxes:[{stacked:true,
+                 gridLines:{
+                   drawBorder:false,
+                 }
+               }],
+               xAxes:[{stacked:true,
+                 gridLines:{
+                   display:false,
+                 },
+                 barThickness:40
+               }]
+               },
                 title: {
                   display: false,
                   text: 'My Performance',

@@ -1,203 +1,111 @@
-import React, { useState, useEffect } from 'react'
+  import React, { useState, useEffect } from 'react'
 
-import HeaderBar from '../../components/HeaderBar'
-import { Row, Button, Col, DatePicker, Select } from 'antd'
-import { FinancialFlatListTable } from '../../components/FinancialFlatListTable'
-import { useStoreActions, useStoreState } from 'easy-peasy'
-import { useHistory } from 'react-router-dom'
-import { Bar, Polar, Radar } from 'react-chartjs-2'
-import moment from 'moment'
+  import HeaderBar from '../../components/HeaderBar'
+  import { Row, Button, Col, DatePicker, Select } from 'antd'
+  import { FinancialFlatListTable } from '../../components/FinancialFlatListTable'
+  import { useStoreActions, useStoreState } from 'easy-peasy'
+  import { useHistory } from 'react-router-dom'
+  import { Bar, Polar, Radar } from 'react-chartjs-2'
+  import moment from 'moment'
 
-const dateFormat = 'YYYY/MM/DD'
-const { Option } = Select
-const FinancialList = (props) => {
-  const history = useHistory()
-  const [selectedId, setSelectedId] = useState(0)
-  const [loading, setLoading] = useState(false)
-  const getMetrics = useStoreActions((actions) => actions.metrics.getMetrics)
-  const currentUser = useStoreState((state) => state.auth.user)
-
-  const userproductList = useStoreState((state) => state.metrics.userproductList)
-  
-   function handleDateChangeFrom (x,y){
+  const dateFormat = 'YYYY/MM/DD'
+  const { Option } = Select
+  const FinancialList = (props) => {
+    const history = useHistory()
+    const [selectedId, setSelectedId] = useState(0)
+    const [loading, setLoading] = useState(false)
+    const getMetrics = useStoreActions((actions) => actions.metrics.getMetrics)
+    const currentUser = useStoreState((state) => state.auth.user)
     
-   }
-   function handleDateChangeTo (x,y){
-    console.log(moment(x))
-    console.log(new Date(y))
-  }
-  function handleChange (id) {
-    setSelectedId(id)
-  }
-  
+    const getAmountMetrics = useStoreActions((actions) => actions.metricData.getAmountMetrics)
+    const getBusinessMetrics = useStoreActions((actions) => actions.metricData.getBusinessMetrics)
 
-  const datastoreFinancial = {
-    datasets: [
-      {
-        type:'bar',
-        backgroundColor: '#7e31ed',
-        // borderColor: 'rgba(0,0,0,1)',
-        label: 'Cost',
-        data: [18, 14, 17, 19, 21, 14, 12, 15],
-        barThickness: 20,
-        borderWidth: 2
-      }
-    ]
-  }
+    const userproductList = useStoreState((state) => state.metrics.userproductList)
 
-  const datastoreFinancialSplit = {
-    datasets: [{
-      data: [
-        11,
-        16,
-        7,
-        3,
-        14,
-        18
-      ],
-      backgroundColor: [
-        '#FF6384',
-        '#4BC0C0',
-        '#FFCE56',
-        '#E7E9ED',
-        '#36A2EB',
-        '#4BCC00',
-      ],
-      label: 'Product Contribution' // for legend
-    }],
-    labels: [
-      'UPS',
-      'Connectivity',
-      'Racks',
-      'Industrial & services',
-      'Accescerries',
-      'Battery'
-    ]
-  };
+    const businessmetrics = useStoreState((state) => state.metricData.businessmetrics)
 
-  const datastoreFinancialSplitPolar = {
-    labels: [
-      'UPS',
-      'Connectivity',
-      'Racks',
-      'Industrial & services',
-      'Accescerries',
-      'Battery'
-    ],
-    datasets: [
-      {
-        backgroundColor: 'rgba(255,99,132,0.2)',
-        borderColor: 'rgba(255,99,132,1)',
-        pointBackgroundColor: 'rgba(255,99,132,1)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(255,99,132,1)',
-        data: [28, 75, 40, 19, 96, 100]
-      }
-    ]
-  };
+    const amountmetrics = useStoreState((state) => state.metricData.amountmetrics)
+    function handleDateChangeFrom (x,y){
+      
+    }
+    function handleDateChangeTo (x,y){
+      console.log(moment(x))
+      console.log(new Date(y))
+    }
+    function handleChange (id) {
+      setSelectedId(id)
+    }
 
-  return (
-    <HeaderBar>
+    
+    useEffect(() => {
+      getAmountMetrics()
+      getBusinessMetrics()
+      
+    }, [])
+    
 
-      <Row justify="space-between" >
-        <Col>                    
-          <h5
-              style={{
-                fontFamily: 'Lato',
-                fontSize: '20px',
-                fontWeight: 'bold',
-                color: '#150e4f',
-                paddingLeft:'5px'
-              }}
-            >
-              Financial Metrics
-            </h5>
-        </Col>
-        <Col span="4">
-          {/* <Button block type="primary" onClick={() => history.push('/admin/add-financial-metrics')} >
-            Add Financial Metrics
-          </Button > */}
-          <Button style={{fontSize: '15px', paddingRight:'10px'}} type="link" onClick={() => history.push('/admin/add-financial-metrics')} >
-                  + Add Financial Metrics
-          </Button >  
-        </Col>
-      </Row>
+    const datastoreFinancial = {
+      datasets: [
+        {
+          type:'bar',
+          backgroundColor: '#7e31ed',
+          // borderColor: 'rgba(0,0,0,1)',
+          label: amountmetrics?amountmetrics.label:[],
+          data: amountmetrics?amountmetrics.Amount:[],
+          barThickness: 20,
+          borderWidth: 2
+        }
+      ]
+    }
 
-      <FinancialFlatListTable id={selectedId} />
+   
 
-      <Row>
-        <Col span ="12">
-          <Row justify='space-between' >
-            <Col>
-             <h5
-                  style={{
-                    fontFamily: 'Lato',
-                    fontSize: '14px',
-                    fontWeight: 'bold',
-                    color: '#150e4f',
-                    paddingBottom: "10px"
-                  }}
-                >
-                  Product Contribution
-              </h5>   
-              </Col>
-              <Col paddingRight= '10px'>
-                  From :    <DatePicker defaultValue={moment('2020/08/01', dateFormat)} 
-                  inputReadOnly={true}
-                  onChange={handleDateChangeFrom}
-                
-                  format={dateFormat} style={{ width: 200, height: 32, paddingLeft: '10px', 
-                  
-                  paddingRight: '10px' }}/>
-                  To :    <DatePicker 
-                  defaultValue={moment(new Date().toJSON().slice(0,10).replace(/-/g,'/'), dateFormat)} 
-                  format={dateFormat}
-                  
-                  onChange={handleDateChangeTo}
-                  disabledDate={d => !d || d.isAfter(moment())} 
-                  inputReadOnly={true}
-                   style={{ width: 200, height: 32, paddingLeft: '10px', paddingRight: '10px'  }
-                   }/>
-              </Col> 
-              <Col span=".25">
-              </Col>      
-          </Row>
-          
-            <div className="admin-page-column-left">
-              {/* <Polar 
-                data={datastoreFinancialSplit}
-                options={{
-                  title: {
-                    display: false,
-                    text: 'Product Contribution',
-                    fontSize: 15,
-                    position: "top"
-                  },
-                  legend: {
-                    display: true,
-                    position: 'bottom'
-                  }
+    const datastoreFinancialSplitPolar = {
+      labels: ["Ups"],
+      datasets: [
+        {
+          backgroundColor: 'rgba(255,99,132,0.2)',
+          borderColor: 'rgba(255,99,132,1)',
+          pointBackgroundColor: 'rgba(255,99,132,1)',
+          pointBorderColor: '#fff',
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: 'rgba(255,99,132,1)',
+          data: [20]
+        }
+      ]
+    };
+
+    return (
+      <HeaderBar>
+
+        <Row justify="space-between" >
+          <Col>                    
+            <h5
+                style={{
+                  fontFamily: 'Lato',
+                  fontSize: '20px',
+                  fontWeight: 'bold',
+                  color: '#150e4f',
+                  paddingLeft:'5px'
                 }}
-              /> */}
-              <Radar               
-                data={datastoreFinancialSplitPolar}
-                options={{
-                  title: {
-                    display: false,
-                    text: 'Product Contribution',
-                    fontSize: 15,
-                    position: "top"
-                  },
-                  legend: {
-                    display: false,
-                    position: 'bottom'
-                  }
-                }}
-              />
-            </div>
+              >
+                Financial Metrics
+              </h5>
           </Col>
-          <Col span="12">
+          <Col span="4">
+            {/* <Button block type="primary" onClick={() => history.push('/admin/add-financial-metrics')} >
+              Add Financial Metrics
+            </Button > */}
+            <Button style={{fontSize: '15px', paddingRight:'10px'}} type="link" onClick={() => history.push('/admin/add-financial-metrics')} >
+                    + Add Financial Metrics
+            </Button >  
+          </Col>
+        </Row>
+
+        <FinancialFlatListTable id={selectedId} />
+
+        <Row>
+          <Col span ="12">
             <Row justify='space-between' >
               <Col>
               <h5
@@ -209,37 +117,107 @@ const FinancialList = (props) => {
                       paddingBottom: "10px"
                     }}
                   >
-                    Financial Trend
+                    Product Contribution
                 </h5>   
                 </Col>
                 <Col paddingRight= '10px'>
-                    From :    <DatePicker defaultValue={moment('2020/08/01', dateFormat)} format={dateFormat} style={{ width: 200, height: 32, paddingLeft: '10px', paddingRight: '10px' }}/>
-                    To :    <DatePicker defaultValue={moment(new Date().toJSON().slice(0,10).replace(/-/g,'/'), dateFormat)} format={dateFormat} style={{ width: 200, height: 32, paddingLeft: '10px', paddingRight: '10px'  }}/>
+                    From :    <DatePicker defaultValue={moment('2020/08/01', dateFormat)} 
+                    inputReadOnly={true}
+                    onChange={handleDateChangeFrom}
+                  
+                    format={dateFormat} style={{ width: 200, height: 32, paddingLeft: '10px', 
+                    
+                    paddingRight: '10px' }}/>
+                    To :    <DatePicker 
+                    defaultValue={moment(new Date().toJSON().slice(0,10).replace(/-/g,'/'), dateFormat)} 
+                    format={dateFormat}
+                    
+                    onChange={handleDateChangeTo}
+                    disabledDate={d => !d || d.isAfter(moment())} 
+                    inputReadOnly={true}
+                    style={{ width: 200, height: 32, paddingLeft: '10px', paddingRight: '10px'  }
+                    }/>
                 </Col> 
                 <Col span=".25">
                 </Col>      
             </Row>
-            <div className="admin-page-column-right">
-              <Bar
-                data={datastoreFinancial}
-                options={{
-                  title: {
-                    display: false,
-                    text: 'Financial Trend',
-                    fontSize: 15,
-                    position: "top"
-                  },
-                  legend: {
-                    display: true,
-                    position: 'bottom'
-                  }
-                }}
-              />
-            </div>
-          </Col>
-      </Row>
-    </HeaderBar>
-  )
-}
+            
+              <div className="admin-page-column-left">
+                {/* <Polar 
+                  data={datastoreFinancialSplit}
+                  options={{
+                    title: {
+                      display: false,
+                      text: 'Product Contribution',
+                      fontSize: 15,
+                      position: "top"
+                    },
+                    legend: {
+                      display: true,
+                      position: 'bottom'
+                    }
+                  }}
+                /> */}
+                <Radar               
+                  data={datastoreFinancialSplitPolar}
+                  options={{
+                    title: {
+                      display: false,
+                      text: 'Product Contribution',
+                      fontSize: 15,
+                      position: "top"
+                    },
+                    legend: {
+                      display: false,
+                      position: 'bottom'
+                    }
+                  }}
+                />
+              </div>
+            </Col>
+            <Col span="12">
+              <Row justify='space-between' >
+                <Col>
+                <h5
+                      style={{
+                        fontFamily: 'Lato',
+                        fontSize: '14px',
+                        fontWeight: 'bold',
+                        color: '#150e4f',
+                        paddingBottom: "10px"
+                      }}
+                    >
+                      Financial Trend
+                  </h5>   
+                  </Col>
+                  <Col paddingRight= '10px'>
+                      From :    <DatePicker defaultValue={moment('2020/08/01', dateFormat)} format={dateFormat} style={{ width: 200, height: 32, paddingLeft: '10px', paddingRight: '10px' }}/>
+                      To :    <DatePicker defaultValue={moment(new Date().toJSON().slice(0,10).replace(/-/g,'/'), dateFormat)} format={dateFormat} style={{ width: 200, height: 32, paddingLeft: '10px', paddingRight: '10px'  }}/>
+                  </Col> 
+                  <Col span=".25">
+                  </Col>      
+              </Row>
+              <div className="admin-page-column-right">
+                <Bar
+                  data={datastoreFinancial}
+                  options={{
+                    title: {
+                      display: false,
+                      text: 'Financial Trend',
+                      fontSize: 15,
+                      position: "top"
+                    },
+                    legend: {
+                      display: true,
+                      position: 'bottom'
+                    }
+                  }}
+                />
+              </div>
+            </Col>
+        </Row>
+      </HeaderBar>
+    )
+  }
 
-export { FinancialList }
+  export { FinancialList }

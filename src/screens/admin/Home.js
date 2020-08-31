@@ -133,16 +133,8 @@ const UserHome = () => {
   const columns = [
     {
       title: 'First Name',
-      render: (agent) => (
-        <span>{agent.userFname}</span>
-        // <div>
-        //   <span className="table-name">
-        //     <span className="table-inner-name">{record.name}</span>
-        //     <br />
-        //     {/* <span className="table-designation">{record.designation}</span> */}
-        //   </span>
-        // </div>
-      )
+      dataIndex: 'userFname'
+      
     },
     
     {

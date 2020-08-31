@@ -25,7 +25,7 @@ const metricsDataModel = {
       .get(constants.URL.GET_BUSINESS_METRICS)
       .then((res) => {
         actions.setBusinessMetrics(res.data)
-        data.callback()
+        
       })
       .catch((err) => {
         message.error('Business Metrics  loading failed')
@@ -39,7 +39,7 @@ const metricsDataModel = {
       .get(constants.URL.GET_AMOUNT_METRICS)
       .then((res) => {
         actions.setAmountMetrics(res.data)
-        callback()
+        
       })
       .catch((err) => {
         message.error('Amount Metrics loading failed')

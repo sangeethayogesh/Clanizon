@@ -44,8 +44,8 @@ const constants = {
     GET_AGENT_PERFORMANCE:BASE_URL+'/api/leads/getperformancebyagent',
     GET_PERFORMANCE_DATA:BASE_URL+'/api/leads/getperformancedata',
 
-    GET_BUSINESS_METRICS:BASE_URL+'/api/leads/getperformancebyagent',
-    GET_AMOUNT_METRICS:BASE_URL+'/api/leads/getperformancedata'
+    GET_BUSINESS_METRICS:BASE_URL+'/api/asset/metricsbybusiness',
+    GET_AMOUNT_METRICS:BASE_URL+'/api/asset/metricsbyamount'
   },
   DATA: {
     admin_messages: [
