@@ -16,11 +16,16 @@ const FinancialList = (props) => {
   const [loading, setLoading] = useState(false)
   const getMetrics = useStoreActions((actions) => actions.metrics.getMetrics)
   const currentUser = useStoreState((state) => state.auth.user)
+
   const userproductList = useStoreState((state) => state.metrics.userproductList)
-
-
   
-
+   function handleDateChangeFrom (x,y){
+    
+   }
+   function handleDateChangeTo (x,y){
+    console.log(moment(x))
+    console.log(new Date(y))
+  }
   function handleChange (id) {
     setSelectedId(id)
   }
@@ -138,8 +143,22 @@ const FinancialList = (props) => {
               </h5>   
               </Col>
               <Col paddingRight= '10px'>
-                  From :    <DatePicker defaultValue={moment('2020/08/01', dateFormat)} format={dateFormat} style={{ width: 200, height: 32, paddingLeft: '10px', paddingRight: '10px' }}/>
-                  To :    <DatePicker defaultValue={moment(new Date().toJSON().slice(0,10).replace(/-/g,'/'), dateFormat)} format={dateFormat} style={{ width: 200, height: 32, paddingLeft: '10px', paddingRight: '10px'  }}/>
+                  From :    <DatePicker defaultValue={moment('2020/08/01', dateFormat)} 
+                  inputReadOnly={true}
+                  onChange={handleDateChangeFrom}
+                
+                  format={dateFormat} style={{ width: 200, height: 32, paddingLeft: '10px', 
+                  
+                  paddingRight: '10px' }}/>
+                  To :    <DatePicker 
+                  defaultValue={moment(new Date().toJSON().slice(0,10).replace(/-/g,'/'), dateFormat)} 
+                  format={dateFormat}
+                  
+                  onChange={handleDateChangeTo}
+                  disabledDate={d => !d || d.isAfter(moment())} 
+                  inputReadOnly={true}
+                   style={{ width: 200, height: 32, paddingLeft: '10px', paddingRight: '10px'  }
+                   }/>
               </Col> 
               <Col span=".25">
               </Col>      

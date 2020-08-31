@@ -113,8 +113,8 @@ const AddLead = (props) => {
       companyContact:values.userMobile,
       emailId:values.userEmailid,
       "orderValue":getOrderValue(leadItem),
-      leadCreateDate: new Date(),
-	  createdBy:currentUser.userMobile,
+    createdBy:currentUser.userMobile,
+    leadCreatedDate: tomorrow,
       nextScheduleDatetime: tomorrow,
       leadItem: leadItem
     }        

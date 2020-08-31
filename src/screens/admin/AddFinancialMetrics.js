@@ -56,7 +56,7 @@ const AddFinancialMetrics = (props) => {
   const getUserProduct = useStoreActions((actions) => actions.product.getUserProduct)
  
   const agentList = useStoreState((state) => state.agents.agentlistAdmin)
-  const userProdList = useStoreState((state) => state.product.productList)
+  const userProdList = useStoreState((state) => state.product.userproductList)
   const companyList = useStoreState((state) => state.company.userCompany)
 
   const refdata = useStoreState((state) => state.refData.referencedata)

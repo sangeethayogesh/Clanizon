@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import React, { useState, useEffect } from 'react'
-import { Row, Col,Button, Layout, Modal, Table, Input } from 'antd'
+import { Row, Radio, Col,Button, Layout, Modal, Table, Input } from 'antd'
 import HeaderBar from 'components/HeaderBar'
 import ChatBox from 'components/chatbox'
 
@@ -28,11 +28,27 @@ const UserHome = () => {
   const history = useHistory()
   const currentUser = useStoreState((state) => state.auth.user)
   const getAllAgents = useStoreActions((actions) => actions.agents.getAllAgents)
+  const [selectionType, setSelectionType] = useState('radio');
 
+  //Chart data
+  const getOverAllPerformance = useStoreActions((actions) => actions.perfData.getOverAllPerformance)
+  const perfList = useStoreState((state) => state.perfData.perflist)
+  const rowSelection = {
+    onChange: (selectedRowKeys, selectedRows) => {
+      console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
+    },
+    getRadioProps: record => ({
+    
+      name: record.userMobile,
+    }),
+  };
   const getAllAgentByAdmin = useStoreActions((actions) => actions.agents.getAllAgentByAdmin)
   const agentListAdmin = useStoreState((state) => state.agents.agentlistAdmin)
   const [visibleAddAgent, setVisibleAddAgent] = useState(false)
   const [visibleAddNewPlot, setVisibleAddNewPlot] = useState(false)
+
+
+  
   const [loading, setLoading] = useState(false)
   const getLeadStatusCount = useStoreActions(
     (actions) => actions.leads.getLeadStatusCount
@@ -43,6 +59,10 @@ const UserHome = () => {
    
     getLeadStatusCount(
       constants.URL.GET_LEAD_STATUS_COUNT + '?mobile=' + currentUser.userMobile
+    )
+
+    getOverAllPerformance(
+      
     )
   }, [])
   const toggleAddNewPlot = () => {
@@ -55,17 +75,41 @@ const UserHome = () => {
   }
 
   const state = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'Aug'],
+    labels: perfList?perfList.Label:[],
     datasets: [
       {
-        type:'bar',
-        backgroundColor: '#7e31ed',
-        // borderColor: 'rgba(0,0,0,1)',
-        label: 'Achieved',
-        data: [18, 14, 17, 19, 21, 14, 12, 15],
+        
+        backgroundColor: '#7571c7',
+        label: 'Universe',
+        data: perfList?perfList.UPL:[],
         barThickness: 20,
         borderWidth: 2
       },
+      {
+        
+        backgroundColor: '#4cc311',
+        // borderColor: 'rgba(0,0,0,1)',
+        label: 'Marketing Platform',
+        data: perfList?perfList.MPL:[],
+        barThickness: 20,
+        borderWidth: 2
+      },
+      {
+        
+        backgroundColor: '#1890ff',
+        label: 'Working Platform',
+        data: perfList?perfList.WPL:[],
+        barThickness: 20,
+        borderWidth: 2
+      },
+      {
+       
+        backgroundColor: '#ff707c',
+        label: 'Buying Platform',
+        data: perfList?perfList.BPL:[],
+        barThickness: 20,
+        borderWidth: 2
+      }, 
       {
         type:'line',
         borderColor: '#EC932F',
@@ -84,37 +128,11 @@ const UserHome = () => {
     ]
   }
 
-  const state1 = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [{
-        label: 'Sales',
-        type:'line',
-        data: [18, 14, 17, 19, 24, 14, 10],
-        fill: false,
-        borderColor: '#EC932F',
-        backgroundColor: '#EC932F',
-        pointBorderColor: '#EC932F',
-        pointBackgroundColor: '#EC932F',
-        pointHoverBackgroundColor: '#EC932F',
-        pointHoverBorderColor: '#EC932F',
-        yAxisID: 'y-axis-2'
-      },{
-        type: 'bar',
-        label: 'Monthly Target',
-        data: [20, 20, 20, 20, 20, 20, 20],
-        fill: false,
-        backgroundColor: '#71B37C',
-        borderColor: '#71B37C',
-        hoverBackgroundColor: '#71B37C',
-        hoverBorderColor: '#71B37C',
-        yAxisID: 'y-axis-1'
-      }]
-  }
+ 
 
   const columns = [
     {
       title: 'First Name',
-      key: 'name',
       render: (agent) => (
         <span>{agent.userFname}</span>
         // <div>
@@ -126,11 +144,7 @@ const UserHome = () => {
         // </div>
       )
     },
-    {
-      title: 'Second Name',
-      key: 'secondname',
-      render: (agent) => (agent.userSname ? agent.userSname : '')
-    },
+    
     {
       title: 'Mobile',
       key: 'mobile',
@@ -289,82 +303,7 @@ const UserHome = () => {
                   ></OverViewCard>
                 </Col>
               </Row>
-              {/* <Row justify="left">
-                <Col span="8">
-                  <div
-                    className="box-content"
-                    style={{
-                      backgroundColor: '#7571c7'
-                    }}
-                  >
-                    <Row justify="left">
-                      <Col span="6">
-                        <div className="letter-box">
-                          <span className="letter">N</span>
-                        </div>
-                      </Col>
-                      <Col span="6">
-                        <span className="count">198</span>
-                        <span className="count-desc"> Market Platform
-</span>
-                      </Col>
-                    </Row>
-                    <div className="oval"></div>
-                    <div className="small-oval"></div>
-                    <button
-                      style={{ display:  "none" }} className="box-button"
-                      onClick={() => history.push('/admin/add-plot-area')}
-                    >
-                      {' '}
-                      + Add Plot
-                    </button>
-                  </div>
-                </Col>
-                <Col span="8">
-                  <div
-                    className="box-content"
-                    style={{
-                      backgroundColor: '#5dca88'
-                    }}
-                  >
-                    <Row>
-                      <Col span="6">
-                        <div className="letter-box">
-                          <span className="letter">A</span>
-                        </div>
-                      </Col>
-                      <Col span="10">
-                        <span className="count">256</span>
-                        <span className="count-desc">Working Platform</span>
-                      </Col>
-                    </Row>
-                    <div className="oval"></div>
-                    <div className="small-oval"></div>
-                  </div>
-                </Col>
-                <Col span="8">
-                  <div
-                    className="box-content"
-                    style={{
-                      backgroundColor: '#ff707c'
-                    }}
-                  >
-                    <Row>
-                      <Col span="6">
-                        <div className="letter-box">
-                          <span className="letter">B</span>
-                        </div>
-                      </Col>
-                      <Col span="6">
-                        <span className="count">198</span>
-                        <span className="count-desc">Buying Platform</span>
-                      </Col>
-                    </Row>
-                    <div className="oval"></div>
-                    <div className="small-oval"></div>
-                  </div>
-                </Col>
-              </Row> */}
+              {}
               <div style={{padding: '1%'}}></div>
               <Row>
                 <Col span="12">
@@ -378,9 +317,15 @@ const UserHome = () => {
                   >
                     Employees
                   </h5>
+                  
                   <div className="admin-page-column-left">
                     <Table size='small'
                       loading={loading}
+                      rowSelection={{
+                        type: 'radio',
+                        ...rowSelection,
+
+                      }}
                       dataSource={agentListAdmin}
                       columns={columns}
                     />
@@ -401,6 +346,19 @@ const UserHome = () => {
                     <Bar
                       data={state}
                       options={{
+                        scales:{
+                         yAxes:[{stacked:true,
+                          gridLines:{
+                            drawBorder:false,
+                          }
+                        }],
+                        xAxes:[{stacked:true,
+                          gridLines:{
+                            display:false,
+                          },
+                          barThickness:40
+                        }]
+                        },
                         title: {
                           display: false,
                           text: 'Employee Performance',

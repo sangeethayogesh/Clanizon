@@ -67,7 +67,7 @@ const AgentHome = (props) => {
       leadStat
     )
   }, [])
-  console.log(adminMessages);
+  console.log(adminMessages); 
   return (
     <HeaderBar>
       <div className="rectangle">

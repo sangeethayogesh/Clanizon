@@ -25,7 +25,7 @@ const productModel = {
         message.error('Product loading failed')
         console.error(err)
       })
-  }),
+  }),  
   getUserProduct: thunk(async (actions, data) => {
     actions.setUserProduct([])
     rest

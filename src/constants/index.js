@@ -39,7 +39,13 @@ const constants = {
     GET_All_LEAD_BYADMIN : BASE_URL+'/api/leads/getleadByAdmin',
     ADD_FINANCIAL_METRICS:BASE_URL+'/api/user/addmetrics',
     GET_METRICS:BASE_URL+'/api/user/metricsbyadmin',
-    GET_USER_COMPANY:BASE_URL+'/api/user/listcompanybyuser'
+    GET_USER_COMPANY:BASE_URL+'/api/user/listcompanybyuser',
+
+    GET_AGENT_PERFORMANCE:BASE_URL+'/api/leads/getperformancebyagent',
+    GET_PERFORMANCE_DATA:BASE_URL+'/api/leads/getperformancedata',
+
+    GET_BUSINESS_METRICS:BASE_URL+'/api/leads/getperformancebyagent',
+    GET_AMOUNT_METRICS:BASE_URL+'/api/leads/getperformancedata'
   },
   DATA: {
     admin_messages: [
@@ -82,6 +88,17 @@ const constants = {
     else if (id == 4) return 'Industrial and service'
     else if (id == 5) return 'Accessories'
     else if (id == 5) return 'Battery'
+  },
+
+  getproductModel: (id,prodList) => {
+    var model='';
+    prodList.map((product) => {
+      console.log(product.productId==id)
+      if(product.productId==id) {
+        model=product.productModel;
+      }
+    })   
+    return model     
   }
 }
 
