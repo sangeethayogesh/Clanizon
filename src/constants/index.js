@@ -43,6 +43,8 @@ const constants = {
 
     GET_AGENT_PERFORMANCE:BASE_URL+'/api/leads/getperformancebyagent',
     GET_PERFORMANCE_DATA:BASE_URL+'/api/leads/getperformancedata',
+    ADD_LEAD_DOCUMENT:BASE_URL+'/api/leads/uploadleaddocument',
+    GET_LEAD_DOCUMENT:BASE_URL+'/api/leads/getleaddocument',
 
     GET_BUSINESS_METRICS:BASE_URL+'/api/asset/metricsbybusiness',
     GET_AMOUNT_METRICS:BASE_URL+'/api/asset/metricsbyamount'
