@@ -61,51 +61,57 @@
    
 
     const datastoreFinancialSplitPolar = {
-      labels: ["Ups"],
+      labels: ["Ups","Connectivity","Racks","Industrial & service","Battery","Accessories"],
       datasets: [
         {
-          backgroundColor: 'rgba(255,99,132,0.2)',
-          borderColor: 'rgba(255,99,132,1)',
-          pointBackgroundColor: 'rgba(255,99,132,1)',
+          label: 'Jan',
+          backgroundColor: 'rgba(100,255,173,0.2)',
+          borderColor: 'rgba(100,255,173,1)',
+          pointBackgroundColor: 'rgba(100,255,173,1)',
           pointBorderColor: '#fff',
           pointHoverBackgroundColor: '#fff',
-          pointHoverBorderColor: 'rgba(255,99,132,1)',
-          data: [20]
+          pointHoverBorderColor: 'rgba(100,255,173,1)',
+          data: [7755.75,250.00,4000,5000,0,0]
+        },
+        // {
+        //   label: 'Feb',
+        //   backgroundColor: 'rgba(246,246,19,0.2)',
+        //   borderColor: 'rgba(246,246,19,1)',
+        //   pointBackgroundColor: 'rgba(246,246,19,1)',
+        //   pointBorderColor: '#fff',
+        //   pointHoverBackgroundColor: '#fff',
+        //   pointHoverBorderColor: 'rgba(246,246,19,1)',
+        //   data: [40,20,30,77,10,90]
+        // },
+        // {
+        //   label: 'Mar',
+        //   backgroundColor: 'rgba(179,181,198,0.2)',
+        //   borderColor: 'rgba(179,181,198,1)',
+        //   pointBackgroundColor: 'rgba(179,181,198,1)',
+        //   pointBorderColor: '#fff',
+        //   pointHoverBackgroundColor: '#fff',
+        //   pointHoverBorderColor: 'rgba(179,181,198,1)',
+        //   data: [35,60,25,11,40,50]
+        // },
+        {
+          label: 'Target',
+          backgroundColor: 'rgba(246,19,19,0.1)',
+          borderColor: 'rgba(246,19,19,1)',
+          pointBackgroundColor: 'rgba(246,19,19,1)',
+          pointBorderColor: '#fff',
+          pointHoverBackgroundColor: '#fff',
+          pointHoverBorderColor: 'rgba(246,19,19,1)',
+          data: [9000,10000,9000,8000,6000,7000]
         }
+
       ]
     };
 
     return (
       <HeaderBar>
 
-        <Row justify="space-between" >
-          <Col>                    
-            <h5
-                style={{
-                  fontFamily: 'Lato',
-                  fontSize: '20px',
-                  fontWeight: 'bold',
-                  color: '#150e4f',
-                  paddingLeft:'5px'
-                }}
-              >
-                Financial Metrics
-              </h5>
-          </Col>
-          <Col span="4">
-            {/* <Button block type="primary" onClick={() => history.push('/admin/add-financial-metrics')} >
-              Add Financial Metrics
-            </Button > */}
-            <Button style={{fontSize: '15px', paddingRight:'10px'}} type="link" onClick={() => history.push('/admin/add-financial-metrics')} >
-                    + Add Financial Metrics
-            </Button >  
-          </Col>
-        </Row>
-
-        <FinancialFlatListTable id={selectedId} />
-
-        <Row>
-          <Col span ="12">
+        {/* <Row>
+          <Col > */}
             <Row justify='space-between' >
               <Col>
               <h5
@@ -114,13 +120,13 @@
                       fontSize: '14px',
                       fontWeight: 'bold',
                       color: '#150e4f',
-                      paddingBottom: "10px"
+                      paddingBottom: "3px"
                     }}
                   >
                     Product Contribution
                 </h5>   
                 </Col>
-                <Col paddingRight= '10px'>
+                {/* <Col paddingRight= '10px'>
                     From :    <DatePicker defaultValue={moment('2020/08/01', dateFormat)} 
                     inputReadOnly={true}
                     onChange={handleDateChangeFrom}
@@ -139,7 +145,7 @@
                     }/>
                 </Col> 
                 <Col span=".25">
-                </Col>      
+                </Col>       */}
             </Row>
             
               <div className="admin-page-column-left">
@@ -168,14 +174,19 @@
                       position: "top"
                     },
                     legend: {
-                      display: false,
-                      position: 'bottom'
+                      fontSize: 10,
+                      display: true,
+                      position: 'top'
                     }
                   }}
                 />
               </div>
-            </Col>
-            <Col span="12">
+
+              <Col span=".25">
+                  </Col>   
+
+            {/* </Col> */}
+            {/* <Col span="12">
               <Row justify='space-between' >
                 <Col>
                 <h5
@@ -214,8 +225,35 @@
                   }}
                 />
               </div>
-            </Col>
+            </Col> */}
+        {/* </Row> */}
+
+        <Row justify="space-between" >
+          <Col>                    
+            <h5
+                style={{
+                  fontFamily: 'Lato',
+                  fontSize: '20px',
+                  fontWeight: 'bold',
+                  color: '#150e4f',
+                  paddingLeft:'5px'
+                }}
+              >
+                Financial Metrics
+              </h5>
+          </Col>
+          <Col span="4">
+            {/* <Button block type="primary" onClick={() => history.push('/admin/add-financial-metrics')} >
+              Add Financial Metrics
+            </Button > */}
+            <Button style={{fontSize: '15px', paddingRight:'10px'}} type="link" onClick={() => history.push('/admin/add-financial-metrics')} >
+                    + Add Financial Metrics
+            </Button >  
+          </Col>
         </Row>
+
+        <FinancialFlatListTable id={selectedId} />
+
       </HeaderBar>
     )
   }
