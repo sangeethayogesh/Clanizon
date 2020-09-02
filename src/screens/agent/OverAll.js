@@ -19,6 +19,7 @@ const OverAll = (props) => {
   const { group } = props
   const [showUploadModal, setShowUploadModal] = useState(false)
   const history = useHistory()
+  const [successFiles, setSuccessFiles] = useState({})
   const lead = history.location.leadDetail
   const getleadDetail = useStoreActions(
     (actions) => actions.leads.getLeadDetail
@@ -61,6 +62,7 @@ const OverAll = (props) => {
       .then((res) => {
         setLoading(false)
         console.log(res)
+        setSuccessFiles(res.data[0])
         setShowUploadModal(true)
       })
       .catch((err) => {
@@ -82,9 +84,10 @@ const OverAll = (props) => {
       .then((response) => {
         console.log(response)
         var uploaddocrequest = {
-          leadId:lead.leadId,
+          docIdLead:lead.leadId,
           docTypeId: 2,
-          docurl: response.location
+          docCreatedDatetime:new Date(),
+          docUrl: response.location
         }
         // setSuccessFiles([...successFiles, response])
         // console.log(successFiles);
@@ -150,6 +153,7 @@ const OverAll = (props) => {
                     source={lead.leadSource}
                   ></LeadPersonalCard>
                 </div>
+                <Divider/>
                 <Button key="1" onClick={() => onClickUpload()}>
             Documents
           </Button>
@@ -169,7 +173,7 @@ const OverAll = (props) => {
        
 
 <Document
-        file="https://plot-crm.s3-ap-south-1.amazonaws.com/media/1598979510894.pdf"
+        file={successFiles?successFiles.docUrl:null}
         
       >
         <Page pageNumber={1} />

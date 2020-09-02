@@ -58,6 +58,14 @@ const AddLead = (props) => {
   var leadItem;
   const data = {
     params:
+      '?adminMobile=' + currentUser.createdBy,
+    callback: () => {
+      setLoading(false)
+    }
+  }
+
+  const data1 = {
+    params:
       '?mobile=' + currentUser.createdBy,
     callback: () => {
       setLoading(false)
@@ -67,7 +75,7 @@ const AddLead = (props) => {
   useEffect(() => {
     setLoading(true)
     getAllAgentByAdmin(currentUser.createdBy)
-    getUserCompany(data)
+    getUserCompany(data1)
     getUserProduct(data)
   }, [])
   const [properties, setProperties] = useState(null)
@@ -110,6 +118,7 @@ const AddLead = (props) => {
       companyName:companyName,
       contactName:values.userFname,
       companyid:values.companyid,
+      createdAdmin:currentUser.createdBy,
       companyContact:values.userMobile,
       emailId:values.userEmailid,
       "orderValue":getOrderValue(leadItem),

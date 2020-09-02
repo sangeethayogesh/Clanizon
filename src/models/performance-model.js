@@ -33,10 +33,10 @@ const performanceModel = {
       })
   }),
 
-  getOverAllPerformance: thunk(async (actions, callback) => {
+  getOverAllPerformance: thunk(async (actions, data) => {
     actions.setPerfomanceList({})
     rest
-      .get(constants.URL.GET_PERFORMANCE_DATA)
+      .get(constants.URL.GET_PERFORMANCE_DATA+data)
       .then((res) => {
         actions.setPerfomanceList(res.data)
         ///callback()

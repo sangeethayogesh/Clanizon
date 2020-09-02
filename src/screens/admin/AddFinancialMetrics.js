@@ -62,6 +62,14 @@ const AddFinancialMetrics = (props) => {
   const refdata = useStoreState((state) => state.refData.referencedata)
   const data = {
     params:
+      '?adminMobile=' + currentUser.createdBy,
+    callback: () => {
+      setLoading(false)
+    }
+  }
+
+  const data1 = {
+    params:
       '?mobile=' + currentUser.createdBy,
     callback: () => {
       setLoading(false)
@@ -71,7 +79,7 @@ const AddFinancialMetrics = (props) => {
   useEffect(() => {
     setLoading(true)
     getAllAgentByAdmin(currentUser.createdBy)
-    getUserCompany(data)
+    getUserCompany(data1)
     getUserProduct(data)
   }, [])
   const [properties, setProperties] = useState(null)
@@ -79,7 +87,7 @@ const AddFinancialMetrics = (props) => {
     const request = values
     
     request.createdBy=currentUser.userMobile
-    
+    request.createdAdmin=currentUser.createdAdmin
     setIsLoading(true)
     rest
       .post(constants.URL.ADD_FINANCIAL_METRICS, request)
@@ -332,6 +340,15 @@ const AddFinancialMetrics = (props) => {
                             name="amount"
                           >
                             <Input placeholder="Amount" />
+                          </Form.Item>
+                        </Col>
+                        <Col span="8">
+                          <Form.Item
+                            colon={false}
+                            label="GC Profit"
+                            name="profit"
+                          >
+                            <Input placeholder="Profit" />
                           </Form.Item>
                         </Col>
                         <Col span="8">

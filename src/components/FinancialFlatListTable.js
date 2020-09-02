@@ -27,6 +27,13 @@ const FinancialFlatListTable = (props) => {
   console.log(currentUser);
   const data = {
     params:
+      '?adminMobile=' + currentUser.createdBy,
+    callback: () => {
+      setLoading(false)
+    }
+  }
+  const data1 = {
+    params:
       '?mobile=' + currentUser.createdBy,
     callback: () => {
       setLoading(false)
@@ -38,7 +45,7 @@ const FinancialFlatListTable = (props) => {
   },[])
   useEffect(() => {
     setLoading(true)
-    getMetrics(data)
+    getMetrics(data1)
   },[])
 
  

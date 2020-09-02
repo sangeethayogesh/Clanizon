@@ -13,7 +13,7 @@ const ProductFlatListTable = (props) => {
   const userproductList = useStoreState((state) => state.product.userproductList)
   const data = {
     params:
-      '?mobile=' + currentUser.createdBy,
+      '?adminMobile=' + currentUser.createdBy,
     callback: () => {
       setLoading(false)
     }

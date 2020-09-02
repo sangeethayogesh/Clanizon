@@ -104,6 +104,7 @@ class ProductLead extends React.Component {
             <TotalItem
               column="leadItemPrice"
               summaryType="sum"
+              
               valueFormat="currency" />
           </Summary>
             

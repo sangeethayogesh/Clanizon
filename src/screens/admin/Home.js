@@ -62,7 +62,7 @@ const UserHome = () => {
     )
 
     getOverAllPerformance(
-      
+      '?adminMobile='+currentUser.createdBy
     )
   }, [])
   const toggleAddNewPlot = () => {
