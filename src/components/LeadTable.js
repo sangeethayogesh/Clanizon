@@ -98,10 +98,19 @@ const LeadTable = (props) => {
         <span>
           <a
             onClick={() => {
-              history.push({ pathname: 'agent/overall', leadDetail: agent })
+              console.log("props.currentUser  @@@@@@@@@@22 : "+ props.currentUser.userRole )
+              if(props.currentUser.userRole == '1')
+                history.push({ pathname: '/overall', leadDetail: agent })
+              else
+                history.push({ pathname: 'agent/overall', leadDetail: agent })
             }}
           >
-            Add Audit
+            {props.currentUser.userRole == '2' && 
+              "Add Audit"
+            }
+            {props.currentUser.userRole == '1' && 
+              "View Details"
+            }
           </a>
         </span>
       )

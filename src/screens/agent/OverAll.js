@@ -154,9 +154,10 @@ const OverAll = (props) => {
                   ></LeadPersonalCard>
                 </div>
                 <Divider/>
-                <Button key="1" onClick={() => onClickUpload()}>
-            Documents
-          </Button>
+                {currentUser.userRole == '2' && 
+                  (<Button key="1" onClick={() => onClickUpload()}>
+                      Documents
+                  </Button>)}
                 <Modal
         closable={true}
         onCancel={onCancelUpload}

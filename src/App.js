@@ -12,6 +12,7 @@ import { OverAll } from './screens/agent/OverAll'
 import AddLead from 'screens/agent/AddLead'
 import AddProduct from 'screens/admin/AddProduct'
 import { ProductList } from 'screens/admin/ProductList'
+import { OverAllLeadList } from 'screens/admin/OverAllLeadList'
 import 'devextreme/dist/css/dx.common.css';
 import 'devextreme/dist/css/dx.light.css';
 import { FinancialList } from 'screens/admin/FinancialList'
@@ -147,6 +148,12 @@ function AppRouter() {
         userRole="2"
       ></PrivateRoute>
       <PrivateRoute
+        component={OverAll}
+        path="/overall"
+        exact
+        userRole="1"
+      ></PrivateRoute>
+      <PrivateRoute
         component={AddLead}
         path="/agent/add-lead"
         exact
@@ -175,6 +182,12 @@ function AppRouter() {
         path="/agent/productlist"
         exact
         userRole="2"
+      ></PrivateRoute>
+      <PrivateRoute
+        component={OverAllLeadList}
+        path="/admin/overallleadlist"
+        exact
+        userRole="1"
       ></PrivateRoute>
       <PrivateRoute
         component={AddCompany}

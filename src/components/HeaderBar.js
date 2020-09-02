@@ -18,7 +18,7 @@ import {
   MenuOutlined,
   NotificationOutlined,
   UserOutlined,
-  DatabaseOutlined,
+  ContactsOutlined,
   BuildOutlined,
   PieChartOutlined  ,
   AimOutlined,
@@ -224,7 +224,14 @@ function HeaderBar(props) {
                   <HomeOutlined className="menuitem" />
                 </Link>
               </Menu.Item>
-              <Menu.Item key="2" className="sidemenu">
+              {currentUser.userRole == '1' && (
+                <Menu.Item key="2" className="sidemenu">
+                  <Link to={'/admin/overallleadlist'}>
+                    <ContactsOutlined  className="menuitem" />
+                  </Link>
+                </Menu.Item>
+              )}
+              <Menu.Item key="3" className="sidemenu">
                 <Link
                   to={
                     currentUser.userRole == '1'
@@ -253,7 +260,7 @@ function HeaderBar(props) {
                   </Link>
                 </Menu.Item>
               )} */}
-              <Menu.Item key="3" className="sidemenu">
+              <Menu.Item key="4" className="sidemenu">
                 <Link
                   to={                
                   currentUser.userRole == '1'
@@ -264,7 +271,7 @@ function HeaderBar(props) {
                 </Link>
               </Menu.Item>
               {currentUser.userRole == '1' && (
-                <Menu.Item key="4" className="sidemenu">
+                <Menu.Item key="5" className="sidemenu">
                   <Link to={'/admin/financiallist'}>
                     <PieChartOutlined className="menuitem" />
                   </Link>

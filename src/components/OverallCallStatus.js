@@ -122,7 +122,7 @@ const productList = useStoreState((state) => state.product.userproductList)
         visible={visibleNoteForm}
         onClose={onCloseNote}
         onSave={() => onSaveNote}
-      /> */}o
+      /> */}
       <Col span={24}>
         <Form
           layout="vertical"
@@ -309,7 +309,9 @@ const productList = useStoreState((state) => state.product.userproductList)
                         
            </Collapse>
             <Divider/>
-              <Row className="panel-footer-row">
+            {
+              currentUser.userRole == '2' && 
+              (<Row className="panel-footer-row">
                 <div className="btn-wrapper">
                   <Form.Item>
                     <Button
@@ -332,7 +334,8 @@ const productList = useStoreState((state) => state.product.userproductList)
                     </Button>
                   </Form.Item>
                 </div>
-              </Row>
+              </Row>)
+            }
 
         </Form>
       </Col>
