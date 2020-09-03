@@ -57,7 +57,7 @@ const AddCompany = (props) => {
     
     values.contactInformation=userList;
     values.createdBy=currentUser.userMobile
-    values.createdAdmin=currentUser.createdAdmin
+    values.createdAdmin=currentUser.createdBy
     rest
       .post(constants.URL.ADD_NEW_COMPANY, values)
       .then((res) => {
