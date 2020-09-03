@@ -25,7 +25,7 @@ const performanceModel = {
       .get(constants.URL.GET_AGENT_PERFORMANCE+data.params)
       .then((res) => {
         actions.setAgentPerformance(res.data)
-        data.callback()
+       
       })
       .catch((err) => {
         message.error('Agent performance loading failed')

@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import React, { useState, useEffect } from 'react'
-import { Row, Radio, Col,Button, Layout, Modal, Table, Input } from 'antd'
+import { Select,Row, Radio, Col,Button, Layout, Modal, Table, Input } from 'antd'
 import HeaderBar from 'components/HeaderBar'
 import ChatBox from 'components/chatbox'
 
@@ -26,6 +26,7 @@ const { Content } = Layout
 
 const UserHome = () => {
   const history = useHistory()
+  const { Option } = Select
   const currentUser = useStoreState((state) => state.auth.user)
   const getAllAgents = useStoreActions((actions) => actions.agents.getAllAgents)
   const [selectionType, setSelectionType] = useState('radio');
@@ -46,8 +47,10 @@ const UserHome = () => {
   const agentListAdmin = useStoreState((state) => state.agents.agentlistAdmin)
   const [visibleAddAgent, setVisibleAddAgent] = useState(false)
   const [visibleAddNewPlot, setVisibleAddNewPlot] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
-
+  const getPerformanceByAgent = useStoreActions((actions) => actions.perfData.getPerformanceByAgent)
+  const perfListAgent = useStoreState((state) => state.perfData.agentperflist)
   
   const [loading, setLoading] = useState(false)
   const getLeadStatusCount = useStoreActions(
@@ -69,19 +72,34 @@ const UserHome = () => {
     setVisibleAddNewPlot(!visibleAddNewPlot)
   }
 
+   
+  const handleAgentChange = (value) =>{
+    setIsLoading(true)
+    console.log(value);
+    const data = {
+      params:
+        '?agentMobile=' + value,
+      callback: () => {
+        setLoading(false)
+      }
+    }
+    
+    getPerformanceByAgent(data)
+  }
+
   const toggleAddAgent = () => {
     console.log('Cancel agent model')
     setVisibleAddAgent(!visibleAddAgent)
   }
 
   const state = {
-    labels: perfList?perfList.Label:[],
+    labels: perfListAgent?perfListAgent.Label:perfList?perfList.Label:[],
     datasets: [
       {
         
         backgroundColor: '#7571c7',
         label: 'Universe',
-        data: perfList?perfList.UPL:[],
+        data: perfListAgent?perfListAgent.UPL:perfList?perfList.UPL:[],
         barThickness: 20,
         borderWidth: 2
       },
@@ -90,7 +108,7 @@ const UserHome = () => {
         backgroundColor: '#4cc311',
         // borderColor: 'rgba(0,0,0,1)',
         label: 'Marketing Platform',
-        data: perfList?perfList.MPL:[],
+        data: perfListAgent?perfListAgent.MPL:perfList?perfList.MPL:[],
         barThickness: 20,
         borderWidth: 2
       },
@@ -98,7 +116,7 @@ const UserHome = () => {
         
         backgroundColor: '#1890ff',
         label: 'Working Platform',
-        data: perfList?perfList.WPL:[],
+        data: perfListAgent?perfListAgent.WPL:perfList?perfList.WPL:[],
         barThickness: 20,
         borderWidth: 2
       },
@@ -106,7 +124,7 @@ const UserHome = () => {
        
         backgroundColor: '#ff707c',
         label: 'Buying Platform',
-        data: perfList?perfList.BPL:[],
+        data: perfListAgent?perfListAgent.BPL:perfList?perfList.BPL:[],
         barThickness: 20,
         borderWidth: 2
       }, 
@@ -123,7 +141,7 @@ const UserHome = () => {
         label: 'Monthly Target',
         barThickness: 20,
         borderWidth: 2,
-        data: [20, 20, 20, 20, 20, 20, 20, 20]
+        data: perfListAgent?perfListAgent.TL:[10,10,10]
       }
     ]
   }
@@ -313,11 +331,7 @@ const UserHome = () => {
                   <div className="admin-page-column-left">
                     <Table size='small'
                       loading={loading}
-                      rowSelection={{
-                        type: 'radio',
-                        ...rowSelection,
-
-                      }}
+                     
                       dataSource={agentListAdmin}
                       columns={columns}
                     />
@@ -333,7 +347,23 @@ const UserHome = () => {
                       }}
                     >
                       Employee Performance
-                    </h5>
+                      </h5>
+                      <Select
+                              mode="single"
+                              placeholder="Select a Agent"
+                              onChange={handleAgentChange}
+                            >   
+                            {agentListAdmin &&
+                                agentListAdmin.map((agent) => {
+                                  return (
+                                    
+                                    <Option key={agent.userMobile}>
+                                      {agent.userFname}
+                                    </Option>
+                                  )
+                                })}
+                   </Select>   
+                
                   <div className="admin-page-column-right">
                     <Bar
                       data={state}
