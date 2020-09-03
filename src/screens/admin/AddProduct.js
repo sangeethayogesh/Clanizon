@@ -55,6 +55,7 @@ const AddProduct = (props) => {
   const onFinish = (values) => {
        setIsLoading(true)
        values.createdBy=currentUser.userMobile
+	   values.createdAdmin=currentUser.creatdBy
     rest
       .post(constants.URL.ADD_PRODUCT, values)
       .then((res) => {
