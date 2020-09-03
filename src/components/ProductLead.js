@@ -89,10 +89,10 @@ class ProductLead extends React.Component {
           </Column>
           <Column dataField="productDescription" caption="Description"/>
          
-          <Column dataField="unitPrice" Caption="Unit price" alignment="right" format="currency" editorOptions={{ format: 'currency' }} />
+          <Column dataField="unitPrice" Caption="Unit price" alignment="right" format="decimal" editorOptions={{ format: 'decimal' }} />
           <Column dataField="qty" caption="Qty"  />
           <Column dataField="leadItemPrice" 
-          calculateCellValue={this.calculateSalesAmount} caption="Total Price"  alignment="right" format="currency" editorOptions={{ format: 'currency' }} />
+          calculateCellValue={this.calculateSalesAmount} caption="Total Price"  alignment="right" format="decimal" editorOptions={{ format: 'decimal' }} />
           <Summary recalculateWhileEditing={true}>
             <TotalItem
               column="businessid"
@@ -104,8 +104,8 @@ class ProductLead extends React.Component {
             <TotalItem
               column="leadItemPrice"
               summaryType="sum"
-              
-              valueFormat="currency" />
+             
+              valueFormat="decimal" />
           </Summary>
             
         

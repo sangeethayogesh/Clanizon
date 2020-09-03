@@ -33,10 +33,10 @@ const metricsDataModel = {
       })
   }),
 
-  getAmountMetrics: thunk(async (actions, callback) => {
+  getAmountMetrics: thunk(async (actions, data) => {
     actions.setAmountMetrics({})
     rest
-      .get(constants.URL.GET_AMOUNT_METRICS)
+      .get(constants.URL.GET_AMOUNT_METRICS+data)
       .then((res) => {
         actions.setAmountMetrics(res.data)
         

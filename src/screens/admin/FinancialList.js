@@ -38,8 +38,8 @@
 
     
     useEffect(() => {
-      getAmountMetrics()
-      getBusinessMetrics()
+      getAmountMetrics("?adminMobile="+currentUser.userMobile)
+      //getBusinessMetrics()
       
     }, [])
     
@@ -60,52 +60,7 @@
 
    
 
-    const datastoreFinancialSplitPolar = {
-      labels: ["Ups","Connectivity","Racks","Industrial & service","Battery","Accessories"],
-      datasets: [
-        {
-          label: 'Jan',
-          backgroundColor: 'rgba(100,255,173,0.2)',
-          borderColor: 'rgba(100,255,173,1)',
-          pointBackgroundColor: 'rgba(100,255,173,1)',
-          pointBorderColor: '#fff',
-          pointHoverBackgroundColor: '#fff',
-          pointHoverBorderColor: 'rgba(100,255,173,1)',
-          data: [7755.75,250.00,4000,5000,0,0]
-        },
-        // {
-        //   label: 'Feb',
-        //   backgroundColor: 'rgba(246,246,19,0.2)',
-        //   borderColor: 'rgba(246,246,19,1)',
-        //   pointBackgroundColor: 'rgba(246,246,19,1)',
-        //   pointBorderColor: '#fff',
-        //   pointHoverBackgroundColor: '#fff',
-        //   pointHoverBorderColor: 'rgba(246,246,19,1)',
-        //   data: [40,20,30,77,10,90]
-        // },
-        // {
-        //   label: 'Mar',
-        //   backgroundColor: 'rgba(179,181,198,0.2)',
-        //   borderColor: 'rgba(179,181,198,1)',
-        //   pointBackgroundColor: 'rgba(179,181,198,1)',
-        //   pointBorderColor: '#fff',
-        //   pointHoverBackgroundColor: '#fff',
-        //   pointHoverBorderColor: 'rgba(179,181,198,1)',
-        //   data: [35,60,25,11,40,50]
-        // },
-        {
-          label: 'Target',
-          backgroundColor: 'rgba(246,19,19,0.1)',
-          borderColor: 'rgba(246,19,19,1)',
-          pointBackgroundColor: 'rgba(246,19,19,1)',
-          pointBorderColor: '#fff',
-          pointHoverBackgroundColor: '#fff',
-          pointHoverBorderColor: 'rgba(246,19,19,1)',
-          data: [9000,10000,9000,8000,6000,7000]
-        }
-
-      ]
-    };
+    
 
     return (
       <HeaderBar>
@@ -165,7 +120,7 @@
                   }}
                 /> */}
                 <Radar               
-                  data={datastoreFinancialSplitPolar}
+                  data={amountmetrics}
                   options={{
                     title: {
                       display: false,

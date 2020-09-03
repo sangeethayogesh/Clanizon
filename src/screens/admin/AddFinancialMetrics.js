@@ -87,7 +87,8 @@ const AddFinancialMetrics = (props) => {
     const request = values
     
     request.createdBy=currentUser.userMobile
-    request.createdAdmin=currentUser.createdAdmin
+    request.createdAdmin=currentUser.createdBy
+    request.date=(values && values.date)?values.date:new Date()
     setIsLoading(true)
     rest
       .post(constants.URL.ADD_FINANCIAL_METRICS, request)
