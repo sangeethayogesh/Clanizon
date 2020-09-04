@@ -72,7 +72,7 @@ const LeadTable = (props) => {
       // eslint-disable-next-line react/display-name
       render: (user) => (
         <div className="icons-list">
-          {user.leadOutcome.slice(0, 3).map((score, i) => {
+          {user && user.leadOutcome && user.leadOutcome.slice(0, 3).map((score, i) => {
             let color
             if (score.outCome == 'Positive') {
               color = '#5ccb88'
@@ -122,8 +122,7 @@ const LeadTable = (props) => {
     className: 't-head'
   }))
   const data = {
-    url:
-      constants.URL.GET_TODAY_LEADS + '&mobile=' + props.currentUser.userMobile,
+    url:(props.currentUser.userRole == '1' )  ?constants.URL.GET_All_LEAD_BYADMIN+ '?userMobile=' + props.currentUser.userMobile :   constants.URL.GET_TODAY_LEADS + '&mobile=' + props.currentUser.userMobile,
     callback: () => {
       setLoading(false)
     }
