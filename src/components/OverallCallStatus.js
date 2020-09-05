@@ -132,9 +132,11 @@ const productList = useStoreState((state) => state.product.userproductList)
           form={form}
           initialValues={{
             leadStatValue: props.leadDetail?props.leadDetail.leadStatus:2,
+         
             // advance: (props.leadDetail && props.leadDetail.leadAudit)?props.leadDetail.leadAudit[0].advance:'',
             // paymentParts: (props.leadDetail && props.leadDetail.leadAudit)?props.leadDetail.leadAudit[0].paymentParts:'',
             advance: (props.leadDetail && props.leadDetail.leadAudit)?(props.leadDetail.leadAudit[0]?props.leadDetail.leadAudit[0].advance : ''):'',
+            remaining: (props.leadDetail && props.leadDetail.leadAudit)?(props.leadDetail.leadAudit[0]?props.leadDetail.leadAudit[0].remaining : ''):'',
             paymentParts: (props.leadDetail && props.leadDetail.leadAudit)?(props.leadDetail.leadAudit[0]?props.leadDetail.leadAudit[0].paymentParts:''):'',
 
           }}

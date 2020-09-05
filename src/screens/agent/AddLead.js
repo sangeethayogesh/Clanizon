@@ -151,13 +151,13 @@ const AddLead = (props) => {
   function getOrderValue(leadItem){
     var value=0;
     leadItem.map((item) => {
-      value=value+item.leadItemPrice
+      console.log(item);
+      value=value+(item.qty*item.unitPrice)
     })
     return value;
   }
 
   const onDataChange = (value) => {
-    console.log(value);
     leadItem=value;
   }
   const onFinishFailed = (errorInfo) => {
@@ -180,7 +180,6 @@ const AddLead = (props) => {
     
     companyid = value;
 
-    console.log("ffffffffffffffffffffff companyid" +companyid);
 
     rest
       .get(constants.URL.GET_COMPANY_DETAIl + '?companyid=' + value)

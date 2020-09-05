@@ -49,9 +49,11 @@ const UserHome = () => {
   const [visibleAddNewPlot, setVisibleAddNewPlot] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
+
+
   const getPerformanceByAgent = useStoreActions((actions) => actions.perfData.getPerformanceByAgent)
   const perfListAgent = useStoreState((state) => state.perfData.agentperflist)
-  
+  const [adminChart, setAdminChart] = useState(true)
   const [loading, setLoading] = useState(false)
   const getLeadStatusCount = useStoreActions(
     (actions) => actions.leads.getLeadStatusCount
@@ -76,6 +78,10 @@ const UserHome = () => {
   const handleAgentChange = (value) =>{
     setIsLoading(true)
     console.log(value);
+    if(value=="All"){
+       setAdminChart(true);
+    }else{
+      setAdminChart(false);
     const data = {
       params:
         '?agentMobile=' + value,
@@ -86,6 +92,7 @@ const UserHome = () => {
     
     getPerformanceByAgent(data)
   }
+  }
 
   const toggleAddAgent = () => {
     console.log('Cancel agent model')
@@ -93,13 +100,13 @@ const UserHome = () => {
   }
 
   const state = {
-    labels: perfListAgent?perfListAgent.Label:perfList?perfList.Label:[],
+    labels:  (!adminChart && perfListAgent)?perfListAgent.Label:perfList?perfList.Label:[],
     datasets: [
       {
         
         backgroundColor: '#7571c7',
         label: 'Universe',
-        data: perfListAgent?perfListAgent.UPL:perfList?perfList.UPL:[],
+        data: (!adminChart && perfListAgent)?perfListAgent.UPL:perfList?perfList.UPL:[],
         barThickness: 20,
         borderWidth: 2
       },
@@ -108,7 +115,7 @@ const UserHome = () => {
         backgroundColor: '#4cc311',
         // borderColor: 'rgba(0,0,0,1)',
         label: 'Marketing Platform',
-        data: perfListAgent?perfListAgent.MPL:perfList?perfList.MPL:[],
+        data: (!adminChart && perfListAgent)?perfListAgent.MPL:perfList?perfList.MPL:[],
         barThickness: 20,
         borderWidth: 2
       },
@@ -116,7 +123,7 @@ const UserHome = () => {
         
         backgroundColor: '#1890ff',
         label: 'Working Platform',
-        data: perfListAgent?perfListAgent.WPL:perfList?perfList.WPL:[],
+        data: (!adminChart && perfListAgent)?perfListAgent.WPL:perfList?perfList.WPL:[],
         barThickness: 20,
         borderWidth: 2
       },
@@ -124,7 +131,7 @@ const UserHome = () => {
        
         backgroundColor: '#ff707c',
         label: 'Buying Platform',
-        data: perfListAgent?perfListAgent.BPL:perfList?perfList.BPL:[],
+        data: (!adminChart && perfListAgent)?perfListAgent.BPL:perfList?perfList.BPL:[],
         barThickness: 20,
         borderWidth: 2
       }, 
@@ -141,7 +148,7 @@ const UserHome = () => {
         label: 'Monthly Target',
         barThickness: 20,
         borderWidth: 2,
-        data: perfListAgent?perfListAgent.TL:[10,10,10]
+        data: (!adminChart && perfListAgent)?perfListAgent.TL:[0,0,0,0]
       }
     ]
   }
@@ -353,6 +360,10 @@ const UserHome = () => {
                               placeholder="Select a Agent"
                               onChange={handleAgentChange}
                             >   
+
+                          <Option key="All">
+                                     All-Agent
+                                    </Option>
                             {agentListAdmin &&
                                 agentListAdmin.map((agent) => {
                                   return (
