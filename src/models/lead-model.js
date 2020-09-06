@@ -86,7 +86,7 @@ const leads = {
       (leads) => leads.category == 'Market platform'
     )
     const closure = payload.filter((leads) => leads.category == 'Buying Platform')
-    const completed = payload.filter((leads) => leads.category == 'Working platform"')
+    const completed = payload.filter((leads) => leads.category == 'Working platform')
     state.statusCount = {
       created: created[0] ? created[0].count : 0,
       prospecting: prospecting[0] ? prospecting[0].count : 0,
