@@ -83,13 +83,14 @@ const constants = {
     else if (id == 4) return 'Buying Platform'
     else if (id == 5) return 'Completed'
   },
-  getBusinessType: (id) => {
-    if (id == 1) return 'Ups'
-    else if (id == 2) return 'connectivity'
-    else if (id == 3) return 'Racks'
-    else if (id == 4) return 'Industrial and service'
-    else if (id == 5) return 'Accessories'
-    else if (id == 5) return 'Battery'
+  getBusinessType: (id,businessList) => {
+    var model='';
+    businessList.map((busines) => {
+      if(busines.key==id) {
+        model=busines.value;
+      }
+    })   
+    return model    
   },
 
   getproductModel: (id,prodList) => {

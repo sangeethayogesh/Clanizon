@@ -7,6 +7,7 @@ import constants from '../constants'
 const priceformatter = require('priceformatter')
 const ProductFlatListTable = (props) => {
   const currentUser = useStoreState((state) => state.auth.user)
+  const refdata = useStoreState((state) => state.refData.referencedata)
   // const productList = useStoreState((state) => state.product.productList)
   // const getAllProduct = useStoreActions((actions) => actions.product.getAllProduct)
   const getUserProduct = useStoreActions((actions) => actions.product.getUserProduct)
@@ -28,7 +29,7 @@ const ProductFlatListTable = (props) => {
       width: 150,
       render: (user) => (
         <span style={{ color: '#000000a6', fontWeight: 'bold' }}>
-          {constants.getBusinessType(user.businessId)}   
+          {constants.getBusinessType(user.businessId,refdata.businesstype)}   
         </span>
       )
       

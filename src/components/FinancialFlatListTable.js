@@ -16,7 +16,7 @@ const getUnit = (asset) => {
   return name
 }
 const FinancialFlatListTable = (props) => {
-  
+  const refdata = useStoreState((state) => state.refData.referencedata)
   const [loading, setLoading] = useState(false)
   const assetDetails = useStoreState((state) => state.assets.assetDetails)
   const getMetrics = useStoreActions((actions) => actions.metrics.getMetrics)
@@ -56,7 +56,7 @@ const FinancialFlatListTable = (props) => {
       width: 120,
       render: (data) => (
         <span style={{ color: '#000000a6', fontWeight: 'bold' }}>
-          {constants.getBusinessType(data.productBusiness)}   
+          {constants.getBusinessType(data.productBusiness,refdata.businesstype)}   
         </span>
       )
   
