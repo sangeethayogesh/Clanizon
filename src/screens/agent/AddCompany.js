@@ -191,6 +191,9 @@ const AddCompany = (props) => {
                             label="Company"
                             colon={false}
                             name="companyName"
+                            rules={[
+                              { required: true}
+                             ] }
                           >
                            <Input placeholder="Enter Company Name" />
                           </Form.Item>
@@ -200,6 +203,9 @@ const AddCompany = (props) => {
                             colon={false}
                             label="Bank Name"
                             name="bankName"
+                            rules={[
+                              { required: true}
+                             ] }
                           >
                             <Input placeholder="Enter bank Name" />
                           </Form.Item>
@@ -210,6 +216,9 @@ const AddCompany = (props) => {
                             colon={false}
                             label="Branch"
                             name="branch"
+                            rules={[
+                              { required: true}
+                             ] }
                           >
                             <Input placeholder="Enter Bank Branch" />
                           </Form.Item>
@@ -221,6 +230,9 @@ const AddCompany = (props) => {
                             label="Address"
                             colon={false}
                             name="companyAddress"
+                            rules={[
+                              { required: true}
+                             ] }
                           >
                             <Input.TextArea placeholder="Address" />
                           </Form.Item>
@@ -230,6 +242,9 @@ const AddCompany = (props) => {
                             label="City"
                             colon={false}
                             name="city"
+                            rules={[
+                              { required: true}
+                             ] }
                           >
                             <Input placeholder="City Name" />
                           </Form.Item>
@@ -241,6 +256,9 @@ const AddCompany = (props) => {
                             label="State"
                             colon={false}
                             name="state"
+                            rules={[
+                              { required: true}
+                             ] }
                           >
                             <Input placeholder="State" />
                           </Form.Item>
@@ -250,6 +268,9 @@ const AddCompany = (props) => {
                             label="Country"
                             colon={false}
                             name="country"
+                            rules={[
+                              { required: true}
+                             ] }
                           >
                             <Input placeholder="Country" />
                           </Form.Item>

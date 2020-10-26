@@ -13,7 +13,8 @@ import {
   Select,
   Checkbox,
   DatePicker,
-  Space
+  Space,
+  InputNumber
 } from 'antd'
 import moment from 'moment'
 import { ArrowLeftOutlined } from '@ant-design/icons'
@@ -44,17 +45,15 @@ const AddFinancialMetrics = (props) => {
   const [isLoading, setIsLoading] = useState(false)
   const addLead = useStoreActions((actions) => actions.leads.addLead)
 
-
- 
   const currentUser = useStoreState((state) => state.auth.user)
   const [loading, setLoading] = useState(false)
   const [groups, setGroups] = useState(null)
-  const  [contactlist, setContactlist] = useState(null)
+  const [contactlist, setContactlist] = useState(null)
 
   const getAllAgentByAdmin = useStoreActions((actions) => actions.agents.getAllAgentByAdmin)
   const getUserCompany = useStoreActions((actions) => actions.company.getUserCompany)
   const getUserProduct = useStoreActions((actions) => actions.product.getUserProduct)
- 
+
   const agentList = useStoreState((state) => state.agents.agentlistAdmin)
   const userProdList = useStoreState((state) => state.product.userproductList)
   const companyList = useStoreState((state) => state.company.userCompany)
@@ -85,10 +84,10 @@ const AddFinancialMetrics = (props) => {
   const [properties, setProperties] = useState(null)
   const onFinish = (values) => {
     const request = values
-    
-    request.createdBy=currentUser.userMobile
-    request.createdAdmin=currentUser.createdBy
-    request.date=(values && values.date)?values.date:new Date()
+
+    request.createdBy = currentUser.userMobile
+    request.createdAdmin = currentUser.createdBy
+    request.date = (values && values.date) ? values.date : new Date()
     setIsLoading(true)
     rest
       .post(constants.URL.ADD_FINANCIAL_METRICS, request)
@@ -105,7 +104,7 @@ const AddFinancialMetrics = (props) => {
         console.error(err)
       })
   }
-  function callback (key) {
+  function callback(key) {
     console.log(key)
   }
 
@@ -113,19 +112,18 @@ const AddFinancialMetrics = (props) => {
     console.log('Failed:', errorInfo)
     message.warning('Please fill mandatory fields')
   }
-  
-  const handleContactChange= (value) =>{
-    contactlist.map((contact) => {
-  if(contact.userMobile==value){
-    form.setFieldsValue(contact);
-  }
 
+  const handleContactChange = (value) => {
+    contactlist.map((contact) => {
+      if (contact.userMobile == value) {
+        form.setFieldsValue(contact);
+      }
     })
   }
 
-  const handleCompanyChange = (value) =>{
+  const handleCompanyChange = (value) => {
     setIsLoading(true)
- 
+
     rest
       .get(constants.URL.GET_COMPANY_DETAIl + '?companyid=' + value)
       .then((res) => {
@@ -133,11 +131,11 @@ const AddFinancialMetrics = (props) => {
         setIsLoading(false)
         setContactlist(res.data.contactInformation);
         form.setFieldsValue({
-          bankName:res.data.bankName,
-          branch:res.data.branch,
-          country:res.data.country,
-          state:res.data.state,
-          city:res.data.city
+          bankName: res.data.bankName,
+          branch: res.data.branch,
+          country: res.data.country,
+          state: res.data.state,
+          city: res.data.city
         });
       })
       .catch((err) => {
@@ -145,8 +143,8 @@ const AddFinancialMetrics = (props) => {
         setIsLoading(false)
       })
   }
- 
- 
+
+
   return (
     <div>
       <HeaderBar drawer={false}>
@@ -223,7 +221,7 @@ const AddFinancialMetrics = (props) => {
                             name="productBusiness"
                           >
                             <Select placeholder="Product Business">
-                            {refdata &&refdata.businesstype &&
+                              {refdata && refdata.businesstype &&
                                 refdata.businesstype.map((business) => {
                                   return (
                                     <Option key={business.key}>
@@ -240,10 +238,13 @@ const AddFinancialMetrics = (props) => {
                             colon={false}
                             label="Product Code"
                             name="productId"
+                            rules={[
+                              { required: true }
+                            ]}
                           >
                             <Select placeholder="Product Code">
-                            {userProdList &&
-                               userProdList.map((product) => {
+                              {userProdList &&
+                                userProdList.map((product) => {
                                   return (
                                     <Option key={product.productId}>
                                       {product.productModel}
@@ -258,9 +259,12 @@ const AddFinancialMetrics = (props) => {
                             colon={false}
                             label="Sold By"
                             name="soldBy"
+                            rules={[
+                              { required: true }
+                            ]}
                           >
                             <Select placeholder="Select an Agent">
-                            {agentList &&
+                              {agentList &&
                                 agentList.map((agent) => {
                                   return (
                                     <Option key={agent.userMobile}>
@@ -268,19 +272,20 @@ const AddFinancialMetrics = (props) => {
                                     </Option>
                                   )
                                 })}
-
-                                
                             </Select>
-
                           </Form.Item>
                         </Col>
                         <Col span="8">
                           <Form.Item
                             colon={false}
                             label="Quantity"
-                             name="qty"
+                            name="qty"
+                            rules={[
+                              { required: true, },
+                              { pattern: /^[0-9\b]+$/, message: 'Enter valid Quantity number' }
+                            ]}
                           >
-                            <Input placeholder="Quantity" />
+                            <InputNumber placeholder="Quantity" min={1} />
                           </Form.Item>
                         </Col>
                         <Col span="8">
@@ -288,21 +293,24 @@ const AddFinancialMetrics = (props) => {
                             label="Buyer Company"
                             colon={false}
                             name="buyerCompany"
+                            rules={[
+                              { required: true }
+                            ]}
                           >
                             <Select placeholder="Select Company Name"
-                            mode="single"
-                            placeholder="Select a Company"
-                            onChange={handleCompanyChange}
-                            
+                              mode="single"
+                              placeholder="Select a Company"
+                              onChange={handleCompanyChange}
+
                             >
-                            {companyList &&
+                              {companyList &&
                                 companyList.map((company) => {
                                   return (
                                     <Option key={company.companyName}>
                                       {company.companyName}
                                     </Option>
                                   )
-                                })}  
+                                })}
                             </Select>
 
                           </Form.Item>
@@ -313,34 +321,36 @@ const AddFinancialMetrics = (props) => {
                             label="Contact"
                             name="userName"
                           >
-                           
-                      
-
-                        <Select
+                            <Select
                               mode="single"
                               placeholder="Select a Contact"
                               onChange={handleContactChange}
-                            >   
-                            {contactlist &&
+                            >
+                              {contactlist &&
                                 contactlist.map((contact) => {
                                   return (
                                     <Option key={contact.userMobile}>
                                       {contact.userFname}
                                     </Option>
                                   )
-                                })}                          
-                                
-                                 
+                                })}
+
+
                             </Select>
-                            </Form.Item>
+                          </Form.Item>
                         </Col>
                         <Col span="8">
                           <Form.Item
                             colon={false}
                             label="Amount"
                             name="amount"
+                            rules={[
+                              { required: true },
+                              { pattern: /^[0-9\b]+$/, message: 'Enter a valid amount number' }
+                            ]}
                           >
-                            <Input placeholder="Amount" />
+
+                            <InputNumber placeholder="Amount" min={1} />
                           </Form.Item>
                         </Col>
                         <Col span="8">
@@ -356,9 +366,9 @@ const AddFinancialMetrics = (props) => {
                           <Form.Item
                             colon={false}
                             label="Date"
-                           name="date"
+                            name="date"
                           >
-                            <DatePicker defaultValue={moment('2020/09/09', dateFormat)} format={dateFormat} style={{ width: 420, height: 32 }}/>
+                            <DatePicker defaultValue={moment('2020/09/09', dateFormat)} format={dateFormat} style={{ width: 420, height: 32 }} />
                           </Form.Item>
                         </Col>
 

@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import React, { useState, useEffect } from 'react'
-import { Select,Row, Radio, Col,Button, Layout, Modal, Table, Input } from 'antd'
+import { Select, Row, Radio, Col, Button, Layout, Modal, Table, Input, Form } from 'antd'
 import HeaderBar from 'components/HeaderBar'
 import ChatBox from 'components/chatbox'
 
@@ -26,9 +26,12 @@ const { Content } = Layout
 
 const UserHome = () => {
   const history = useHistory()
+  const [form] = Form.useForm()
   const { Option } = Select
   const currentUser = useStoreState((state) => state.auth.user)
   const getAllAgents = useStoreActions((actions) => actions.agents.getAllAgents)
+  const selectAgent = useStoreActions((actions) => actions.agents.selectAgent)
+
   const [selectionType, setSelectionType] = useState('radio');
 
   //Chart data
@@ -39,7 +42,7 @@ const UserHome = () => {
       console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
     },
     getRadioProps: record => ({
-    
+
       name: record.userMobile,
     }),
   };
@@ -48,95 +51,99 @@ const UserHome = () => {
   const [visibleAddAgent, setVisibleAddAgent] = useState(false)
   const [visibleAddNewPlot, setVisibleAddNewPlot] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
-
-
-
+  const [editAgent, setEditAgent] = useState(false)
   const getPerformanceByAgent = useStoreActions((actions) => actions.perfData.getPerformanceByAgent)
   const perfListAgent = useStoreState((state) => state.perfData.agentperflist)
   const [adminChart, setAdminChart] = useState(true)
   const [loading, setLoading] = useState(false)
+  const selectedAgent = useStoreState((state) => state.agents.selectedAgent)
+
   const getLeadStatusCount = useStoreActions(
     (actions) => actions.leads.getLeadStatusCount
   )
   const leadStatusCount = useStoreState((state) => state.leads.statusCount)
   useEffect(() => {
     getAllAgentByAdmin(currentUser.createdBy)
-   
+
     getLeadStatusCount(
       constants.URL.GET_LEAD_STATUS_COUNT + '?mobile=' + currentUser.userMobile
     )
 
     getOverAllPerformance(
-      '?adminMobile='+currentUser.createdBy
+      '?adminMobile=' + currentUser.createdBy
     )
   }, [])
   const toggleAddNewPlot = () => {
     setVisibleAddNewPlot(!visibleAddNewPlot)
   }
 
-   
-  const handleAgentChange = (value) =>{
+  const handleAgentChange = (value) => {
     setIsLoading(true)
     console.log(value);
-    if(value=="All"){
-       setAdminChart(true);
-    }else{
+    if (value == "All") {
+      setAdminChart(true);
+    } else {
       setAdminChart(false);
-    const data = {
-      params:
-        '?agentMobile=' + value,
-      callback: () => {
-        setLoading(false)
+      const data = {
+        params:
+          '?agentMobile=' + value,
+        callback: () => {
+          setLoading(false)
+        }
       }
+      getPerformanceByAgent(data)
     }
-    
-    getPerformanceByAgent(data)
   }
-  }
-
   const toggleAddAgent = () => {
     console.log('Cancel agent model')
     setVisibleAddAgent(!visibleAddAgent)
   }
+  useEffect(() => {
+    selectAgent()
+  }, [])
+  const toggleeditAgent = (agent) => {
+    selectAgent(agent);
+    setEditAgent(!editAgent);
+  }
 
   const state = {
-    labels:  (!adminChart && perfListAgent)?perfListAgent.Label:perfList?perfList.Label:[],
+    labels: (!adminChart && perfListAgent) ? perfListAgent.Label : perfList ? perfList.Label : [],
     datasets: [
       {
-        
+
         backgroundColor: '#7571c7',
         label: 'Universe',
-        data: (!adminChart && perfListAgent)?perfListAgent.UPL:perfList?perfList.UPL:[],
+        data: (!adminChart && perfListAgent) ? perfListAgent.UPL : perfList ? perfList.UPL : [],
         barThickness: 20,
         borderWidth: 2
       },
       {
-        
+
         backgroundColor: '#4cc311',
         // borderColor: 'rgba(0,0,0,1)',
         label: 'Marketing Platform',
-        data: (!adminChart && perfListAgent)?perfListAgent.MPL:perfList?perfList.MPL:[],
+        data: (!adminChart && perfListAgent) ? perfListAgent.MPL : perfList ? perfList.MPL : [],
         barThickness: 20,
         borderWidth: 2
       },
       {
-        
+
         backgroundColor: '#1890ff',
         label: 'Working Platform',
-        data: (!adminChart && perfListAgent)?perfListAgent.WPL:perfList?perfList.WPL:[],
+        data: (!adminChart && perfListAgent) ? perfListAgent.WPL : perfList ? perfList.WPL : [],
         barThickness: 20,
         borderWidth: 2
       },
       {
-       
+
         backgroundColor: '#ff707c',
         label: 'Buying Platform',
-        data: (!adminChart && perfListAgent)?perfListAgent.BPL:perfList?perfList.BPL:[],
+        data: (!adminChart && perfListAgent) ? perfListAgent.BPL : perfList ? perfList.BPL : [],
         barThickness: 20,
         borderWidth: 2
-      }, 
+      },
       {
-        type:'line',
+        type: 'line',
         borderColor: '#EC932F',
         backgroundColor: '#EC932F',
         pointBorderColor: '#EC932F',
@@ -148,20 +155,20 @@ const UserHome = () => {
         label: 'Monthly Target',
         barThickness: 20,
         borderWidth: 2,
-        data: (!adminChart && perfListAgent)?perfListAgent.TL:[0,0,0,0]
+        data: (!adminChart && perfListAgent) ? perfListAgent.TL : [0, 0, 0, 0]
       }
     ]
   }
 
- 
+
 
   const columns = [
     {
       title: 'First Name',
       dataIndex: 'userFname'
-      
+
     },
-    
+
     {
       title: 'Mobile',
       key: 'mobile',
@@ -182,7 +189,17 @@ const UserHome = () => {
         <span className="table-email">{agent.targetLead}</span>
       )
     },
-  
+    {
+      title: 'Action',
+      dataIndex: '',
+      render: (agent) => (
+        <span>
+          <a onClick={() => toggleeditAgent(agent)}>
+            Edit
+         </a>
+        </span>
+      )
+    }
   ]
   // const addNewPlot = () => {
   //   setNewPlot(!newPlot)
@@ -247,6 +264,17 @@ const UserHome = () => {
                 <AddPlot />
               </Modal>
               <Modal
+                visible={editAgent}
+                title="Edit Employee"
+                onCancel={() => toggleeditAgent()}
+                footer={null}
+                width="40%"
+                centered
+
+              >
+                <AddAgent doClose={() => toggleeditAgent()} />
+              </Modal>
+              <Modal
                 visible={visibleAddAgent}
                 title="Add new Employee"
                 onCancel={() => toggleAddAgent()}
@@ -258,35 +286,35 @@ const UserHome = () => {
               </Modal>
               {/* <div className="row-gap"></div> */}
               <Row justify="end">
-                  <Button style={{fontSize: '15px'}} type="link" 
-                    onClick={toggleAddAgent} >
-                    + Add Employees
-                  </Button > 
-                  <label style={{fontSize: '18px'}}> | </label> 
-                  <Button style={{fontSize: '15px'}} type="link" 
-                    onClick={() => 
-                        currentUser.userRole == '1'
-                        ? history.push('/admin/add-product')
-                        : history.push('/agent/add-product')} >
-                    + Add Product
-                  </Button > 
-                  <label style={{fontSize: '18px'}}> | </label> 
-                  <Button style={{fontSize: '15px'}} type="link" onClick={() => history.push('/admin/add-company')} >
-                    + Add Universe
-                  </Button > 
-                  <label style={{fontSize: '18px'}}> | </label>
-                  <Button style={{fontSize: '15px'}} type="link" onClick={() => history.push('/admin/add-lead')} >
-                    + Add Market Platform 
+                <Button style={{ fontSize: '15px' }} type="link"
+                  onClick={toggleAddAgent} >
+                  + Add Employees
                   </Button >
-                  <label style={{fontSize: '18px'}}> | </label>
-                  <Button style={{fontSize: '15px'}} type="link" onClick={() => history.push('/admin/add-financial-metrics')} >
+                <label style={{ fontSize: '18px' }}> | </label>
+                <Button style={{ fontSize: '15px' }} type="link"
+                  onClick={() =>
+                    currentUser.userRole == '1'
+                      ? history.push('/admin/add-product')
+                      : history.push('/agent/add-product')} >
+                  + Add Product
+                  </Button >
+                <label style={{ fontSize: '18px' }}> | </label>
+                <Button style={{ fontSize: '15px' }} type="link" onClick={() => history.push('/admin/add-company')} >
+                  + Add Universe
+                  </Button >
+                <label style={{ fontSize: '18px' }}> | </label>
+                <Button style={{ fontSize: '15px' }} type="link" onClick={() => history.push('/admin/add-lead')} >
+                  + Add Market Platform
+                  </Button >
+                <label style={{ fontSize: '18px' }}> | </label>
+                <Button style={{ fontSize: '15px' }} type="link" onClick={() => history.push('/admin/add-financial-metrics')} >
                   + Add Financial Metrics
-                  </Button >            
+                  </Button >
               </Row>
-              <div style={{padding: '1%'}}></div>
+              <div style={{ padding: '1%' }}></div>
               <Row style={{
-                      justifyContent: "space-evenly"
-                    }} gutter={[12, 12]}>
+                justifyContent: "space-evenly"
+              }} gutter={[12, 12]}>
                 <Col>
                   <OverViewCard
                     color="#7571c7"
@@ -321,7 +349,7 @@ const UserHome = () => {
                 </Col>
               </Row>
               {}
-              <div style={{padding: '1%'}}></div>
+              <div style={{ padding: '1%' }}></div>
               <Row>
                 <Col span="12">
                   <h5
@@ -334,11 +362,11 @@ const UserHome = () => {
                   >
                     Employees
                   </h5>
-                  
+
                   <div className="admin-page-column-left">
                     <Table size='small'
                       loading={loading}
-                     
+
                       dataSource={agentListAdmin}
                       columns={columns}
                     />
@@ -346,51 +374,53 @@ const UserHome = () => {
                 </Col>
                 <Col span="12">
                   <h5
-                      style={{
-                        fontFamily: 'Lato',
-                        fontSize: '14px',
-                        fontWeight: 'bold',
-                        color: '#150e4f'
-                      }}
-                    >
-                      Employee Performance
+                    style={{
+                      fontFamily: 'Lato',
+                      fontSize: '14px',
+                      fontWeight: 'bold',
+                      color: '#150e4f'
+                    }}
+                  >
+                    Employee Performance
                       </h5>
-                      <Select
-                              mode="single"
-                              placeholder="Select a Agent"
-                              onChange={handleAgentChange}
-                            >   
+                  <Select
+                    mode="single"
+                    placeholder="Select a Agent"
+                    onChange={handleAgentChange}
+                  >
 
-                          <Option key="All">
-                                     All-Agent
+                    <Option key="All">
+                      All-Agent
                                     </Option>
-                            {agentListAdmin &&
-                                agentListAdmin.map((agent) => {
-                                  return (
-                                    
-                                    <Option key={agent.userMobile}>
-                                      {agent.userFname}
-                                    </Option>
-                                  )
-                                })}
-                   </Select>   
-                
+                    {agentListAdmin &&
+                      agentListAdmin.map((agent) => {
+                        return (
+
+                          <Option key={agent.userMobile}>
+                            {agent.userFname}
+                          </Option>
+                        )
+                      })}
+                  </Select>
+
                   <div className="admin-page-column-right">
                     <Bar
                       data={state}
                       options={{
-                        scales:{
-                         yAxes:[{stacked:true,
-                          gridLines:{
-                            drawBorder:false,
-                          }
-                        }],
-                        xAxes:[{stacked:true,
-                          gridLines:{
-                            display:false,
-                          },
-                          barThickness:40
-                        }]
+                        scales: {
+                          yAxes: [{
+                            stacked: true,
+                            gridLines: {
+                              drawBorder: false,
+                            }
+                          }],
+                          xAxes: [{
+                            stacked: true,
+                            gridLines: {
+                              display: false,
+                            },
+                            barThickness: 40
+                          }]
                         },
                         title: {
                           display: false,
@@ -402,6 +432,7 @@ const UserHome = () => {
                           display: true,
                           position: 'bottom'
                         }
+
                       }}
                     />
                   </div>
@@ -410,7 +441,7 @@ const UserHome = () => {
             </Content>
           </Layout>
         </Layout>
-      <ChatBox /> 
+        <ChatBox />
       </HeaderBar>
     </Layout>
   )

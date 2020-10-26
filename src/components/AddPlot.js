@@ -67,7 +67,7 @@ const AddPlot = props => {
 
           ]}
         >
-          <Input placeholder="13/xxx,ttyuuu"/>
+          <Input placeholder="13/xxx,ttyuuu" />
         </Form.Item>
         <Form.Item
           colon={false}
@@ -80,7 +80,7 @@ const AddPlot = props => {
             }
           ]}
         >
-          <Input placeholder="1570"/>
+          <Input placeholder="1570" />
         </Form.Item>
 
         <Form.Item
@@ -94,7 +94,7 @@ const AddPlot = props => {
             }
           ]}
         >
-          <Input placeholder="https://www.google.com/maps/place/"/>
+          <Input placeholder="https://www.google.com/maps/place/" />
         </Form.Item>
 
         <Form.Item
@@ -108,7 +108,7 @@ const AddPlot = props => {
             }
           ]}
         >
-          <Input placeholder="1700"/>
+          <Input placeholder="1700" />
         </Form.Item>
 
         <Form.Item
@@ -130,10 +130,10 @@ const AddPlot = props => {
 
         <Form.Item {...tailLayout}>
           <Button type="primary" htmlType="submit">
-        Save
+            Save
           </Button>
           <Button htmlType="button" style={{ margin: '0 8px' }} >
-              Cancel
+            Cancel
           </Button>
         </Form.Item>
 

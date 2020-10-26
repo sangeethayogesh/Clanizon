@@ -42,6 +42,7 @@ const FinancialFlatListTable = (props) => {
   useEffect(() => {
     setLoading(true)
     getUserProduct(data)
+    console.log(data)
   },[])
   useEffect(() => {
     setLoading(true)

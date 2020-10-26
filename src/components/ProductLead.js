@@ -1,120 +1,191 @@
-import React, { useState, useEffect } from 'react'
-import DataGrid, { Column, Editing, Summary, TotalItem,Lookup } from 'devextreme-react/data-grid';
-import service from './data.js';
-import {  orders} from './data.js';
 
-import { useStoreActions, useStoreState } from 'easy-peasy'
+import React, { useState, useEffect } from "react";
+import MaterialTable from "material-table";
+import { Card, CardContent, Input } from "@material-ui/core";
+import AddIcon from "@material-ui/icons/Add";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
+import CheckIcon from "@material-ui/icons/Check";
+import { List, MenuItem } from "material-ui";
+import Select from '@material-ui/core/Select';
 
-class ProductLead extends React.Component {
-  constructor(props) {
-    super(props);
-    
-    this.state = { events: [],productList:this.props.productList };
-    
-    this.logEvent = this.logEvent.bind(this);
-    this.onEditingStart = this.logEvent.bind(this, 'EditingStart');
-    this.onInitNewRow = this.logEvent.bind(this, 'InitNewRow');
-    this.onRowInserting = this.logEvent.bind(this, 'RowInserting');
-    this.onRowInserted = this.logEvent.bind(this, 'RowInserted');
-    this.onRowUpdating = this.logEvent.bind(this, 'RowUpdating');
-    this.onRowUpdated = this.logEvent.bind(this, 'RowUpdated');
-    this.onRowRemoving = this.logEvent.bind(this, 'RowRemoving');
-    this.onRowRemoved = this.logEvent.bind(this, 'RowRemoved');
-    
-    
-    window.productList =this.props.productList;
-  }
-  logEvent(eventName) {
-    
-     if(eventName!=null && (eventName=='RowInserted'||eventName=='RowRemoved' ||eventName=='RowUpdated')){
-      this.props.onDataChange(this.props.leadItem);
-     }  
-    }   
-    calculateSalesAmount(rowData) {
-    
-      return rowData.unitPrice * rowData.qty;
-    
-  }
-    setModelValue(rowData, value) {           
-      var productList= JSON.parse(localStorage.productList);
-       if(productList!=null && productList.length>0){
-         productList.map((product) => {
-                 if(product.productModel==value){
-                  rowData.productDescription=product.productDescription;
-                  rowData.unitPrice=product.unitPrice;
-                  rowData.productModel=product.productModel;
-                  rowData.productId=product.productId;
-                  rowData.productName=product.productName;
-                 }
-       })
-      }
-      this.defaultSetCellValue(rowData,value)
-      
+function Footer(props) {
+  return (
+    <Card variant="outlined">
+      <CardContent>
+        <div className="sum_part">Sum:<span class="price_amt">{props.grandTotal.toString()}</span></div>
+      </CardContent>
+    </Card>
+  )
+}
+function ProductLead(props) {
+  const [data, setData] = useState([]);
+  const [grandTotal, setGrandTotal] = useState(0);
+  const [productList, setProductList] = useState([]);
+  const [businessId, setBusinessId] = useState('');
+  const [productDescription, setProductDescription] = useState('');
+  const [productModel, setProductModel] = useState('');
+  const [unitPrice, setUnitPrice] = useState(0);
+  //method 1
+
+  const calculateGrandTotal = () => {
+    var gtotal = 0;
+    if (data.length > 0) {
+      var gtotal = data.reduce(function (prev, cur) {
+        return parseFloat(prev) + parseFloat(cur.total);
+      }, 0);
     }
-  
-  render() {
-    return (
-      <React.Fragment>
-        <DataGrid
-          id="gridContainer"
-          dataSource={this.props.leadItem}
-          keyExpr="productId"
-          repaintChangesOnly={true}
-          showBorders={true}
-          onEditingStart={this.onEditingStart}
-          onInitNewRow={this.onInitNewRow}
-          onRowInserting={this.onRowInserting}
-          onRowInserted={this.onRowInserted}
-          onRowUpdating={this.onRowUpdating}
-          onRowUpdated={this.onRowUpdated}
-          onRowRemoving={this.onRowRemoving}
-          onRowRemoved={this.onRowRemoved}>
-          <Editing
-            mode="row"
-
-            allowAdding={true}
-            allowUpdating={true}
-            allowDeleting={true}
-            useIcons={true}>
-
-            allowAdding={this.props.allowEdit}
-            allowUpdating={this.props.allowEdit}
-
-          </Editing>
-          <Column dataField="businessId" caption="Business" width={125}  >
-            <Lookup dataSource={this.props.refdata.businesstype} valueExpr="key" displayExpr="value" />
-          </Column>
-          <Column dataField="productModel" caption="Model" setCellValue={this.setModelValue} width={125} >
-            <Lookup dataSource={this.props.productList} valueExpr="productModel"  displayExpr="productModel" />
-          </Column>
-          <Column dataField="productDescription" caption="Description"/>
-         
-          <Column dataField="unitPrice" Caption="Unit price" alignment="right" format="decimal" editorOptions={{ format: 'decimal' }} />
-          <Column dataField="qty" caption="Qty"  />
-          <Column dataField="leadItemPrice" 
-          calculateCellValue={this.calculateSalesAmount} caption="Total Price"  alignment="right" format="decimal" editorOptions={{ format: 'decimal' }} />
-          <Summary recalculateWhileEditing={true}>
-            <TotalItem
-              column="businessid"
-              summaryType="count" />
-               {/* <TotalItem
-              column="qty"
-              summaryType="sum" 
-             /> */}
-            <TotalItem
-              column="leadItemPrice"
-              summaryType="sum"
-             
-              valueFormat="decimal" />
-          </Summary>
-            
-        
-         
-          
-        </DataGrid>
-      </React.Fragment>
-    );
+    setGrandTotal(gtotal)
   }
+
+
+  //method2
+  useEffect(() => {
+    calculateGrandTotal()
+  }, [data])
+  //this function triggers each time whenever data is changed
+
+  const getData = () => {
+    var productList = JSON.parse(localStorage.productList);
+    setProductList(productList);
+    // this.defaultSetCellValue(rowData,value)
+    console.log(productList);
+  }
+  useEffect(() => {
+    getData()
+
+  }, [])
+
+  return (
+    <div className="product_table">
+      <MaterialTable
+
+        columns={[
+          {
+            title: "Business",
+            field: "businessName",
+            editComponent: editProps => (
+              <Select value={businessId} onChange={(e) => {
+                setBusinessId(e.target.value)
+                editProps.onChange(e.target.value)
+              }
+              }>
+                {props.refdata.businesstype.map((item, index) => {
+                  return (
+                    <option key={index} value={item.key}>{item.value}</option>
+                  )
+                })}
+
+              </Select>
+            )
+          },
+          {
+            title: "Model", field: "productModel",
+            editComponent: editProps => (
+              <Select value={productModel} onChange={(e) => {
+                setProductModel(e.target.value)
+                var productDesc = productList.filter((product) => (product.productModel == e.target.value))
+                setProductDescription(productDesc[0].productDescription)
+                setUnitPrice(productDesc[0].unitPrice)
+                console.log(productDesc)
+                editProps.onChange(e.target.value)
+              }}>
+                {productList.filter(product => product.businessId == businessId).map((product, index) => {
+                  return (<option key={index} value={product.productModel}>{product.productModel}</option>)
+                })}
+
+              </Select>
+            )
+          },
+          {
+            title: "Description", field: "productDescription", editComponent: (editProps) => (
+              <Input
+                defaultValue={productDescription}
+                onChange={(e) => editProps.onChange(e.target.value)
+                }
+              />
+            )
+          },
+          {
+            title: "Unit Price", field: "unitPrice", editComponent: (editProps) => (
+              <Input
+                defaultValue={unitPrice}
+                onChange={(e) => editProps.onChange(e.target.value)
+                } />)
+          },
+          { title: "Qty", field: "qty", type: 'numeric', validate: rowData => rowData.qty < 1 ? 'Qty must be Greater than 0' : '', },
+          {
+            title: "Sub Total", field: "total",
+            render: (rowData) => {
+              return (
+                rowData.unitPrice * rowData.qty
+              )
+            }
+          }
+        ]}
+
+        data={data}
+        components={{ Pagination: () => <Footer grandTotal={grandTotal}></Footer> }}
+        icons={{
+          Add: props => <AddIcon />,
+          Edit: props => <EditIcon />,
+          Delete: props => <DeleteIcon />,
+          Clear: props => <DeleteIcon />,
+          Check: props => <CheckIcon />,
+
+        }}
+        options={{
+          actionsColumnIndex: -1,
+          showTitle: false,
+          search: false,
+
+        }}
+        editable={{
+          onRowAdd: newData =>
+            new Promise((resolve, reject) => {
+              setTimeout(() => {
+
+                var business = props.refdata.businesstype.filter((business) => business.key == businessId)
+                newData.businessName = business[0].value
+                newData.businessId = business[0].key
+                newData.productDescription = productDescription
+                newData.unitPrice = parseFloat(unitPrice)
+                newData.total = newData.unitPrice * parseFloat(newData.qty);
+                setData([...data, newData]);
+                debugger;
+
+                setBusinessId('');
+                setProductDescription('');
+                setUnitPrice(0);
+                resolve();
+              }, 1000);
+            }),
+          onRowUpdate: (newData, oldData) =>
+            new Promise((resolve, reject) => {
+              setTimeout(() => {
+                const dataUpdate = [...data];
+                const index = oldData.tableData.id;
+                dataUpdate[index] = newData;
+                setData([...dataUpdate]);
+
+                resolve();
+              }, 1000);
+            }),
+          onRowDelete: oldData =>
+            new Promise((resolve, reject) => {
+              setTimeout(() => {
+                const dataDelete = [...data];
+                const index = oldData.tableData.id;
+                dataDelete.splice(index, 1);
+                setData([...dataDelete]);
+                resolve();
+              }, 1000);
+            })
+        }}
+      />
+    </div>
+
+  );
 }
 
-export default ProductLead;
+export default ProductLead

@@ -1,7 +1,7 @@
 import React from 'react';
-import DataGrid, { Column, Editing, Summary, TotalItem,Lookup } from 'devextreme-react/data-grid';
+import DataGrid, { Column, Editing, Summary, TotalItem, Lookup, RequiredRule, PatternRule } from 'devextreme-react/data-grid';
 import service from './data.js';
-import {  users} from './data.js';
+import { users } from './data.js';
 
 
 class CompanyContact extends React.Component {
@@ -18,15 +18,12 @@ class CompanyContact extends React.Component {
     this.onRowUpdated = this.logEvent.bind(this, 'RowUpdated');
     this.onRowRemoving = this.logEvent.bind(this, 'RowRemoving');
     this.onRowRemoved = this.logEvent.bind(this, 'RowRemoved');
-
-    
-    
-  }
+}
   logEvent(eventName) {
-     if(eventName!=null && (eventName=='RowInserted'||eventName=='RowRemoved' ||eventName=='RowUpdated')){
+    if (eventName != null && (eventName == 'RowInserted' || eventName == 'RowRemoved' || eventName == 'RowUpdated')) {
       this.props.onDataChange(this.props.contact);
-     }  
-    }      
+    }
+  }
   render() {
     return (
       <React.Fragment>
@@ -51,15 +48,22 @@ class CompanyContact extends React.Component {
             allowDeleting={true}
             useIcons={true}>
           </Editing>
-          <Column dataField="userFname" caption="Name" width={125}/>         
-          <Column dataField="userMobile" caption="Mobile" />
-          <Column dataField="userEmailid" caption="E-mail ID" />
+          <Column dataField="userFname" caption="Name" width={125} />
+          <Column dataField="userMobile" caption="Mobile" >
+            <RequiredRule />
+            <PatternRule
+              message={'Enter Valid Mobile Number'}
+              pattern={/^\s*(?:\+?(\d{1,3}))?[- (]*(\d{3})[- )]*(\d{3})[- ]*(\d{4})(?: *[x/#]{1}(\d+))?\s*$/} />
+          </Column>
+          <Column dataField="userEmailid" caption="E-mail ID" >
+            <RequiredRule />
+            <PatternRule
+              message={'Enter Vaild Email Id Format'}
+              pattern={/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/}
+            />
+          </Column>
           <Column dataField="branch" caption="Branch" />
           <Column dataField="department" caption="Department" />
-            
-        
-         
-          
         </DataGrid>
       </React.Fragment>
     );

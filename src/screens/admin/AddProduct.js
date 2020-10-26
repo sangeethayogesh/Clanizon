@@ -11,7 +11,8 @@ import {
   TimePicker,
   Collapse,
   message,
-  Select
+  Select,
+  InputNumber
 } from 'antd'
 import { ArrowLeftOutlined } from '@ant-design/icons'
 import '../../styles/common.css'
@@ -183,6 +184,9 @@ const AddProduct = (props) => {
                             label="Product Business"
                             colon={false}
                             name="businessId"
+                            rules={[
+                              { required: true}
+                             ] }
                           >
                             <Select placeholder="Select Product Business">
                             {refdata &&refdata.businesstype &&
@@ -201,6 +205,9 @@ const AddProduct = (props) => {
                             colon={false}
                             name="productModel"
                             label="Product Model No"
+                            rules={[
+                              { required: true }
+                             ] }
                           >
                             <Input placeholder="Enter product Model No" />
                           </Form.Item>
@@ -210,6 +217,9 @@ const AddProduct = (props) => {
                             colon={false}
                             name="productName"
                             label="Product Name"
+                            rules={[
+                              { required: true}
+                             ] }
                           >
                             <Input placeholder="product Name" />
                           </Form.Item>
@@ -219,6 +229,9 @@ const AddProduct = (props) => {
                           name="productDescription"
                             label="Product Description"
                             colon={false}
+                            rules={[
+                              { required: true}
+                             ] }
                           >
                             <Input.TextArea placeholder="Description" />
                           </Form.Item>
@@ -228,8 +241,15 @@ const AddProduct = (props) => {
                             colon={false}
                             name="unitPrice"
                             label="Product Unit price"
+                            type="number"
+                            
+                            rules={[
+                              { required: true},
+                              
+                              { pattern: /^[0-9\b]+$/, message: 'Enter a valid unit price' }
+                             ] }
                           >
-                            <Input placeholder="Product Unit price" />
+                            <InputNumber placeholder="Product Unit price"  min={1}  maxLength={17} />
                           </Form.Item>
                         </Col>
 
@@ -238,6 +258,9 @@ const AddProduct = (props) => {
                           name="productSpecification"
                             label="product Specification"
                             colon={false}
+                            rules={[
+                              { required: true}
+                             ] }
                           >
                             <Input.TextArea placeholder="Specification" />
                           </Form.Item>
@@ -247,8 +270,15 @@ const AddProduct = (props) => {
                             colon={false}
                             name="assetQty"
                             label="Quantity"
+                            type="number"
+                           
+                            rules={[
+                              { required: true},
+                              
+                              { pattern: /^[0-9\b]+$/, message: 'Enter valid Quantity number' }
+                             ] }
                           >
-                            <Input placeholder="Quantity" />
+                            <InputNumber placeholder="Quantity"  min={1} max={100000} maxLength={10}/>
                           </Form.Item>
                         </Col>
 

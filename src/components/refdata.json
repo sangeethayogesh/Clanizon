@@ -1,0 +1,107 @@
+{
+    "leadStatus": [
+        {
+            "value": "Universe",
+            "key": 1
+        },
+        {
+            "value": "Market platform",
+            "key": 2
+        },
+        {
+            "value": "Working platform",
+            "key": 3
+        },
+        {
+            "value": "Buying Platform",
+            "key": 4
+        }
+    ],
+    "userRoles": [
+        {
+            "value": "ADMIN",
+            "key": 1
+        },
+        {
+            "value": "AGENT",
+            "key": 2
+        }
+    ],
+    "auditOutCome": [
+        {
+            "value": "Failure",
+            "key": 1
+        },
+        {
+            "value": "Doubt",
+            "key": 2
+        },
+        {
+            "value": "Next Stage",
+            "key": 3
+        }
+    ],
+    "assetCostUnit": [],
+    "documentType": [
+        {
+            "value": "pdf",
+            "key": 2
+        }
+    ],
+    "leadAuditStatus": [
+        {
+            "value": "Success",
+            "key": 1
+        },
+        {
+            "value": "Doubt",
+            "key": 3
+        },
+        {
+            "value": "Next Stage",
+            "key": 4
+        },
+        {
+            "value": "Failure",
+            "key": 2
+        }
+    ],
+    "auditType": [
+        {
+            "value": "Call",
+            "key": 1
+        },
+        {
+            "value": "Demo",
+            "key": 2
+        }
+    ],
+    "assetGroupType": [],
+    "assetStatus": [],
+    "businesstype": [
+        {
+            "value": "Ups",
+            "key": 1
+        },
+        {
+            "value": "Connectivity",
+            "key": 2
+        },
+        {
+            "value": "Racks",
+            "key": 3
+        },
+        {
+            "value": "Industrial and Services",
+            "key": 4
+        },
+        {
+            "value": "Battery",
+            "key": 5
+        },
+        {
+            "value": "Accessories",
+            "key": 6
+        }
+    ]
+}

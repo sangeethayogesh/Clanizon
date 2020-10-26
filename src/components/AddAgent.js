@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
-import { Form, Input, Button, Select, message } from 'antd'
+import { Form, Input, Button, Select, message, InputNumber } from 'antd'
 import '../styles/common.css'
 import '../styles/add-agent.css'
 import constants from '../constants'
@@ -27,7 +27,7 @@ const AddAgent = (props) => {
   const [isLoading, setIsLoading] = useState(false)
   const currentUser = useStoreState((state) => state.auth.user)
   const addNewAgent = useStoreActions((actions) => actions.agents.addNewAgent)
-
+  const selectedAgent = useStoreState((state) => state.agents.selectedAgent)
   const onFinish = (values) => {
     console.log('Success:', values)
     const data = values
@@ -100,6 +100,10 @@ const AddAgent = (props) => {
           colon={false}
           label="Agent Email"
           name={['agent', 'userEmailid']}
+          rules={[
+            { required: true, message: 'Mail id must be required' },
+            { pattern: /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/, message: 'Enter valid Mail Id' }
+          ]}
         >
           <Input placeholder="E-mail" />
         </Form.Item>
@@ -119,6 +123,10 @@ const AddAgent = (props) => {
           label="Alt Mobile Number"
           name={['agent', 'userMobileAlt']}
           colon={false}
+          rules={[
+            { required: true, message: 'Mobile Number is required' },
+            { pattern: /^\d{10}$/, message: 'Enter a valid mobile number' }
+          ]}
         >
           <Input
             style={{ width: '50%' }}
@@ -149,8 +157,14 @@ const AddAgent = (props) => {
           </Select>
         </Form.Item>
 
-        <Form.Item name={['agent', 'targetLead']} label="Monthly Target">
-          <Input placeholder="Monthly Buying Platform Target " />
+        <Form.Item name={['agent', 'targetLead']} label="Monthly Target"
+          rules={[
+            { required: true, message: 'Monthly Target is required' },
+            { pattern: /^[0-9]*\d$/, message: 'Enter a valid number' },
+
+          ]}
+        >
+          <InputNumber placeholder="Monthly Buying Platform Target " min={1} max={1000} />
         </Form.Item>
 
         <Form.Item {...tailLayout}>
@@ -174,7 +188,8 @@ const AddAgent = (props) => {
 }
 
 AddAgent.propTypes = {
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  agent: PropTypes.object
 }
 
 export { AddAgent }

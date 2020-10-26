@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import { withRouter, Link, useHistory } from 'react-router-dom'
 import {
   Layout,
   Row,
@@ -20,7 +20,7 @@ import {
   UserOutlined,
   ContactsOutlined,
   BuildOutlined,
-  PieChartOutlined  ,
+  PieChartOutlined,
   AimOutlined,
   PoweroffOutlined,
   SendOutlined
@@ -59,6 +59,8 @@ function HeaderBar(props) {
   const handleChange = (message) => {
     setMessageValue(message)
   }
+  const { pathname } = props.location;
+
   return users.length ? (
     <div style={{ backgroundColor: '#f0f1f4' }}>
       <Layout>
@@ -215,23 +217,25 @@ function HeaderBar(props) {
           >
             <Menu
               mode="inline"
-              defaultSelectedKeys={['1']}
-              defaultOpenKeys={['sub1']}
+
               style={{ height: '100%', borderRight: 0 }}
             >
-              <Menu.Item key="1" className="sidemenu">
+              <Menu.Item key="1" className={(pathname === '/admin' || pathname === '/agent' || pathname === '/') ? 'active1' : ''}>
+                <HomeOutlined className="menuitem" />
                 <Link to={currentUser.userRole == '1' ? '/admin' : '/agent'}>
-                  <HomeOutlined className="menuitem" />
+
                 </Link>
               </Menu.Item>
               {currentUser.userRole == '1' && (
-                <Menu.Item key="2" className="sidemenu">
+                <Menu.Item key="2" className={(pathname === '/admin/overallleadlist') ? 'active1' : ''}>
+                  <ContactsOutlined className="menuitem" />
                   <Link to={'/admin/overallleadlist'}>
-                    <ContactsOutlined  className="menuitem" />
+
                   </Link>
                 </Menu.Item>
               )}
-              <Menu.Item key="3" className="sidemenu">
+              <Menu.Item key="3" className={(pathname === '/admin/overall-product-report' || pathname === '/agent/overall-product-report') ? 'active1' : ''}>
+                <AimOutlined className="menuitem" />
                 <Link
                   to={
                     currentUser.userRole == '1'
@@ -239,7 +243,7 @@ function HeaderBar(props) {
                       : '/agent/overall-product-report'
                   }
                 >
-                  <AimOutlined className="menuitem" />
+
                 </Link>
               </Menu.Item>
               {/* <Menu.Item key="3" className="sidemenu">
@@ -260,18 +264,19 @@ function HeaderBar(props) {
                   </Link>
                 </Menu.Item>
               )} */}
-              <Menu.Item key="4" className="sidemenu">
+              <Menu.Item key="4" className={(pathname === '/admin/productlist' || pathname === '/agent/productlist') ? 'active1' : ''}>
+                <BuildOutlined className="menuitem" />
+
                 <Link
-                  to={                
-                  currentUser.userRole == '1'
-                  ? '/admin/productlist'
-                  : '/agent/productlist'}
+                  to={
+                    currentUser.userRole == '1'
+                      ? '/admin/productlist'
+                      : '/agent/productlist'}
                 >
-                  <BuildOutlined className="menuitem" />
                 </Link>
               </Menu.Item>
               {currentUser.userRole == '1' && (
-                <Menu.Item key="5" className="sidemenu">
+                <Menu.Item key="5" className={(pathname === '/admin/financiallist') ? 'active1' : ''}>
                   <Link to={'/admin/financiallist'}>
                     <PieChartOutlined className="menuitem" />
                   </Link>
@@ -288,26 +293,26 @@ function HeaderBar(props) {
               </Content>
             </Layout>
           ) : (
-            <Layout style={{ padding: '1rem 1rem 1rem' }}>
-              <Content
-                className="site-layout-background"
-                style={{
-                  marginTop: 64,
-                  minHeight: '100vh',
-                  marginLeft: '5rem'
-                }}
-              >
-                <BackTop />
-                {props.children}
-              </Content>
-            </Layout>
-          )}
+              <Layout style={{ padding: '1rem 1rem 1rem' }}>
+                <Content
+                  className="site-layout-background"
+                  style={{
+                    marginTop: 64,
+                    minHeight: '100vh',
+                    marginLeft: '5rem'
+                  }}
+                >
+                  <BackTop />
+                  {props.children}
+                </Content>
+              </Layout>
+            )}
         </Layout>
       </Layout>
     </div>
   ) : (
-    <div>Loading...</div>
-  )
+      <div>Loading...</div>
+    )
 }
 
-export default HeaderBar
+export default withRouter(HeaderBar)

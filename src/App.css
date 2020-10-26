@@ -24225,3 +24225,102 @@ input.dx-hidden {
     border-radius: 4px;
     background-color: #fff
 }
+.ant-select-open .ant-select-arrow
+{
+    top:20% !important;
+}
+.ant-select
+{
+    margin-bottom:2px;
+}
+.chartjs-render-monitor
+{
+    padding: 4px 5px;
+}
+.MuiTableSortLabel-root
+{
+    color: rgba(0, 0, 0, 0.85);
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.sum_part
+{
+    color: rgba(0, 0, 0, 0.85);
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: capitalize;
+    padding: 10px !important;
+    position: relative;
+    right:20%;
+    float:right;
+}
+.price_amt
+{
+    padding-left:25px;
+}
+.MuiInput-root
+{
+    width:100%;
+}
+.MuiSelect-select:focus
+{
+    background:transparent !important;
+}
+.MuiTableCell-root
+{
+    border:1px solid rgba(224, 224, 224, 1);
+}
+.MuiPaper-root ul{
+    padding: 10px;
+    line-height: 19px;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.85);
+    cursor: pointer;
+}
+.MuiPaper-elevation8
+{
+    margin-top:35px;
+}
+.MuiPaper-root ul option:focus
+{
+    outline: none !important;
+}
+.ant-input-number
+{
+    width:100% !important;
+}
+.ant-input-number-input
+{
+    height: 50px !important;
+}
+.MuiInput-underline.Mui-error:after
+{
+    border-bottom-color: rgba(224, 224, 224, 1) !important;
+}
+.MuiInput-underline:after
+{
+    border-bottom: 0px !important;
+}
+.ant-btn-link:hover, .ant-btn-link:focus
+{
+    color:#2235e5 !important
+}
+.ant-menu .active1
+{
+    background-color: #e6f7ff !important;
+    color:#1890ff;
+}
+.ant-menu-item::after
+    {
+    border-right: 0px solid #1890ff !important;
+}
+.ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
+    background-color: transparent;
+}
+.ant-menu-vertical > .ant-menu-item, .ant-menu-vertical-left > .ant-menu-item, .ant-menu-vertical-right > .ant-menu-item, .ant-menu-inline > .ant-menu-item, .ant-menu-vertical > .ant-menu-submenu > .ant-menu-submenu-title, 
+.ant-menu-vertical-left > .ant-menu-submenu > .ant-menu-submenu-title, .ant-menu-vertical-right > .ant-menu-submenu > .ant-menu-submenu-title, 
+.ant-menu-inline > .ant-menu-submenu > .ant-menu-submenu-title{
+    height:55px !important;
+}

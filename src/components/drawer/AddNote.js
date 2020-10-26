@@ -10,6 +10,7 @@ const AddNote = (props) => {
       onClose={props.onClose}
       visible={props.visible}
       bodyStyle={{ paddingBottom: 80 }}
+      
       footer={
         <div
           style={{

@@ -79,8 +79,9 @@
 
     advance: (props.leadDetail && props.leadDetail.leadAudit)?(props.leadDetail.leadAudit[0]?props.leadDetail.leadAudit[0].advance : ''):'',
     paymentParts: (props.leadDetail && props.leadDetail.leadAudit)?(props.leadDetail.leadAudit[0]?props.leadDetail.leadAudit[0].paymentParts:''):'',
-
+   
   })
+ 
   const productList = useStoreState((state) => state.product.userproductList)
     function handleCollapse() {}
     function onCallStatusSave(values) {
@@ -93,6 +94,7 @@
       data.leadAuditLeadId = props.leadId
       data.createdAdmin=props.currentUser.createdBy
       data.leadStatus=data.leadStatValue
+     
       data.leadItem = leadItemnew?leadItemnew:leadItem
       data.leadAuditCreatedDatetime = new Date()
       setIsLoading(true)
@@ -109,6 +111,7 @@
           message.error('Audit Failed!')
           setIsLoading(false)
         })
+        
     }
     const onFinishFailed = (errorInfo) => {
       console.log('Failed:', errorInfo)
@@ -209,7 +212,7 @@
                                   refdata.leadStatus.map((leadStatus) => {
                                     if(leadStatus.key!=1){
                                     return (
-                                      <Option key={leadStatus.key}>
+                                      <Option key={leadStatus.key} value={leadStatus.key}>
                                         {leadStatus.value}
                                       </Option>
                                     )}
