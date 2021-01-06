@@ -15,7 +15,7 @@
     "@testing-library/user-event": "^7.1.2",
     "antd": "^4.0.1",
     "antd-dayjs-webpack-plugin": "^0.0.8",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "chart.js": "^2.9.3",
     "customize-cra": "^0.9.1",
     "devexpress-diagram": "1.0.9",
